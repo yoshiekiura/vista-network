@@ -1,0 +1,589 @@
+/* Medium Layout: 1280px. */
+@media only screen and (min-width: 992px) and (max-width: 1200px) { 
+    .main-menu ul li {
+    padding: 27px 8px;
+    }
+    .main-menu.nav-fixed ul li {
+    padding: 10px 7px;
+    }
+    .service-wrapper {
+    padding: 23px;
+    }
+    .contact-info {
+    padding: 85px 35px;
+    }
+    input[type="text"] {
+    width: 45%;
+    }
+    .main-menu ul li a{
+        padding: 0;
+    }
+    .price-table-header:after {
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+    }
+}
+    
+/* Tablet Layout: 768px. */
+@media only screen and (min-width: 768px) and (max-width: 991px) { 
+   nav.main-menu.nav-fixed {
+    display: none;
+    }
+    .main-menu {
+    display: none;
+    }
+    .support-bar {
+    display: none;
+    }
+    .header-section h1 {
+    font-size: 40px;
+    padding-bottom: 50px;
+    }
+    .price-table-footer {
+    left: 30%;
+    }
+    .price-table {
+    margin-bottom: 50px;
+    }
+    .our-plan{
+        padding-bottom: 90px;
+    }
+    .call-to-action:after{
+        display: none;
+    }
+    .deposit-table {
+    margin-bottom: 50px;
+    }
+    .contact-info {
+    padding: 107px 40px;
+    }
+    input[type="text"] {
+    /*width: 46%;*/
+    }
+    input.captcha{
+        width: 100%;
+    }
+    .single-shape-box {
+    width: 359px;
+    margin-left: 200px;
+    margin-bottom: 150px;
+    }
+    .slicknav_menu{
+        display: block;
+    }
+    .slicknav_btn{
+       background-color: transparent;
+    }
+    .slicknav_menu .slicknav_menutxt{
+        text-shadow: none;
+    }
+    .slicknav_nav a:hover {
+    border-radius: 0;
+    background: #2C4065;
+    color: #fff;
+    }
+    .slicknav_menu.nav-fixed {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+    box-shadow: 0 0px 5px  #333;
+    }
+    .single-team-member {
+        margin-bottom: 30px;
+    }
+    .about-us-content h2 {
+    padding-top: 50px;
+    }
+    .single-team-member:hover .member-hover {
+    bottom: 135px;
+    left: 26%;
+    }
+
+    .slicknav_arrow {
+    display: none;
+    }
+    .mobile-logo {
+        display: block;
+        max-width: 80px;
+    }
+    .mobile-logo.fixed {
+        position: fixed;
+        z-index: 9;
+    }
+    .about-community:before {
+        bottom: -85px;
+    }
+    .about-community:after {
+        bottom: -85px;
+    }
+    .slider-activation .owl-nav div{
+        display: none;
+    }
+    .section-padding.transaction{
+        padding-bottom: 70px;
+    }
+    .payment-logo img {
+        display:  block;
+        margin: 0 auto;
+        margin-bottom: 30px;
+    }
+    .payment-method {
+        padding-bottom: 200px;
+    }
+     .investor-img img {
+        height: 360px;
+    }
+
+    .single-investor-wrapper {
+        margin-bottom: 30px;
+    }
+    .member{
+        padding-bottom: 90px;
+    }
+    .get-in-touch {
+        padding-bottom: 30px;
+    }
+    .contact-form input {
+        display:  block;
+        width: 100%;
+    }
+    
+    .contact-form input[type=email] {
+        margin-left:  0;
+        margin-top: 20px;
+    }
+    
+    .contact-form {
+        padding-left:  15px;
+        padding-right: 15px;
+    }
+    .main-login {
+        margin-bottom: 100px;
+    }
+    .slicknav_nav li.slicknav_parent.slicknav_open a a:hover,
+     .slicknav_nav li.slicknav_parent.slicknav_collapsed a a:hover{
+        background: transparent;
+    }
+    .main-login input {
+        display:  block;
+        width: 100%;
+    }
+    .main-login input[type=checkbox] {
+        display:  inline-block;
+        width: auto;
+    }
+    .footer-logo {
+        padding-top: 20px;
+    }
+    .service-title h4 {
+        font-size: 18px;
+    }
+    .tree li:nth-child(odd) {
+        float: left !important;
+    }
+    .tree li a {
+        padding: 5px 10px !important;
+    }
+    .tree ul {
+        margin-left: 54px;
+    }
+    .main-center.my-tree-page{
+        padding-left:0;
+    }
+    .main-center.my-tree-page input {
+        display:  block;
+        width: 95%;
+    } 
+    
+    .main-center.my-tree-page .alert-danger {
+        margin-left: 6%;
+    }
+    
+    .main-center.my-tree-page button[type=submit] {
+        width: 95%;
+    }
+    .main-login div.dt-buttons {
+        padding-left: 20%;
+        margin-bottom: 30px;
+    }
+    .main-login div.dataTables_wrapper div.dataTables_filter {
+        text-align: left;
+    }
+    
+    .main-login .dataTables_wrapper .dataTables_filter {
+        float:  left;
+        text-align: left;
+    }
+    .main-login.transfer-found{
+        padding:100px 0;
+    }
+    
+}
+/* Mobile Layout: 320px. */
+@media only screen and (max-width: 767px) { 
+    .support-bar,
+    .main-menu{
+        display: none;
+    }
+    .call-to-action:after{
+        display: none;
+    }
+    .header-section h1 {
+    font-size: 35px;
+    line-height: 1.9;
+    }
+
+    .header-section h1 span {
+        line-height: 1;
+    }
+
+    .about-community-text {
+        text-align: center;
+        padding-top: 20px;
+    }
+    .single-investor-wrapper {
+        margin-bottom: 30px;
+    }
+    .top-investor{
+        padding-bottom: 90px;
+    }
+    .section-title h2 {
+        padding-bottom: 50px;
+        line-height: 1.2;
+    }
+
+    .our-plan .section-title p {
+        color: #333;
+    }
+
+    .price-table {
+        margin-bottom: 50px;
+    }
+
+    .price-table-footer {
+        left: 30%;
+    }
+
+    .discunt-text h3 {
+        font-size: 32px;
+    }
+    .slider-activation .owl-nav {
+        display: none;
+    }
+
+    .table>tbody>tr>th {
+        padding: 22px 0px;
+    }
+
+    table.table.main-table {
+        margin-bottom: 50px;
+    }
+
+    .payment-logo {
+        text-align: center;
+        margin-top: 50px;
+    }
+    input[type="text"],input[type="email"] {
+    width: 100%;
+    margin-top: 30px
+    }
+    .contact-form .email {
+    margin-left: 0;
+    }
+    
+    .single-shape-box {
+    margin-bottom: 150px;
+    }
+    .slicknav_menu{
+        display: block;
+    }
+    .slicknav_btn{
+       background-color: transparent;
+    }
+    .slicknav_menu .slicknav_menutxt{
+        text-shadow: none;
+    }
+    .slicknav_nav a:hover {
+    border-radius: 0;
+    background: #2C4065;
+    color: #fff;
+    }
+    .slicknav_menu.nav-fixed {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+    box-shadow: 0 0px 5px  #333;
+    }
+    .spinner {
+      margin: 35% auto;
+    }
+    .member .section-title h2 {
+    font-size: 25px;
+    }
+    .single-team-member {
+        margin-bottom: 30px;
+    }
+    .single-team-member:hover .member-hover {
+    bottom: 135px;
+    left: 26%;
+    }
+    .slicknav_arrow {
+    display: none;
+    }
+    .mobile-logo {
+        display: block;
+    }
+    .mobile-logo.fixed {
+        position: fixed;
+        z-index: 9;
+    }
+    .member{
+        padding-bottom: 90px;
+    }
+    .our-plan.service-page{
+        padding-bottom: 100px;
+    }
+    .single-shape-box:before {
+        border-left: 135px solid transparent;
+        border-right: 135px solid transparent;
+    }
+    .single-shape-box:after {
+        border-left: 135px solid transparent;
+        border-right: 135px solid transparent;
+    }
+    .contact-form {
+        padding: 60px 20px;
+    }
+    .get-in-touch {
+        padding-bottom: 30px;
+    }
+    .main-login.main-center {
+        padding:  0px;
+    }
+}
+/* Wide Mobile Layout: 480px. */
+@media only screen and (max-width: 480px) { 
+    .head-slider .owl-nav div{
+        display: none !important;
+    }
+    .price-table-footer {
+        left: 35%;
+    }
+    .testimoanial-top-text p {
+    text-align: center;
+    right: 30%;
+    top: 65px;
+    display: block;
+    margin-top: 30px;
+    }
+    .about-us-content h2 {
+    padding-top: 50px;
+    }
+    .section-title p {
+    line-height: 1.9em;
+    }
+    .single-team-member:hover .member-hover {
+    bottom: 135px;
+    left: 28%;
+    }
+    .main-login.main-center img {
+    margin-left: 0;
+    }
+    .slicknav_arrow {
+    display: none;
+    }
+
+    .mobile-logo {
+        display: block;
+        max-width: 80px;
+    }
+    .mobile-logo.fixed {
+        position: fixed;
+        z-index: 9;
+    }
+    .payment-method {
+        padding-bottom: 200px;
+    }
+    .scroll-to-top{
+        display: none;
+    }
+    .our-plan{
+        padding-bottom: 100px;
+    }
+    .footer-section:after {
+        top: -37px;
+        height: 50px;
+    }
+    .footer-section:before {
+        top: -37px;
+        height: 50px;
+    }
+    .header-section h1 span {
+        line-height: 1;
+        font-size: 25px;
+    }
+    .testimoanial-top-text p svg {
+        font-size:  10px;
+        margin-bottom: 20px;
+    }
+    
+    .testimoanial-top-text h4 {
+        font-size: 14px;
+    }
+    
+    .testimoanial-top-text h4 span {
+        font-size: 12px;
+    }
+    .slicknav_nav li.slicknav_parent.slicknav_open a a:hover,
+    .slicknav_nav li.slicknav_parent.slicknav_collapsed a a:hover{
+        background: transparent;
+    }
+    .main-login.user-dashboard {
+        padding: 0;
+        padding-top: 20px;
+    }
+    .my-tree-page .tree li::before, .tree li::after {
+        border-top: none;
+    }
+    
+    .tree li a {
+        padding: 5px 20px;
+    }
+    .my-tree-page .user {
+        width: 35px;
+    }
+    .main-center.my-tree-page {
+        padding:  0;
+    }
+    .login-page .forgot-password{
+        float: left !important;
+        text-align: left;
+    }
+    .main-center button.dt-button, div.dt-button, a.dt-button {
+        position:  initial !important;;
+        display:  block !important;;
+        margin: 0 auto !important;;
+        margin-bottom: 5px !important;;
+    }
+    
+    .main-center div.dt-buttons {
+        padding-left: 0 !important;;
+        margin-bottom: 20px !important;;
+    }
+    
+    .main-center table#sample_1 {
+        width: 116% !important;
+    }
+    .main-center table.dataTable>tbody>tr.child ul li:first-child,
+    .main-center table.dataTable>tbody>tr.child ul li{
+        text-align: left !important;;
+    }
+    .main-login.transfer-found {
+        padding:  0;
+        padding-top: 20px;
+    }
+    .input-group-addon:first-child {
+        font-size: 10px;
+        padding: 0;
+    }
+    
+    .input-group-addon:last-child {
+        font-size:  10px;
+        padding: 5px;
+    }
+    .main-login.transfer-fund-2 {
+        padding:  0;
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .main-center.edit-profile-page {
+        padding:  0;
+        padding-top:  30px;
+        padding-bottom: 30px;
+    }
+    .main-login.user-dashboard table
+     tbody tr>td {
+        text-align: left;
+    }
+    .btn.margin-left-30 {
+        display: block !important;
+        width: 90%;
+        margin-left: 5%;
+    }
+    .main-login.view-support{
+        padding: 0;
+    }
+    
+    .main-login.security-setp{
+        padding: 0;
+    }
+    
+    .main-login.view-support legend {
+        min-width: 100%;
+    }
+    .main-login.main-center.security-setp {
+        padding: 20px 0 20px 0;
+    }
+    button.btn.btn-block.btn-lg.btn-primary.small-font-size-in-mobile-device {
+        font-size: 14px;
+    }
+         label {
+        font-size:  16px;
+        line-height: 2.5;
+        }
+        table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+            text-align: left;
+        }
+        .responsive-file-upload{
+                margin-left: -10px;
+                width: 210px;
+        }
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  table caption {
+    font-size: 1.3em;
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+    padding: 10px;
+  }
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  table td:before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+}

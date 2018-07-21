@@ -1,0 +1,201 @@
+@extends('home')
+
+@section('style')
+  <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}" ></script>
+  <script>
+
+      $(document).ready(function() {
+ 
+          $( '.add_fund' ).on( 'submit', function(e) {
+           
+              $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+            
+              e.preventDefault();
+ 
+              var form = $(this);
+        
+              $.ajax({
+                    url: '/deposit/store',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: form.serialize(), 
+                    success: function( result ) {
+                        if(result.success == 'invalid_amount'){
+                        //  $("#buyModal"+result.id).modal('hide');
+                          $("#preview").modal('hide');
+                          swal("Error!", "Please enter valid amount!", "error");
+                        }
+                        else if(result == 'gateway') {
+                        //  $("#buyModal"+result.id).modal('hide');
+                          $("#preview").modal('hide');
+                          swal("Error!", "Please select a payment gateway!", "error");
+                        }
+                        else{
+                          $("#preview").modal('show');
+                          $("#preview_data").html(result.html);
+                          $("#buyModal"+result.success).modal('hide');
+                        }
+                    },
+                    error: function (data) {
+                        //  $("#buyModal"+id).modal('hide');
+                          swal("Error!", "Transaction not complete!", "error");
+                    }
+              });
+          });
+
+      });
+
+  </script>    
+
+@endsection
+
+@section('content')
+
+<div class="content-header row">
+  <div class="content-header-left col-md-6 col-12 mb-2">
+    <h3 class="content-header-title">Deposit Funds</h3>
+    <div class="row breadcrumbs-top">
+      <div class="breadcrumb-wrapper col-12">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a>
+          </li>
+          <li class="breadcrumb-item"><a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Deposit Funds
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (Session::has('message'))
+  <div class="alert alert-success">{{ Session::get('message') }}</div>
+@endif
+
+@if (Session::has('alert'))
+  <div class="alert alert-warning">{{ Session::get('alert') }}</div>
+@endif
+
+@if (Session::has('success'))
+  <div class="alert alert-success">{{ Session::get('success') }}</div>
+@endif
+
+
+@if (count($errors) > 0)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Alert!</b>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endif
+        
+<div class="content-body">
+
+  <!-- Content types section start -->
+  <section id="shopping-cards">
+    
+    <div class="row match-height">
+      @foreach($gates as $gate)
+      
+      <div class="col-xl-3 col-md-6 col-sm-12">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-body">
+              <h4 class="card-title">{{ $gate->name }}</h4>
+               <img class="img-fluid my-1" src="{{ asset('assets/images/gateway') }}/{{ $gate->gateimg }}" alt="Payment Gateway">
+            </div>
+            <div class="card-footer text-muted">
+              <button class="btn btn-info btn-min-width btn-glow btn-block mr-1 mb-1" type="button" data-toggle="modal" data-target="#buyModal{{$gate->id}}">Select {{ $gate->name }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Modal -->
+      <div class="modal fade text-left" id="buyModal{{$gate->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9"
+      aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-info white">
+              <h4 class="modal-title white" id="myModalLabel9"><i class="la la-tree"></i> Deposit Funds via {{ $gate->name }}</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <meta name="csrf-token" content="{{ csrf_token() }}" />
+            <form method="POST" class="add_fund">
+            <div class="modal-body">
+              <h5><i class="la la-angle-double-right"></i> <b>Fee:</b> <span class="text-danger">{{ $gate->chargefx }}{{ $general->symbol }} and {{ $gate->chargepc }}%</span></h5>
+              <h5><i class="la la-angle-double-right"></i> <b>Min Deposit:</b> {{ $gate->minamo }}{{ $general->symbol }}</h5>
+              <h5><i class="la la-angle-double-right"></i> <b>Max Deposit:</b> {{ $gate->maxamo }}{{ $general->symbol }}</h5>
+              <p>
+                <input type="hidden" name="gateway" class="gateway" value="{{ $gate->id }}">
+                <fieldset>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">{{ $general->symbol }}</span>
+                    </div>
+                    <input type="text" name="amount" id="inputAmountAdd" class="form-control amount" placeholder="Amount to deposit to your balance" aria-describedby="basic-addon1" required>
+                  </div>
+                </fieldset>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" name="submit" class="btn btn-outline-success">Preview</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      @endforeach
+    </div>
+      
+  </section>
+  <!-- Content types section end -->      
+</div>
+<br/><br/>
+<!-- Modal -->
+<div class="modal fade text-left" id="preview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9"
+aria-hidden="true">
+  <div class="modal-dialog" role="document">
+  <!--  <meta name="csrf-token" content="{{ csrf_token() }}" /> 
+    <form method="post" class="pay_now" action="{{ route('buy.confirm') }}"> 
+    <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->  
+    <div class="modal-content">
+      <div class="modal-header bg-info white">
+        <h4 class="modal-title white" id="myModalLabel9"><i class="la la-tree"></i> Deposit Preview</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div id="preview_data">
+          </div>  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Close</button>
+        <a class="btn btn-outline-success" href="{{ route('buy.confirm') }}">
+            Pay Now
+        </a> 
+      <!--  <button type="submit" name="submit" class="btn btn-outline-success">Pay Now</button> -->
+      </div>
+    </div>
+  <!--  </form> -->
+  </div>
+</div>
+@endsection
+
