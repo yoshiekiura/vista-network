@@ -83,7 +83,9 @@ class HomeController extends Controller
 
         $hashpower = HpTransaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(5);
 
-        return view('client.index',compact('available_alxa_coins','available_vista_coins','alxa_rate','vista_rate','btcc_usd_euro','btcc_gbp','ethh_usd_euro','ethh_gbp','xrpp_usd_euro','xrpp_gbp','alexa_trade', 'vista_trade', 'hashpower'));
+        $hp_commission = ChargeCommision::where('id', 1)->value('hp_commission');
+
+        return view('client.index',compact('available_alxa_coins','available_vista_coins','alxa_rate','vista_rate','btcc_usd_euro','btcc_gbp','ethh_usd_euro','ethh_gbp','xrpp_usd_euro','xrpp_gbp','alexa_trade', 'vista_trade', 'hashpower', 'hp_commission'));
 
     //    return view('client.index',compact('available_alxa_coins','available_vista_coins','alxa_rate','vista_rate','alexa_trade','vista_trade','hashpower'));
     }

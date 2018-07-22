@@ -234,7 +234,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/password/reset/{token}', 'AdminAuth\ResetPasswordController@showResetForm');
 });
 
-Auth::routes();
+//Auth::routes();
+Route::group(['middleware' => 'prevent-back-history'],function(){
+    Auth::routes();
+    Route::get('/home', 'HomeController@index')->name('home');
+});
 
 Route::group(['middleware' => 'web'], function() {
 	Route::get('/home', 'HomeController@index')->name('home');

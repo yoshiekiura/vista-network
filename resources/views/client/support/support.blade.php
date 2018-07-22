@@ -71,33 +71,39 @@
                   </tr>
                 </thead>
                 <tbody>
-                @foreach($all_ticket as $key=>$data)
+                @if(!$all_ticket->isEmpty())
+                  @foreach($all_ticket as $key=>$data)
                   <tr>
-                    <td>{{$key+1}}</td>
-                    <td>{{$data->ticket}}</td>
-                    <td><b>{{$data->subject}}</b></td>
-                    <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y - h:i A') }}</td>
-                    <td>
-                        @if($data->status == 1 || $data->status == 3)
-                            <div class="badge badge-warning round">
-                              <i class="la la-clock-o font-medium-2"></i>
-                              <span>Opened</span>
-                            </div>
-                        @elseif($data->status == 9)
-                            <div class="badge badge-danger round">
-                              <i class="la la-lock font-medium-2"></i>
-                              <span>Closed</span>
-                            </div>
-                        @elseif($data->status == 2)
-                            <div class="badge badge-success round">
-                              <i class="la la-check font-medium-2"></i>
-                              <span>Solved</span>
-                            </div>    
-                        @endif
-                    </td>
-                    <td><a href="{{route('ticket.customer.reply', $data->ticket )}}"><button class="btn btn-secondary round btn-sm">View Ticket</button></a></td>
+                      <td>{{$key+1}}</td>
+                      <td>{{$data->ticket}}</td>
+                      <td><b>{{$data->subject}}</b></td>
+                      <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y - h:i A') }}</td>
+                      <td>
+                          @if($data->status == 1 || $data->status == 3)
+                              <div class="badge badge-warning round">
+                                <i class="la la-clock-o font-medium-2"></i>
+                                <span>Opened</span>
+                              </div>
+                          @elseif($data->status == 9)
+                              <div class="badge badge-danger round">
+                                <i class="la la-lock font-medium-2"></i>
+                                <span>Closed</span>
+                              </div>
+                          @elseif($data->status == 2)
+                              <div class="badge badge-success round">
+                                <i class="la la-check font-medium-2"></i>
+                                <span>Solved</span>
+                              </div>    
+                          @endif
+                      </td>
+                      <td><a href="{{route('ticket.customer.reply', $data->ticket )}}"><button class="btn btn-secondary round btn-sm">View Ticket</button></a></td>
                   </tr>
-                  @endforeach  
+                  @endforeach
+                @else
+                    <tr>
+                      <td colspan='6'>No Ticket Found!</td> 
+                    </tr>  
+                @endif  
                 </tbody>
                 <tfoot>
                   <tr>

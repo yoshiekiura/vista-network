@@ -268,7 +268,7 @@
                     </div>
                     <div class="col-5 pl-2">
                       <h4>VISTA</h4>
-                      <h6 class="text-muted">Bitcoin</h6>
+                      <h6 class="text-muted">Coin</h6>
                     </div>
                     <div class="col-5 text-right">
                       <h4>{{ $available_vista_coins }}</h4>
@@ -294,7 +294,7 @@
                     </div>
                     <div class="col-5 pl-2">
                       <h4>ALEXA</h4>
-                      <h6 class="text-muted">Bitcoin</h6>
+                      <h6 class="text-muted">Coin</h6>
                     </div>
                     <div class="col-5 text-right">
                       <h4>{{ $available_alxa_coins }}</h4>
@@ -324,7 +324,7 @@
                     </div>
                     <div class="col-5 text-right">
                       <h4>{{ $general->symbol }}{{ Auth::user()->hp_balance }}</h4>
-                      <h6 class="danger">20% <i class="la la-arrow-down"></i></h6>
+                      <h6 class="danger">{{ $hp_commission }}% <!--<i class="la la-arrow-down"></i>--></h6>
                     </div>
                   </div>
                 </div>
@@ -358,256 +358,8 @@
               </div>
             </div>
         </div>
-        <!-- Candlestick Multi Level Control Chart -->  
-        <!-- Slaes & Purchase Order -->
-        <div class="row">
-          <div class="col-12 col-xl-4">
-            <div id="accordionCrypto" role="tablist" aria-multiselectable="true">
-              <div class="card collapse-icon accordion-icon-rotate">
-                <div id="heading31" class="card-header bg-info p-1 bg-lighten-1">
-                  <a data-toggle="collapse" data-parent="#accordionCrypto" href="#accordionBTC" aria-expanded="true"
-                  aria-controls="accordionBTC" class="card-title lead white">BTC</a>
-                </div>
-                <div id="accordionBTC" role="tabpanel" aria-labelledby="heading31" class="card-collapse collapse show"
-                aria-expanded="true">
-                  <div class="card-content">
-                    <div class="card-body p-0">
-                      <div class="media-list list-group">
-                        <div class="list-group-item list-group-item-action media p-1">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">BTC/USD</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-                      
-                              <p class="text-bold-600 m-0">{{ $btcc_usd_euro->data->quotes->USD->price }}</p>
-                              @if($btcc_usd_euro->data->quotes->USD->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $btcc_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $btcc_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $btcc_usd_euro->data->quotes->USD->volume_24h }} BTC</p> 
-                            </span> 
-                          </a>
-                        </div>
-                        <div class="list-group-item list-group-item-action media p-1 bg-info bg-lighten-5">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">BTC/EUR</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-                              
-                              <p class="text-bold-600 m-0">{{ $btcc_usd_euro->data->quotes->EUR->price }}</p>
-                              @if($btcc_usd_euro->data->quotes->EUR->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $btcc_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $btcc_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $btcc_usd_euro->data->quotes->EUR->volume_24h }} BTC</p>
-                            
-                            </span>
-                          </a>
-                        </div>
-                        <div class="list-group-item list-group-item-action media p-1 border-bottom-0">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">BTC/GBP</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-                  
-                              <p class="text-bold-600 m-0">{{ $btcc_gbp->data->quotes->GBP->price }}</p>
-                              @if($btcc_gbp->data->quotes->GBP->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $btcc_gbp->data->quotes->GBP->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $btcc_gbp->data->quotes->GBP->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $btcc_gbp->data->quotes->GBP->volume_24h }} BTC</p> 
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="heading32" class="card-header bg-info p-1 bg-lighten-1 my-1">
-                  <a data-toggle="collapse" data-parent="#accordionCrypto" href="#accordionETH" aria-expanded="false"
-                  aria-controls="accordionETH" class="card-title lead white collapsed">ETH</a>
-                </div>
-                <div id="accordionETH" role="tabpanel" aria-labelledby="heading32" class="card-collapse collapse"
-                aria-expanded="false">
-                  <div class="card-content">
-                    <div class="card-body p-0">
-                      <div class="media-list list-group">
-                        <div class="list-group-item list-group-item-action media p-1">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">ETH/USD</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-                        
-                              <p class="text-bold-600 m-0">{{ $ethh_usd_euro->data->quotes->USD->price }}</p>
-                              @if($ethh_usd_euro->data->quotes->USD->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $ethh_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $ethh_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $ethh_usd_euro->data->quotes->USD->volume_24h }} ETH</p> 
-                            </span>
-                          </a>
-                        </div>
-                        <div class="list-group-item list-group-item-action media p-1">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">ETH/EUR</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-                        
-                              <p class="text-bold-600 m-0">{{ $ethh_usd_euro->data->quotes->EUR->price }}</p>
-                              @if($ethh_usd_euro->data->quotes->EUR->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $ethh_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $ethh_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $ethh_usd_euro->data->quotes->EUR->volume_24h }} ETH</p> 
-                            </span>
-                          </a>
-                        </div>
-                        <div class="list-group-item list-group-item-action media p-1 border-bottom-0">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">ETH/GBP</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-          
-                              <p class="text-bold-600 m-0">{{ $ethh_gbp->data->quotes->GBP->price }}</p>
-                              @if($ethh_gbp->data->quotes->GBP->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $ethh_gbp->data->quotes->GBP->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $ethh_gbp->data->quotes->GBP->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $ethh_gbp->data->quotes->GBP->volume_24h }} ETH</p> 
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div id="heading33" class="card-header bg-info p-1 bg-lighten-1">
-                  <a data-toggle="collapse" data-parent="#accordionCrypto" href="#accordionXRP" aria-expanded="false"
-                  aria-controls="accordionXRP" class="card-title lead white collapsed">XRP</a>
-                </div>
-                <div id="accordionXRP" role="tabpanel" aria-labelledby="heading33" class="card-collapse collapse"
-                aria-expanded="false">
-                  <div class="card-content">
-                    <div class="card-body p-0">
-                      <div class="media-list list-group">
-                        <div class="list-group-item list-group-item-action media p-1">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">XRP/USD</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-                            
-                              <p class="text-bold-600 m-0">{{ $xrpp_usd_euro->data->quotes->USD->price }}</p>
-                              @if($xrpp_usd_euro->data->quotes->USD->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $xrpp_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $xrpp_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $xrpp_usd_euro->data->quotes->USD->volume_24h }} XRP</p> 
-                            </span>
-                          </a>
-                        </div>
-                        <div class="list-group-item list-group-item-action media p-1">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">XRP/EUR</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-                    
-                              <p class="text-bold-600 m-0">{{ $xrpp_usd_euro->data->quotes->EUR->price }}</p>
-                              @if($xrpp_usd_euro->data->quotes->EUR->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $xrpp_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $xrpp_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $xrpp_usd_euro->data->quotes->EUR->volume_24h }} XRP</p> 
-                            </span>
-                          </a>
-                        </div>
-                        <div class="list-group-item list-group-item-action media p-1 border-bottom-0">
-                          <a class="media-link" href="#">
-                            <span class="media-left">
-                              <p class="text-bold-600 m-0">XRP/GBP</p>
-                              <p class="font-small-2 text-muted m-0">24h Change</p>
-                              <p class="font-small-2 text-muted m-0">24h Volume</p>
-                            </span>
-                            <span class="media-body text-right">
-                
-                              <p class="text-bold-600 m-0">{{ $xrpp_gbp->data->quotes->GBP->price }}</p>
-                              @if($xrpp_gbp->data->quotes->GBP->percent_change_24h >= 0)
-                                <p class="font-small-2 text-muted m-0 success">{{ $xrpp_gbp->data->quotes->GBP->percent_change_24h }}%</p>
-                              @else
-                                <p class="font-small-2 text-muted m-0 danger">{{ $xrpp_gbp->data->quotes->GBP->percent_change_24h }}%</p>
-                              @endif
-                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $xrpp_gbp->data->quotes->GBP->volume_24h }} XRP</p> 
-                            </span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-xl-8">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">BTC/USD</h4>
-                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                  <ul class="list-inline mb-0">
-                    <li class="text-center mr-4">
-                      <h6 class="text-muted">Last price</h6>
-                      <p class="text-bold-600 mb-0">$ <span id="last_price"></span></p>
-                    </li>
-                    <li class="text-center mr-4">
-                      <h6 class="text-muted">Daily change</h6>
-                      <p class="text-bold-600 mb-0">$ <span id="daily_change"></span></p>
-                    </li>
-                    <li class="text-center">
-                      <h6 class="text-muted">24h volume</h6>
-                      <p class="text-bold-600 mb-0"><i class="cc BTC-alt" title="BTC"></i> {{ $btcc_usd_euro->data->quotes->USD->volume_24h }} BTC</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card-content collapse show">
-                <div class="card-body pt-0">
-                  <div id="btc-candlestick-control" class="height-350 echart-container"></div> 
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Candlestick Multi Level Control Chart --> 
+
         <!-- Trade History & Place Order -->
         <div class="row">
           <div class="col-12 col-xl-4">
@@ -961,6 +713,257 @@
             </div>
           </div>
         </div>
+
+        <!-- Slaes & Purchase Order -->
+        <div class="row">
+          <div class="col-12 col-xl-4">
+            <div id="accordionCrypto" role="tablist" aria-multiselectable="true">
+              <div class="card collapse-icon accordion-icon-rotate">
+                <div id="heading31" class="card-header bg-info p-1 bg-lighten-1">
+                  <a data-toggle="collapse" data-parent="#accordionCrypto" href="#accordionBTC" aria-expanded="true"
+                  aria-controls="accordionBTC" class="card-title lead white">BTC</a>
+                </div>
+                <div id="accordionBTC" role="tabpanel" aria-labelledby="heading31" class="card-collapse collapse show"
+                aria-expanded="true">
+                  <div class="card-content">
+                    <div class="card-body p-0">
+                      <div class="media-list list-group">
+                        <div class="list-group-item list-group-item-action media p-1">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">BTC/USD</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+                      
+                              <p class="text-bold-600 m-0">{{ $btcc_usd_euro->data->quotes->USD->price }}</p>
+                              @if($btcc_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $btcc_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $btcc_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $btcc_usd_euro->data->quotes->USD->volume_24h }} BTC</p> 
+                            </span> 
+                          </a>
+                        </div>
+                        <div class="list-group-item list-group-item-action media p-1 bg-info bg-lighten-5">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">BTC/EUR</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+                              
+                              <p class="text-bold-600 m-0">{{ $btcc_usd_euro->data->quotes->EUR->price }}</p>
+                              @if($btcc_usd_euro->data->quotes->EUR->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $btcc_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $btcc_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $btcc_usd_euro->data->quotes->EUR->volume_24h }} BTC</p>
+                            
+                            </span>
+                          </a>
+                        </div>
+                        <div class="list-group-item list-group-item-action media p-1 border-bottom-0">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">BTC/GBP</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+                  
+                              <p class="text-bold-600 m-0">{{ $btcc_gbp->data->quotes->GBP->price }}</p>
+                              @if($btcc_gbp->data->quotes->GBP->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $btcc_gbp->data->quotes->GBP->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $btcc_gbp->data->quotes->GBP->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $btcc_gbp->data->quotes->GBP->volume_24h }} BTC</p> 
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="heading32" class="card-header bg-info p-1 bg-lighten-1 my-1">
+                  <a data-toggle="collapse" data-parent="#accordionCrypto" href="#accordionETH" aria-expanded="false"
+                  aria-controls="accordionETH" class="card-title lead white collapsed">ETH</a>
+                </div>
+                <div id="accordionETH" role="tabpanel" aria-labelledby="heading32" class="card-collapse collapse"
+                aria-expanded="false">
+                  <div class="card-content">
+                    <div class="card-body p-0">
+                      <div class="media-list list-group">
+                        <div class="list-group-item list-group-item-action media p-1">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">ETH/USD</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+                        
+                              <p class="text-bold-600 m-0">{{ $ethh_usd_euro->data->quotes->USD->price }}</p>
+                              @if($ethh_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $ethh_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $ethh_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $ethh_usd_euro->data->quotes->USD->volume_24h }} ETH</p> 
+                            </span>
+                          </a>
+                        </div>
+                        <div class="list-group-item list-group-item-action media p-1">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">ETH/EUR</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+                        
+                              <p class="text-bold-600 m-0">{{ $ethh_usd_euro->data->quotes->EUR->price }}</p>
+                              @if($ethh_usd_euro->data->quotes->EUR->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $ethh_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $ethh_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $ethh_usd_euro->data->quotes->EUR->volume_24h }} ETH</p> 
+                            </span>
+                          </a>
+                        </div>
+                        <div class="list-group-item list-group-item-action media p-1 border-bottom-0">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">ETH/GBP</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+          
+                              <p class="text-bold-600 m-0">{{ $ethh_gbp->data->quotes->GBP->price }}</p>
+                              @if($ethh_gbp->data->quotes->GBP->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $ethh_gbp->data->quotes->GBP->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $ethh_gbp->data->quotes->GBP->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $ethh_gbp->data->quotes->GBP->volume_24h }} ETH</p> 
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="heading33" class="card-header bg-info p-1 bg-lighten-1">
+                  <a data-toggle="collapse" data-parent="#accordionCrypto" href="#accordionXRP" aria-expanded="false"
+                  aria-controls="accordionXRP" class="card-title lead white collapsed">XRP</a>
+                </div>
+                <div id="accordionXRP" role="tabpanel" aria-labelledby="heading33" class="card-collapse collapse"
+                aria-expanded="false">
+                  <div class="card-content">
+                    <div class="card-body p-0">
+                      <div class="media-list list-group">
+                        <div class="list-group-item list-group-item-action media p-1">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">XRP/USD</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+                            
+                              <p class="text-bold-600 m-0">{{ $xrpp_usd_euro->data->quotes->USD->price }}</p>
+                              @if($xrpp_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $xrpp_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $xrpp_usd_euro->data->quotes->USD->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $xrpp_usd_euro->data->quotes->USD->volume_24h }} XRP</p> 
+                            </span>
+                          </a>
+                        </div>
+                        <div class="list-group-item list-group-item-action media p-1">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">XRP/EUR</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+                    
+                              <p class="text-bold-600 m-0">{{ $xrpp_usd_euro->data->quotes->EUR->price }}</p>
+                              @if($xrpp_usd_euro->data->quotes->EUR->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $xrpp_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $xrpp_usd_euro->data->quotes->EUR->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $xrpp_usd_euro->data->quotes->EUR->volume_24h }} XRP</p> 
+                            </span>
+                          </a>
+                        </div>
+                        <div class="list-group-item list-group-item-action media p-1 border-bottom-0">
+                          <a class="media-link" href="#">
+                            <span class="media-left">
+                              <p class="text-bold-600 m-0">XRP/GBP</p>
+                              <p class="font-small-2 text-muted m-0">24h Change</p>
+                              <p class="font-small-2 text-muted m-0">24h Volume</p>
+                            </span>
+                            <span class="media-body text-right">
+                
+                              <p class="text-bold-600 m-0">{{ $xrpp_gbp->data->quotes->GBP->price }}</p>
+                              @if($xrpp_gbp->data->quotes->GBP->percent_change_24h >= 0)
+                                <p class="font-small-2 text-muted m-0 success">{{ $xrpp_gbp->data->quotes->GBP->percent_change_24h }}%</p>
+                              @else
+                                <p class="font-small-2 text-muted m-0 danger">{{ $xrpp_gbp->data->quotes->GBP->percent_change_24h }}%</p>
+                              @endif
+                              <p class="font-small-2 text-muted m-0 text-bold-600">{{ $xrpp_gbp->data->quotes->GBP->volume_24h }} XRP</p> 
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-8">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">BTC/USD</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                  <ul class="list-inline mb-0">
+                    <li class="text-center mr-4">
+                      <h6 class="text-muted">Last price</h6>
+                      <p class="text-bold-600 mb-0">$ <span id="last_price"></span></p>
+                    </li>
+                    <li class="text-center mr-4">
+                      <h6 class="text-muted">Daily change</h6>
+                      <p class="text-bold-600 mb-0">$ <span id="daily_change"></span></p>
+                    </li>
+                    <li class="text-center">
+                      <h6 class="text-muted">24h volume</h6>
+                      <p class="text-bold-600 mb-0"><i class="cc BTC-alt" title="BTC"></i> {{ $btcc_usd_euro->data->quotes->USD->volume_24h }} BTC</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card-content collapse show">
+                <div class="card-body pt-0">
+                  <div id="btc-candlestick-control" class="height-350 echart-container"></div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
 
         <!--/ Trade History & Place Order -->
         <!-- Sell Orders & Buy Order -->

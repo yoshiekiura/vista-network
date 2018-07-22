@@ -134,8 +134,9 @@
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        <span data-counter="counterup" data-value="{{\App\User::sum('balance')}}">0 </span> {{$general->symbol}}
+                                        <span data-counter="counterup" data-value="{{ number_format(\App\User::sum('balance'),2,'.','')}}">0 </span> {{$general->symbol}}
                                     </div>
+                                    
                                     <div class="desc"> All Users Balance</div>
                                 </div>
                                 <a class="more" href="{{url('admin/users')}}"> View more

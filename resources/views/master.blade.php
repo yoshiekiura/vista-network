@@ -8,7 +8,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/fontend_logo/icon.png')}}"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('front/img/assets/favicon2.png') }}">
     @include('template-part.style')
     @yield('style')
 </head>

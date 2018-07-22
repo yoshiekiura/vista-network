@@ -62,5 +62,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'ckstatus' => \App\Http\Middleware\CheckStatus::class,
+
+        'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,
     ];
 }

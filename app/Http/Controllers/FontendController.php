@@ -244,7 +244,7 @@ class FontendController extends Controller
         $user = User::where('email', $request->email)->first();
         if ($user == null)
         {
-            return back()->with('alert', 'Email Not Available');
+            return back()->with('alert', 'Email not Found!');
         }
         else
         {

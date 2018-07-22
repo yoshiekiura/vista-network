@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/fontend_logo/icon.png')}}"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('front/img/assets/favicon2.png') }}">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <style>
         body {
@@ -172,7 +172,8 @@
 <div class="wrapper">
     <form class="login" method="POST" action="{{ url('/admin/login') }}">
         {{ csrf_field() }}
-        <p class="title">Admin Log in</p>
+        <h2 style="text-align: center;">Vista Network</h2>
+        <p class="title" style="text-align: center;">Admin Login</p>
         @if ($errors->has('password'))
             <span class="help-block">
                 <strong>{{ $errors->first('password') }}</strong>

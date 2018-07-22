@@ -49,7 +49,7 @@
                         <label for="remember-me"> Remember Me</label>
                       </fieldset>
                     </div>
-                    <div class="col-md-6 col-12 text-center text-md-right"><a href="recover-password.html" class="card-link">Forgot Password?</a></div>
+                    <div class="col-md-6 col-12 text-center text-md-right"><a href="{{ url('password/reset') }}" class="card-link">Forgot Password?</a></div>
                   </div>
                   <button type="submit" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i> Login</button>
                 </form>
