@@ -100,18 +100,10 @@
         <div class="hero-container container">
             <div class="hero-content">
                 <div class="col-sm-12 m-auto text-center white fadeHero">
-                    <h6 class="subheading">Welcome to</h6>
+                    <h6 class="subheading" style="font-size: 16px;">Welcome to</h6>
                     <h2 class="h1-lg mb10 text-uppercase">Vista Network</h2>
-                    <ul class="list-inline banner-info">
-                        <li><span>4.8 </span> Million
-                            <br>Transactions</li>
-                        <li><span>16 </span> Million
-                            <br>Wallet</li>
-                        <li><span>26 </span> Countries
-                            <br>Served</li>
-                    </ul>
-                    <h5 class="lead h5-md mt30 mb20">Unordinary digital agency crafting sophisticated and<br> eccentric stuff that will leave you speechless</h5>
-                    <a href="#services" class="btn btn-hero">Join Now</a>
+                    <h5 class="lead h5-md mt30 mb20">Vista strives to build the strongest, fastest-growing, cryptocurrency network <br/> in the world backed by state-of-the-art hardware and software systems <br/> developed to provide speed, security, and reliability.</h5>
+                    <a href="{{ route('register') }}" class="btn btn-default">Join Now</a>
                 </div>
             </div>
         </div>
@@ -123,46 +115,58 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="heading m-auto text-center ">
+                    <div class="m-auto text-center ">
                         <h2 class="f-xbold">Services we provide</h2>
                         <hr class="seperator">
-                        <p>With a belief that culture drives commerce, we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action. Our specialty of connecting brand, culture, and commerce has earned us a big reputation.</p>
+                        <p style="font-size: 16px;">An overnight success ten years in the making, Cryptocurrency is as transformative as it is evolutionary. At last, 2018 is expected to be the year that Cryptocurrency goes mainstream for many businesses and the public. In speaking with many executives and entrepreneurs, we’ve noticed that the path towards Cryptocurrency enlightenment often hinges on corporate culture and specific marketplace conditions. Full Cryptocurrency integration often happens in stages, it’s an evolutionary process for companies and consumers alike. The time of the Blockchain has arrived.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md 4 col-sm-4">
-                    <div class="service-box text-center">
-                        <div class="icon-box service-icon icon-lg">
-                            <i class="icon ion-android-sync"></i>
-                        </div>
-                        <div class="service-inner">
-                            <h4>Bitcoin <span>mining</span></h4>
-                            <p>Vllo eius voluptate quidem! Iste odit vel perferendis atque nisi iusto dolore eaque.</p>
-                            <a href="#" class="read-more">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md 4 col-sm-4">
+                <div class="col-md 3 col-sm-3">
                     <div class="service-box text-center active">
                         <div class="icon-box service-icon icon-lg">
-                            <i class="icon ion-android-share"></i>
+                            <i class="icon ion-social-bitcoin" style="color: #ffffff;"></i>
                         </div>
                         <div class="service-inner">
-                            <h4>Bitcoin <span>Transaction</span></h4>
-                            <p>Vllo eius voluptate quidem! Iste odit vel perferendis atque nisi iusto dolore eaque.</p>
+                            <h4>Vista <span>Coin</span></h4>
+                            <p>Buy Sell Transfer Vista Coins.</p>
                             <a href="#" class="read-more">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md 4 col-sm-4">
-                    <div class="service-box text-center">
+                <div class="col-md 3 col-sm-3">
+                    <div class="service-box text-center active">
                         <div class="icon-box service-icon icon-lg">
-                            <i class="icon ion-android-bicycle"></i>
+                            <i class="icon ion-social-bitcoin" style="color: #ffffff;"></i>
+                        </div>
+                        <div class="service-inner">
+                            <h4>Alexa <span>Coin</span></h4>
+                            <p>Buy Sell Transfer Alexa Coins.</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md 3 col-sm-3">
+                    <div class="service-box text-center active">
+                        <div class="icon-box service-icon icon-lg">
+                            <i class="icon ion-cube" style="color: #ffffff;"></i>
                         </div>
                         <div class="service-inner ">
-                            <h4>Bitcoin <span>Exchange</span></h4>
-                            <p>Vllo eius voluptate quidem! Iste odit vel perferendis atque nisi iusto dolore eaque.</p>
+                            <h4>HPLP <span>Program</span></h4>
+                            <p>Hash Power Lay Away Program.</p>
+                            <a href="#" class="read-more">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md 3 col-sm-3">
+                    <div class="service-box text-center active">
+                        <div class="icon-box service-icon icon-lg">
+                            <i class="icon ion-flash-off" style="color: #ffffff;"></i>
+                        </div>
+                        <div class="service-inner ">
+                            <h4>Mini <span>Miner</span></h4>
+                            <p>Vista Mining will be an industry leading Cryptocurrency mining organization.</p>
                             <a href="#" class="read-more">Read More</a>
                         </div>
                     </div>
@@ -194,7 +198,7 @@
                             <li><i class="icon ion-checkmark"></i> Lots Of Usefull Features.</li>
                         </ul>
                         
-                        <a href="{{ route('register') }}" class="btn btn-black ">Join Now</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary ">Join Now</a>
                     </div>
                 </div>
             </div>
@@ -209,7 +213,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading m-auto text-center ">
-                            <h2 class="f-xbold">How it Works</h2>
+                            <h2 class="f-xbold" style="color: #ffffff;">How it Works</h2>
                             <hr class="seperator">
                             <p>With a belief that culture drives commerce, we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action. Our specialty of connecting brand, culture, and commerce has earned us a big reputation.</p>
                         </div>
@@ -223,31 +227,40 @@
                 <div class="row">
                     <div class="col-md-9 col-sm-9 m-auto">
                         <div class="row">
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/icon1.png') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/images.jpeg') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>create your wallet</h4>
                                     <p>Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.</p>
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/icon2.png') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/payment.jpeg') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>make payments</h4>
                                     <p>Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.</p>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-4">
+                            <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/icon3.png') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/exchange.png') }}" alt="" class="img-responsive">
                                     </div>
-                                    <h4>Buy or Sell Orders</h4>
+                                    <h4>Buy or Sell Coins</h4>
+                                    <p>Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <div class="work-inner-box">
+                                    <div class="icon-box work-icon icon-lg">
+                                        <img src="{{ URL::asset('front/img/icon/exchange.png') }}" alt="" class="img-responsive">
+                                    </div>
+                                    <h4>Buy or Sell Products</h4>
                                     <p>Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.</p>
                                 </div>
                             </div>
@@ -344,6 +357,7 @@
     <!-- End  Feature Section -->
     
     <!-- Start Testimonial Section -->
+    <!--
     <section id="parallax-contact" class="section-padding">
         <div class="container">
             <div class="row">
@@ -353,7 +367,7 @@
                         <p>Get latest testimonial update</p>
                     </div>
                 </div>
-            </div><!--   1st row end-->
+            </div>
            
             <div class="row">
                 <div class="col-md-8 m-auto clients-wrap">
@@ -380,7 +394,7 @@
                         </div>
                     </div>
                 </div>
-            </div><!--   2nd row end-->
+            </div>
             
             <div class="row">
                <div class="col-md-9 m-auto">
@@ -444,7 +458,7 @@
             </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- End Testimonial Section -->
     
     <!-- Start parallax Section -->
@@ -611,6 +625,7 @@
      <!-- End Counter Section --> 
     
      <!-- Start Team Section -->
+     <!--
      <section id="team" class="section-padding ">
          <div class="container">
              <div class="row">
@@ -689,9 +704,11 @@
             </div>
          </div>
      </section> 
+        -->
      <!-- End Team Section --> 
      
-     <!-- Start Blog Section --> 
+     <!-- Start Blog Section -->
+     <!-- 
      <section id="blog" class="section-padding bg-gray">
          <div class="container">
              <div class="row">
@@ -765,6 +782,7 @@
              </div>
          </div>
      </section>
+        -->
      <!-- End Blog Section -->  
      
      <!-- Start Faq Section -->  

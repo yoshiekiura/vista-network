@@ -486,7 +486,7 @@ nav.navbar {
 }
 .service-box:hover .icon-box,
 .service-box.active .icon-box {
-    background: #ffc000;
+    background: #428bca;
 }
 .service-box:hover .read-more {
     color: #ffc000;
@@ -521,13 +521,13 @@ nav.navbar {
     text-align: center;
 }
 .about-bg {
-    background: url(../img/about/1526412355.jpg);
+    background: url(../img/about/Mini-MinerTM-VISTA-1.png);
     background-size: 100% 100%;
     position: absolute;
-    left: 0px;
+    left: 50px;
     top: 0px;
     max-width: 100%;
-    height: 510px;
+    height: 410px;
     content: "";
     width: 90%;
  /*   background-size: cover; */
@@ -544,7 +544,7 @@ nav.navbar {
 }
 .work-icon {
     border: 7px solid#fff;
-    background: #ffc000;
+    background: #428bca;
 }
 .work-icon img {
     width: 50px;
@@ -1288,7 +1288,7 @@ p {
     background-color: #fff;
 }
 .bg-feature {
-    background-color: #ffc000;
+    background-color: #428bca;
 }
 
 /*---------- 20. Home Banner Parallax ----------*/

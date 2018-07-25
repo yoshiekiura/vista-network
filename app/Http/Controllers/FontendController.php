@@ -22,8 +22,8 @@ class FontendController extends Controller
 {
     public function fontIndex()
     {
-     /*   $service = Service::all();
-        $slider = Silder::all();
+        $service = Service::all();
+     /*   $slider = Silder::all();
         $commision = ChargeCommision::first();
         $team = Team::all();
         $testimonial = Testimonal::all();
@@ -33,7 +33,7 @@ class FontendController extends Controller
         return view('fonts.index',compact('service',
             'slider', 'commision', 'team', 'testimonial',
             'gateway', 'deposit', 'withdraw')); */
-        return view('welcome');
+        return view('welcome', compact('service'));
     }
 
     public function contactIndex()
