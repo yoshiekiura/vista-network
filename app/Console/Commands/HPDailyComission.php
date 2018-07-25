@@ -9,6 +9,7 @@ use App\HpCommission;
 use App\User;
 use Carbon\Carbon;
 use Auth;
+use DB;
 
 class HPDailyComission extends Command
 {
@@ -43,17 +44,22 @@ class HPDailyComission extends Command
      */
     public function handle()
     {
-    
-        $comission_rate = ChargeCommision::where('id', 1)->value('hp_commission');
-        $hashpower = HpTransaction::where('status', 1)->get();
+
+        // give daily commission  
+        $comission_rate = ChargeCommision::where('id', 1)->value('hp_commission');        
+
+        $hashpower = DB::table('hp_transactions')
+                        ->select(DB::raw('SUM(price) as total_deposit'),'user_id')
+                        ->groupBy('user_id')
+                        ->get();
         
         foreach($hashpower as $hp){
 
-            $comission_amount = ($comission_rate / 100) * $hp->price;
+            $comission_amount = ($comission_rate / 100) * $hp->total_deposit;
 
             HpCommission::create([
-                'user_id' => Auth::user()->id,
-                'transaction_id' => $hp->transaction_id,
+                'user_id' => $hp->user_id,
+                'transaction_id' => rand(),
                 'commission_rate' => $comission_rate,
                 'commission_date' => Carbon::now(),
                 'commission_amount' => $comission_amount ,
