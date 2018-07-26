@@ -624,7 +624,7 @@ nav.navbar {
 /*---------- 07. Parallax Section ----------*/
 
 #parallax {
-    background: url(../img/backgrounds/slider-1.jpg);
+    background: url(../img/backgrounds/1526412355.jpg);
     -webkit-background-size: cover;
     background-size: cover;
     position: relative;
@@ -656,7 +656,7 @@ nav.navbar {
     -o-transition: all .2s;
     -ms-transition: all .2s;
     transition: all .2s;
-    color: #ffc000;
+    color: #428bca;
     font-size: 18px;
 }
 .social-icons a:focus {
@@ -824,7 +824,7 @@ nav.navbar {
 /*---------- 11. Counter Section ----------*/
 
 #counter-wrap {
-    background: url(../img/backgrounds/parallax-bg.jpg) fixed 50% 50%;
+    background: url(../img/backgrounds/1526412453.jpg) fixed 50% 50%;
     -webkit-background-size: cover;
     background-size: cover;
     padding: 50px 0px 70px;
@@ -853,7 +853,7 @@ nav.navbar {
 }
 .single-project-complete i {
     font-size: 50px;
-    color: #FFC80A;
+    color: #ffffff;
 }
 .counter-num {
     color: #fff;
@@ -991,7 +991,7 @@ a:focus {
     display: block;
     text-align: center;
     opacity: 0;
-    background: #ffc000;
+    background: #428bca;
     padding-top: 4px;
     transition: background-color 0.1s linear;
     -moz-transition: background-color 0.1s linear;

@@ -66,11 +66,11 @@
                     </li>
 
                     <li>
-                        <a data-scroll href="#team">Team</a>
+                        <a data-scroll href="#faq">Faq</a>
                     </li>
-                    <li>
+                <!--    <li>
                         <a data-scroll href="#blog">Blog</a>
-                    </li>
+                    </li>  -->
                     <li>
                         <a data-scroll href="#contact-form">Contact</a>
                     </li>
@@ -468,17 +468,15 @@
             <div class="col-sm-8 text-center m-auto pt100 pb100 border-top">
                 <div class="white text-center parallax-info">
                     <h4 class="mb10 lspacing">Give Us A Call</h4>
-                    <h1>+1 92-126-386</h1>
+                    <h1>+1 {{ $mobile }}</h1>
 
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius eum dolor, vel blanditiis obcaecati inventore eos, distinctio molestiae ad veritatis dicta, sed corporis doloremque animi necessitatibus! Ratione totam nemo ea.</p>
 
                     <ul class="social-icons fadeIn">
-                        <li><a href="#"><i class="fa fa-facebook white"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter white"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram white"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus white"></i></a></li>
-                        <li><a href="#"><i class="fa fa-behance white"></i></a></li>
-                        <li><a href="#"><i class="fa fa-dribbble white"></i></a></li>
+                        <li><a href="https://www.facebook.com/vistanetworklive"><i class="fa fa-facebook white"></i></a></li>
+                        <li><a href="https://twitter.com/vistanetworkus"><i class="fa fa-twitter white"></i></a></li>
+                        <li><a href="https://www.instagram.com/vistanetworkus/"><i class="fa fa-instagram white"></i></a></li>
+                        <li><a href="https://www.youtube.com/channel/UCXyM4uK1xfwrFf_X6jneFCQ"><i class="fa fa-youtube white"></i></a></li>
                     </ul>
                     <h6>we don't <span class="highlight">enclose</span> your information with anyone.</h6>
                 </div>
@@ -495,7 +493,7 @@
                      <div class="heading m-auto text-center ">
                         <h2 class="f-xbold">Updated Price rate</h2>
                         <hr class="seperator">
-                        <p>With a belief that culture drives commerce, we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action. Our specialty of connecting brand, culture, and commerce has earned us a big reputation.</p>
+                        <p></p>
                     </div>
                 </div>
             </div>
@@ -503,7 +501,7 @@
             <div class="row">
                <div class="col-md-6">
                    <div class="price-chart-img">
-                       <img src="{{ URL::asset('front/img/about/chart.jpg') }}" alt="" class="img-responsive">
+                       <img src="{{ URL::asset('front/img/about/Vista-exchange.png') }}" alt="" class="img-responsive">
                    </div>
                </div>
                 <div class="col-md-6 col-sm-6">
@@ -522,60 +520,107 @@
                         <tbody>
                         <tr>
                             <td><img src="{{ URL::asset('front/img/coin/1.png') }}" class="currency-icon" alt="">Bitcoin</td>
-                            <td>9,290.06 $</td>
-                            <td class="up">14.44%</td>
-                            <td>218,087 BTC</td>
-                            <td>923,629</td>
+                            <td>{{ $btcc_usd_euro->data->quotes->USD->price }} $</td>
+                            <td class="up">
+                                @if($btcc_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                    <p class="text-success">
+                                        {{ $btcc_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @else
+                                    <p class="text-danger">
+                                        {{ $btcc_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @endif
+                            </td>
+                            <td>{{ $btcc_usd_euro->data->quotes->USD->volume_24h }} BTC</td>
+                            <td>{{ $btcc_usd_euro->data->circulating_supply }}</td>
                         </tr>
                         <tr>
                             <td><img src="{{ URL::asset('front/img/coin/2.png') }}" class="currency-icon" alt="">Ethereum</td>
-                            <td>407.13 $</td>
-                            <td class="up">16.17%</td>
-                            <td>1,223,367 ETH</td>
-                            <td>663,133</td>
-                        </tr>
-                        <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/3.png') }}" class="currency-icon" alt="">Exchange Union</td>
-                            <td>7.47 $</td>
-                            <td class="down">-1.09%</td>
-                            <td>3,352 XUC</td>
-                            <td>427,132</td>
+                            <td>{{ $ethh_usd_euro->data->quotes->USD->price }} $</td>
+                            <td class="up">
+                                @if($ethh_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                    <p class="text-success">
+                                        {{ $ethh_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @else
+                                    <p class="text-danger">
+                                        {{ $ethh_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @endif
+                            </td>
+                            <td>{{ $ethh_usd_euro->data->quotes->USD->volume_24h }} ETH</td>
+                            <td>{{ $ethh_usd_euro->data->circulating_supply }}</td>
                         </tr>
                         <tr>
                             <td><img src="{{ URL::asset('front/img/coin/4.png') }}" class="currency-icon" alt="">Ripple</td>
-                            <td>0.22 $</td>
-                            <td class="up">20.80%</td>
-                            <td>211,418,299 XRP</td>
-                            <td>719,280</td>
-                        </tr>
-                        <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/5.png') }}" class="currency-icon" alt="">Veritaseum</td>
-                            <td>84.22 $</td>
-                            <td class="down">-14.56%</td>
-                            <td>36 VERI </td>
-                            <td>218,887</td>
-                        </tr>
-                        <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/6.png') }}" class="currency-icon" alt="">DigitalCash</td>
-                            <td>709.31 $</td>
-                            <td class="down">-1.18%</td>
-                            <td>125,361 DASH</td>
-                            <td>427,132</td>
-                        </tr>
-                        <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/7.png') }}" class="currency-icon" alt="">Monero</td>
-                            <td>78.97 $</td>
-                            <td class="up">20.55%   </td>
-                            <td>2,281,288 LTC</td>
-                            <td>719,280</td>
+                            <td>{{ $xrpp_usd_euro->data->quotes->USD->price }} $</td>
+                            <td class="up">
+                                @if($xrpp_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                    <p class="text-success">
+                                        {{ $xrpp_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @else
+                                    <p class="text-danger">
+                                        {{ $xrpp_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @endif
+                            </td>
+                            <td>{{ $xrpp_usd_euro->data->quotes->USD->volume_24h }} XRP</td>
+                            <td>{{ $xrpp_usd_euro->data->circulating_supply }}</td>
                         </tr>
                         <tr>
                             <td><img src="{{ URL::asset('front/img/coin/8.png') }}" class="currency-icon" alt=""> Litecoin</td>
-                            <td>156.32 $</td>
-                            <td class="up">1.18%</td>
-                            <td>255,226 XMR</td>
-                            <td>218,887</td>
+                            <td>{{ $litecoinn_usd_euro->data->quotes->USD->price }} $</td>
+                            <td class="up">
+                                @if($litecoinn_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                    <p class="text-success">
+                                        {{ $litecoinn_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @else
+                                    <p class="text-danger">
+                                        {{ $litecoinn_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @endif
+                            </td>
+                            <td>{{ $litecoinn_usd_euro->data->quotes->USD->volume_24h }} LTC</td>
+                            <td>{{ $litecoinn_usd_euro->data->circulating_supply }}</td>
                         </tr>
+                        <tr>
+                            <td><img src="{{ URL::asset('front/img/coin/8.png') }}" class="currency-icon" alt=""> IOTA</td>
+                            <td>{{ $iotaa_usd_euro->data->quotes->USD->price }} $</td>
+                            <td class="up">
+                                @if($iotaa_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                    <p class="text-success">
+                                        {{ $iotaa_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @else
+                                    <p class="text-danger">
+                                        {{ $iotaa_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @endif
+                            </td>
+                            <td>{{ $iotaa_usd_euro->data->quotes->USD->volume_24h }} MIOTA</td>
+                            <td>{{ $iotaa_usd_euro->data->circulating_supply }}</td>
+                        </tr>
+                        <tr>
+                            <td><img src="{{ URL::asset('front/img/coin/8.png') }}" class="currency-icon" alt=""> Dash</td>
+                            <td>{{ $dashh_usd_euro->data->quotes->USD->price }} $</td>
+                            <td class="up">
+                                @if($dashh_usd_euro->data->quotes->USD->percent_change_24h >= 0)
+                                    <p class="text-success">
+                                        {{ $dashh_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @else
+                                    <p class="text-danger">
+                                        {{ $dashh_usd_euro->data->quotes->USD->percent_change_24h }}%
+                                    </p>
+                                @endif
+                            </td>
+                            <td>{{ $dashh_usd_euro->data->quotes->USD->volume_24h }} DASH</td>
+                            <td>{{ $dashh_usd_euro->data->circulating_supply }}</td>
+                        </tr>
+                        
                         </tbody>
                     </table>
                 
@@ -850,7 +895,7 @@
                 </div>  <!-- COl end --> 
                 
                 <div class="col-md-6">
-                   <img src="{{ URL::asset('front/img/about/faq2.png') }}" alt="" class="img-responsive">
+                   <img src="{{ URL::asset('front/img/about/faqs.jpg') }}" alt="" class="img-responsive">
                </div>
             </div>
          </div>
@@ -864,12 +909,13 @@
                 <h2 class="f-xbold">Contact Us</h2>
                 <hr class="seperator">
                 <h4 class="subheading">Lets collaborate</h4>
-                <p>With a belief that culture drives commerce, we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action. Our specialty of connecting brand, culture, and commerce has earned us a big reputation.</p>
+                <p></p>
             </div>
 
 
             <div class="col-md-8 col-sm-8 m-auto">
-                <form action="form-process.php" method="POST" name="contact" id="contact" novalidate>
+                <form action="{{ route('contact.submit') }}" method="POST" name="contact" id="contact">
+                    {{ csrf_field() }}
                     <div class="text-center">
                         <div class="form-group">
                             <input class="form-control" type="text" name="name" id="name" size="30" placeholder="Your Name *" required>
@@ -891,7 +937,7 @@
                         <!-- honeypot -->
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-hero">Send Message</button>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
                         </div>
                     </div>
                 </form>
@@ -967,19 +1013,18 @@
                         <h4>Contact Us</h4>
                         
                         <ul class="footer-contact">
-                            <li><i class="fa fa-map-marker"></i>Linkin Park,Malbourne ,USA </li>
-                            <li><i class="fa fa-phone"></i> <span>+39-32523112</span></li>
-                            <li><i class="fa fa-envelope-o"></i> <span>bitbank@email.com</span></li>
+                            @foreach($general as $gen)
+                            <li><i class="fa fa-map-marker"></i>{{ $gen->address }} </li>
+                            <li><i class="fa fa-phone"></i> <span>{{ '+1' . $gen->mobile }}</span></li>
+                            <li><i class="fa fa-envelope-o"></i> <span>{{ $gen->email }}</span></li>
+                            @endforeach
                         </ul>
                         
                         <ul class="list-inline">
-                            <li><a href="#"><i class="icon ion-social-facebook"></i></a></li>
-                            <li><a href="#"><i class="icon ion-social-googleplus"></i></a></li>
-                            <li><a href="#"><i class="icon ion-social-twitter"></i></a></li>
-                            <li><a href="#"><i class="icon ion-social-instagram"></i></a></li>
-                            <li><a href="#"><i class="icon ion-social-tumblr"></i></a></li>
-                            <li><a href="#"><i class="icon ion-social-rss"></i></a></li>
-                            <li><a href="#"><i class="icon ion-social-vimeo"></i></a></li>
+                            <li><a href="https://www.facebook.com/vistanetworklive"><i class="icon ion-social-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/vistanetworkus"><i class="icon ion-social-twitter"></i></a></li>
+                            <li><a href="https://www.instagram.com/vistanetworkus/"><i class="icon ion-social-instagram"></i></a></li>
+                            <li><a href="https://www.youtube.com/channel/UCXyM4uK1xfwrFf_X6jneFCQ"><i class="icon ion-social-youtube"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -987,7 +1032,7 @@
             
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p class="copy ">Bitcoin is unstabe source of statics income over virtual world. <br> All copyright Reserved to <span>BitBank</span> 2018</p>
+                    <p class="copy ">All Copyright Reserved to <span>Vista Network</span> 2018</p>
                 </div>
             </div>
         </div>

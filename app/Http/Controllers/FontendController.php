@@ -22,8 +22,8 @@ class FontendController extends Controller
 {
     public function fontIndex()
     {
-        $service = Service::all();
-     /*   $slider = Silder::all();
+     /*   $service = Service::all();
+        $slider = Silder::all();
         $commision = ChargeCommision::first();
         $team = Team::all();
         $testimonial = Testimonal::all();
@@ -33,7 +33,30 @@ class FontendController extends Controller
         return view('fonts.index',compact('service',
             'slider', 'commision', 'team', 'testimonial',
             'gateway', 'deposit', 'withdraw')); */
-        return view('welcome', compact('service'));
+
+        $mobile = General::where('id',1)->value('mobile');
+        $general = General::where('id',1)->get();
+
+        $btc_usd_euro = file_get_contents("https://api.coinmarketcap.com/v2/ticker/1/?convert=EUR");
+        $btcc_usd_euro = json_decode($btc_usd_euro);
+           
+        $eth_usd_euro = file_get_contents("https://api.coinmarketcap.com/v2/ticker/1027/?convert=EUR");
+        $ethh_usd_euro = json_decode($eth_usd_euro);
+
+        $xrp_usd_euro = file_get_contents("https://api.coinmarketcap.com/v2/ticker/52/?convert=EUR");
+        $xrpp_usd_euro = json_decode($xrp_usd_euro);
+
+        $litecoin_usd_euro = file_get_contents("https://api.coinmarketcap.com/v2/ticker/2/?convert=EUR");
+        $litecoinn_usd_euro = json_decode($litecoin_usd_euro);
+
+        $iota_usd_euro = file_get_contents("https://api.coinmarketcap.com/v2/ticker/1720/?convert=EUR");
+        $iotaa_usd_euro = json_decode($iota_usd_euro);
+
+        $dash_usd_euro = file_get_contents("https://api.coinmarketcap.com/v2/ticker/131/?convert=EUR");
+        $dashh_usd_euro = json_decode($iota_usd_euro);
+
+
+        return view('welcome', compact('btcc_usd_euro','ethh_usd_euro','xrpp_usd_euro','litecoinn_usd_euro','iotaa_usd_euro','dashh_usd_euro','mobile','general'));
     }
 
     public function contactIndex()
@@ -317,6 +340,23 @@ class FontendController extends Controller
     public function pageNotFound()
     {
         return view('error.404');
+    }
+
+    public function contactUs(Request $request)
+    {
+    
+        $uname = $request->input('name');
+        $uemail = $request->input('email');
+        $uphone = $request->input('phone');
+        $usubject = $request->input('subject');
+        $umsg = $request->input('message');
+
+        $message = 'Thank you! for contacting with us. We will get back to you soon';
+
+        send_email('yasir.sherwani@gmail.com', 'Vista Contact Us Form', 'Admin', $message);
+
+        return redirect()->back();
+    
     }
 
 }

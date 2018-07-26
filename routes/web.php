@@ -37,6 +37,7 @@ Route::post('/forgot/password', 'FontendController@forgotPass')->name('forget.pa
 Route::get('/reset/{token}', 'FontendController@resetLink')->name('reset.passlink');
 Route::post('/reset/password', 'FontendController@passwordReset')->name('reset.passw');
 Route::get('pagenotfound', 'FontendController@pageNotFound')->name('pagenot.found');
+Route::post('/contact-us', 'FontendController@contactUs')->name('contact.submit');
 
 Route::post('/get/ref/id', 'FontendController@getRefId')->name('get.ref.id');
 Route::post('/get/position', 'FontendController@getPosition')->name('get.user.position');
