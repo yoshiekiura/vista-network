@@ -524,10 +524,10 @@ nav.navbar {
     background: url(../img/about/Mini-MinerTM-VISTA-1.png);
     background-size: 100% 100%;
     position: absolute;
-    left: 50px;
-    top: 0px;
-    max-width: 100%;
-    height: 410px;
+    left: 150px;
+    top: 100px;
+    max-width: 60%;
+    height: 270px;
     content: "";
     width: 90%;
  /*   background-size: cover; */

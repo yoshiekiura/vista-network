@@ -153,7 +153,7 @@
                             <i class="icon ion-cube" style="color: #ffffff;"></i>
                         </div>
                         <div class="service-inner ">
-                            <h4>HPLP <span>Program</span></h4>
+                            <h4>Hash <span>Power</span></h4>
                             <p>Hash Power Lay Away Program.</p>
                             <a href="#" class="read-more">Read More</a>
                         </div>
@@ -166,7 +166,7 @@
                         </div>
                         <div class="service-inner ">
                             <h4>Mini <span>Miner</span></h4>
-                            <p>Vista Mining will be an industry leading Cryptocurrency mining organization.</p>
+                            <p>Mini Miner Machine.</p>
                             <a href="#" class="read-more">Read More</a>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-6 col-sm-6 bg-gray">
                     <div class="about-wrap">
                         <h5 class="subheading">About us</h5>
                         <h3>Secure &amp; Easy Way to Trade Bitcoin</h3>
@@ -895,7 +895,7 @@
                 </div>  <!-- COl end --> 
                 
                 <div class="col-md-6">
-                   <img src="{{ URL::asset('front/img/about/faqs.jpg') }}" alt="" class="img-responsive">
+                   <img src="{{ URL::asset('front/img/about/faq2.jpg') }}" alt="" class="img-responsive">
                </div>
             </div>
          </div>
@@ -1015,7 +1015,7 @@
                         <ul class="footer-contact">
                             @foreach($general as $gen)
                             <li><i class="fa fa-map-marker"></i>{{ $gen->address }} </li>
-                            <li><i class="fa fa-phone"></i> <span>{{ '+1' . $gen->mobile }}</span></li>
+                            <li><i class="fa fa-phone"></i> <span>{{ '+1 ' . $gen->mobile }}</span></li>
                             <li><i class="fa fa-envelope-o"></i> <span>{{ $gen->email }}</span></li>
                             @endforeach
                         </ul>
