@@ -101,7 +101,7 @@
             <div class="hero-content">
                 <div class="col-sm-12 m-auto text-center white fadeHero">
                     <h6 class="subheading" style="font-size: 16px;">Welcome to</h6>
-                    <h2 class="h1-lg mb10 text-uppercase">Vista Network</h2>
+                    <h2 class="h1-lg mb10 text-uppercase" style="font-weight: 600;">VISTA NETWORK</h2>
                     <h5 class="lead h5-md mt30 mb20">Vista strives to build the strongest, fastest-growing, cryptocurrency network <br/> in the world backed by state-of-the-art hardware and software systems <br/> developed to provide speed, security, and reliability.</h5>
                     <a href="{{ route('register') }}" class="btn btn-default">Join Now</a>
                 </div>
@@ -116,7 +116,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="m-auto text-center ">
-                        <h2 class="f-xbold">Services we provide</h2>
+                        <h2 class="f-xbold">Our Products</h2>
                         <hr class="seperator">
                         <p style="font-size: 16px;">An overnight success ten years in the making, Cryptocurrency is as transformative as it is evolutionary. At last, 2018 is expected to be the year that Cryptocurrency goes mainstream for many businesses and the public. In speaking with many executives and entrepreneurs, we’ve noticed that the path towards Cryptocurrency enlightenment often hinges on corporate culture and specific marketplace conditions. Full Cryptocurrency integration often happens in stages, it’s an evolutionary process for companies and consumers alike. The time of the Blockchain has arrived.</p>
                     </div>
@@ -124,9 +124,10 @@
             </div>
             <div class="row">
                 <div class="col-md 3 col-sm-3">
-                    <div class="service-box text-center active">
+                    <div class="service-box text-center">
                         <div class="icon-box service-icon icon-lg">
-                            <i class="icon ion-social-bitcoin" style="color: #ffffff;"></i>
+                          <!--  <i class="icon ion-social-bitcoin" style="color: #ffffff;"></i> -->
+                          <img src="{{ URL::asset('front/img/service/vista.png') }}" style="width: 145px; height: 145px;">
                         </div>
                         <div class="service-inner">
                             <h4>Vista <span>Coin</span></h4>
@@ -136,9 +137,9 @@
                     </div>
                 </div>
                 <div class="col-md 3 col-sm-3">
-                    <div class="service-box text-center active">
+                    <div class="service-box text-center">
                         <div class="icon-box service-icon icon-lg">
-                            <i class="icon ion-social-bitcoin" style="color: #ffffff;"></i>
+                            <img src="{{ URL::asset('front/img/service/alexa.png') }}" style="width: 145px; height: 145px;">
                         </div>
                         <div class="service-inner">
                             <h4>Alexa <span>Coin</span></h4>
@@ -150,7 +151,7 @@
                 <div class="col-md 3 col-sm-3">
                     <div class="service-box text-center active">
                         <div class="icon-box service-icon icon-lg">
-                            <i class="icon ion-cube" style="color: #ffffff;"></i>
+                            <img src="{{ URL::asset('front/img/service/hplp.jpg') }}" style="width: 110px; height: 110px;">
                         </div>
                         <div class="service-inner ">
                             <h4>Hash <span>Power</span></h4>
@@ -160,9 +161,9 @@
                     </div>
                 </div>
                 <div class="col-md 3 col-sm-3">
-                    <div class="service-box text-center active">
+                    <div class="service-box text-center">
                         <div class="icon-box service-icon icon-lg">
-                            <i class="icon ion-flash-off" style="color: #ffffff;"></i>
+                            <img src="{{ URL::asset('front/img/service/mini_miner.png') }}" style="width: 145px; height: 145px;">
                         </div>
                         <div class="service-inner ">
                             <h4>Mini <span>Miner</span></h4>
@@ -187,22 +188,22 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6 bg-gray">
                     <div class="about-wrap">
-                        <h5 class="subheading">About us</h5>
-                        <h3>Secure &amp; Easy Way to Trade Bitcoin</h3>
-                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Perspiciatis unde omnis iste natus error sit.</p>
+                        <h3>Easy Way to Mine Bitcoin/Monero</h3>
+                        <p>Bitcoin mining is the process by which transactions are verified and added to the public ledger, known as the block chain, and also the means through which new bitcoin are released.</p>
                         <ul class="about-info-list">
                             <li><i class="icon ion-checkmark"></i> Trusted worldwide.</li>
-                            <li><i class="icon ion-checkmark"></i> Securee Wallet service.</li>
-                            <li><i class="icon ion-checkmark"></i> Clean Modern Design.</li>
-                            <li><i class="icon ion-checkmark"></i> Bunch of Experts.</li>
-                            <li><i class="icon ion-checkmark"></i> Lots Of Usefull Features.</li>
+                            <li><i class="icon ion-checkmark"></i> Growth Potencial.</li>
+                            <li><i class="icon ion-checkmark"></i> Digital Diversification.</li>
+                            <li><i class="icon ion-checkmark"></i> Reliability.</li>
+                            <li><i class="icon ion-checkmark"></i> Starting Price: $1495</li>
                         </ul>
                         
-                        <a href="{{ route('register') }}" class="btn btn-primary ">Join Now</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary ">Buy Now</a>
                     </div>
                 </div>
             </div>
         </div>
+        
     </section>
     <!-- End About Section -->
 
@@ -276,12 +277,13 @@
     <section id="features" class="bg-gray section-padding">
         <div class="container">
             <div class="row">
-                <div class="heading m-auto text-center ">
-                    <h2 class="f-xbold">Why Choose Bitcoin</h2>
+                <div class="m-auto text-center ">
+                    <h2 class="f-xbold">Why Choose Vista</h2>
                     <hr class="seperator">
-                    <p>With a belief that culture drives commerce, we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action. Our specialty of connecting brand, culture, and commerce has earned us a big reputation.</p>
+                    <p style="font-size: 16px;">An overnight success ten years in the making, Cryptocurrency is as transformative as it is evolutionary. At last, 2018 is expected to be the year that Cryptocurrency goes mainstream for many businesses and the public. In speaking with many executives and entrepreneurs, we’ve noticed that the path towards Cryptocurrency enlightenment often hinges on corporate culture and specific marketplace conditions. Full Cryptocurrency integration often happens in stages, it’s an evolutionary process for companies and consumers alike. The time of the Blockchain has arrived.</p>
                 </div>
             </div>
+            <br/><br/>
             <div class="row mb50">
                 <div class="col-md-4 col-sm-4">
                     <div class="feature-box">
@@ -470,7 +472,8 @@
                     <h4 class="mb10 lspacing">Give Us A Call</h4>
                     <h1>+1 {{ $mobile }}</h1>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius eum dolor, vel blanditiis obcaecati inventore eos, distinctio molestiae ad veritatis dicta, sed corporis doloremque animi necessitatibus! Ratione totam nemo ea.</p>
+                    <p>Vista is centralizing all of the customer care into one big customer support department. And therefore
+making it easier for all of the members to get their questions answers faster..</p>
 
                     <ul class="social-icons fadeIn">
                         <li><a href="https://www.facebook.com/vistanetworklive"><i class="fa fa-facebook white"></i></a></li>
@@ -637,31 +640,31 @@
              <div class="row">
                 <div class="col-md-3 col-sm-6">
                     <div class="single-project-complete">
-                        <i class="icon ion-thumbsup"></i>
-                        <h3>project complete</h3>
-                        <h2 class="counter-num">1200</h2>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-project-complete">
                         <i class="icon ion-ios-people"></i>
                         <h3>Happy Clients</h3>
-                        <h2 class="counter-num">1000</h2>
+                        <h2 class="counter-num">40000</h2>
 
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="single-project-complete">
+                        <i class="icon ion-thumbsup"></i>
+                        <h3>Transactions</h3>
+                        <h2 class="counter-num">117525</h2>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-project-complete">
                         <i class="icon ion-android-globe"></i>
-                        <h3>Line of Work</h3>
-                        <h2 class="counter-num">56090</h2>
+                        <h3>Products</h3>
+                        <h2 class="counter-num">15</h2>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
                     <div class="single-project-complete">
                         <i class="fa fa-angellist"></i>
                         <h3>Awards won</h3>
-                        <h2 class="counter-num">31</h2>
+                        <h2 class="counter-num">3</h2>
                     </div>
                 </div>
              </div>
@@ -857,7 +860,7 @@
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero, egestas eu tincidunt ac, rutrum ac justo. Vivamus condimentum laoreet lectus, blandit posuere tortor aliquam vitae. Curabitur molestie eros. </p>
+                                    <p>Register today to get started with Vista Network. You can buy Vista products, Vista Coins, Hash Power and Mini Miner. </p>
                                 </div>
                             </div>
                         </div>
@@ -872,7 +875,7 @@
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                 <div class="panel-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero, egestas eu tincidunt ac, rutrum ac justo. Vivamus condimentum laoreet lectus, blandit posuere tortor aliquam vitae. Curabitur molestie eros. </p>
+                                    <p>After successfull registration and after your account approval. You will have the access to your wallet to add and withdraw funds. </p>
                                 </div>
                             </div>
                         </div>
@@ -881,13 +884,13 @@
                             <div class="panel-heading" role="tab" id="headingThree">
                                 <h4 class="panel-title">
                                     <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        What do you need to do a business?
+                                        How to Buy Vista Products?
                                     </a>
                                 </h4>
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                 <div class="panel-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum id pellentesque at, vestibulum ut arcu. Curabitur erat libero, egestas eu tincidunt ac, rutrum ac justo. Vivamus condimentum laoreet lectus, blandit posuere tortor aliquam vitae. Curabitur molestie eros. </p>
+                                    <p>After your account approved, you will have the full access to purchase all the Vista products with our user friendly system to keep log on all activities. </p>
                                 </div>
                             </div>
                         </div>
@@ -966,34 +969,34 @@
                 
                 <div class="col-md-2 col-sm-6">
                     <div class="widget news-widget">
-                        <h4>GLobal Price</h4>
+                        <h4>Vista Menu</h4>
                         
                         <ul>
-                           <li><a href="#">Average Bitcoin Price</a></li>
-                            <li><a href="#">API Documentation</a></li>
-                            <li><a href="#">API Statics</a></li>
-                            <li><a href="#">Currency Market</a></li>
-                            <li><a href="#">Unlimited API request</a></li>
-                            <li><a href="#">Bitcoin Price report 2016</a></li>
+                            <li><a data-scroll href="#hero">Home</a></li>
+                            <li><a data-scroll href="#services">Services</a></li>
+                            <li><a data-scroll href="#about">About</a></li>
+                            <li><a data-scroll href="#features">Features</a></li>
+                            <li><a data-scroll href="#faq">FAQ</a></li>
+                            <li><a data-scroll href="#contact-form">Contact Us</a></li>
                         </ul>
                     </div>
                 </div> 
                 
-                <div class="col-md-2 col-sm-6">
+                <div class="col-md-3 col-sm-6">
                     <div class="widget news-widget">
-                        <h4>Bitcoin Price API</h4>
+                        <h4>Client Resources</h4>
                         
                         <ul>
-                            <li><a href="#">Currency Market</a></li>
-                            <li><a href="#">Unlimited API request</a></li>
-                            <li><a href="#">Bitcoin Price report 2016</a></li>
-                            <li><a href="#">Average Bitcoin Price</a></li>
-                            <li><a href="#">API Documentation</a></li>
-                            <li><a href="#">API Statics</a></li>
+                            <li><a href="{{ route('login') }}">My Wallet</a></li>
+                            <li><a href="{{ route('login') }}">Open Support Ticket</a></li>
+                            <li><a href="{{ route('login') }}">Buy Products</a></li>
+                            <li><a href="{{ route('login') }}">Buy Coins</a></li>
+                            <li><a href="{{ route('login') }}">Buy Mini Miner</a></li>
+                            <li><a href="{{ route('login') }}">Hash Power</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6">
+            <!--    <div class="col-md-2 col-sm-6">
                     <div class="widget news-widget">
                         <h4>Custom Index Price</h4>
                         
@@ -1006,9 +1009,9 @@
                             <li><a href="#">API Statics</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="widget contact-widget">
                         <h4>Contact Us</h4>
                         
