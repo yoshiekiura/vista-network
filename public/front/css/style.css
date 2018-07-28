@@ -450,7 +450,7 @@ nav.navbar {
     transition: .3s;
 }
 .icon-box:hover {
-    background: #ffc000;
+    background: #735A55;
 }
 .service-icon {
     border: 1px solid #ddd;
@@ -486,10 +486,10 @@ nav.navbar {
 }
 .service-box:hover .icon-box,
 .service-box.active .icon-box {
-    background: #428bca;
+    background: #ffffff; 
 }
 .service-box:hover .read-more {
-    color: #ffc000;
+    color: #428bca;
     text-decoration: underline;
 }
 
@@ -544,7 +544,7 @@ nav.navbar {
 }
 .work-icon {
     border: 7px solid#fff;
-    background: #428bca;
+    background: #ffffff;
 }
 .work-icon img {
     width: 50px;

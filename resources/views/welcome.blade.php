@@ -125,7 +125,7 @@
             <div class="row">
                 <div class="col-md 3 col-sm-3">
                     <div class="service-box text-center">
-                        <div class="icon-box service-icon icon-lg">
+                        <div class="icon-box service-icon icon-lg" style="border: none;">
                           <!--  <i class="icon ion-social-bitcoin" style="color: #ffffff;"></i> -->
                           <img src="{{ URL::asset('front/img/service/vista.png') }}" style="width: 145px; height: 145px;">
                         </div>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="col-md 3 col-sm-3">
                     <div class="service-box text-center">
-                        <div class="icon-box service-icon icon-lg">
+                        <div class="icon-box service-icon icon-lg" style="border: none;">
                             <img src="{{ URL::asset('front/img/service/alexa.png') }}" style="width: 145px; height: 145px;">
                         </div>
                         <div class="service-inner">
@@ -149,9 +149,9 @@
                     </div>
                 </div>
                 <div class="col-md 3 col-sm-3">
-                    <div class="service-box text-center active">
-                        <div class="icon-box service-icon icon-lg">
-                            <img src="{{ URL::asset('front/img/service/hplp.jpg') }}" style="width: 110px; height: 110px;">
+                    <div class="service-box text-center">
+                        <div class="icon-box service-icon icon-lg" style="border: none;">
+                            <img src="{{ URL::asset('front/img/service/hashpl.png') }}" style="width: 145px; height: 145px;">
                         </div>
                         <div class="service-inner ">
                             <h4>Hash <span>Power</span></h4>
@@ -162,8 +162,8 @@
                 </div>
                 <div class="col-md 3 col-sm-3">
                     <div class="service-box text-center">
-                        <div class="icon-box service-icon icon-lg">
-                            <img src="{{ URL::asset('front/img/service/mini_miner.png') }}" style="width: 145px; height: 145px;">
+                        <div class="icon-box service-icon icon-lg" style="border: none;">
+                            <img src="{{ URL::asset('front/img/service/mini-miner.png') }}" style="width: 145px; height: 145px;">
                         </div>
                         <div class="service-inner ">
                             <h4>Mini <span>Miner</span></h4>
@@ -231,10 +231,12 @@
                             <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/images.jpeg') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/wallet.jpg') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>create your wallet</h4>
-                                    <p>Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.</p>
+                                    <p>
+                                        Create your wallet that includes Coins Balance, USD Balance and Hash Power Balance.
+                                    </p>
                                 </div>
                             </div>
 
@@ -244,25 +246,31 @@
                                         <img src="{{ URL::asset('front/img/icon/payment.jpeg') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>make payments</h4>
-                                    <p>Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.</p>
+                                    <p>
+                                        Add funds to your wallet through different gateways including paypal, stripe etc.
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/exchange.png') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/buy_coins.jpg') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>Buy or Sell Coins</h4>
-                                    <p>Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.</p>
+                                    <p>
+                                        Vista offer two coins Alexa and Visa, you can buy, sale and transfer coins through our system.
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/exchange.png') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/buy_products.jpg') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>Buy or Sell Products</h4>
-                                    <p>Capitalise on low hanging fruit to identify a ballpark value added activity to beta test.</p>
+                                    <p>
+                                        Vista offer different products that includes Mini Miner machine and many more.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -288,33 +296,33 @@
                 <div class="col-md-4 col-sm-4">
                     <div class="feature-box">
                         <div class="feature-icon">
-                            <img src="{{ URL::asset('front/img/service/service-1.png') }}" alt="" class="img-responsive">
+                            <img src="{{ URL::asset('front/img/service/padlock.png') }}" alt="" class="img-responsive">
                         </div>
                         <div class="feature-inner">
                             <h4>Safe and Secure</h4>
-                            <p>we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action.</p>
+                            <p>Vista Network provides safe and secure system for sale and purchase of our products.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="feature-box">
                         <div class="feature-icon">
-                            <img src="{{ URL::asset('front/img/service/service-2.png') }}" alt="" class="img-responsive">
+                            <img src="{{ URL::asset('front/img/service/payment.png') }}" alt="" class="img-responsive">
                         </div>
                         <div class="feature-inner">
                             <h4>Make Payment</h4>
-                            <p>we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action.</p>
+                            <p>Through Vista network you can make payments i.e. deposit, withdraw and transfer funds.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="feature-box">
                         <div class="feature-icon">
-                            <img src="{{ URL::asset('front/img/service/service-3.png') }}" alt="" class="img-responsive">
+                            <img src="{{ URL::asset('front/img/service/wallet-secure.png') }}" alt="" class="img-responsive">
                         </div>
                         <div class="feature-inner">
                             <h4>Secure Wallet</h4>
-                            <p>we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action.</p>
+                            <p>Through Vista Network you can create secure wallet.</p>
                         </div>
                     </div>
                 </div>
@@ -323,33 +331,33 @@
                  <div class="col-md-4 col-sm-4">
                     <div class="feature-box">
                         <div class="feature-icon">
-                            <img src="{{ URL::asset('front/img/service/service-4.png') }}" alt="" class="img-responsive">
+                            <img src="{{ URL::asset('front/img/service/higher-avail.png') }}" alt="" class="img-responsive">
                         </div>
                         <div class="feature-inner">
                             <h4>Higher Availibilty</h4>
-                            <p>we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action.</p>
+                            <p>Vista Network provides system of higher availibility.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="feature-box">
                         <div class="feature-icon">
-                            <img src="{{ URL::asset('front/img/service/service-5.png') }}" alt="" class="img-responsive">
+                            <img src="{{ URL::asset('front/img/service/recurring.png') }}" alt="" class="img-responsive">
                         </div>
                         <div class="feature-inner">
                             <h4>Recurring Buying</h4>
-                            <p>we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action.</p>
+                            <p>Through Vista Network you can transfer funds to others.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4">
                     <div class="feature-box">
                         <div class="feature-icon">
-                            <img src="{{ URL::asset('front/img/service/service-6.png') }}" alt="" class="img-responsive">
+                            <img src="{{ URL::asset('front/img/service/24hours.png') }}" alt="" class="img-responsive">
                         </div>
                         <div class="feature-inner">
-                            <h4>Instant Exchnage</h4>
-                            <p>we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action.</p>
+                            <h4>Instant Transfer</h4>
+                            <p>Vista Network provides a system for instant transfer of coins, you can instantly transfer coins to others.</p>
                         </div>
                     </div>
                 </div>
