@@ -14,6 +14,7 @@ use App\MemberExtra;
 use App\User;
 use App\General;
 use App\ShippingAddress;
+use App\Mail\RegisterEmail;
 use Carbon\Carbon;
 use Mail;
 
