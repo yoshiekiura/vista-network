@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vista Networ</title>
+  <title>Vista Network</title>
 </head>
 
 <body>
 
-	<b>Dear</b> {{ $verify->first_name }}, <br/>
+	Dear <b>{{ $verify->first_name }}</b>, <br/>
 	<p>
 		Thank you for creating a Vista Network account.
 	</p>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vista Networ</title>
+  <title>Vista Network</title>
 </head>
 
 <body>
 
-	<b>Hello</b> {{ $register->first_name }}&nbsp;{{ $register->last_name }}, <br/>
+	Dear <b>{{ $register->first_name }}&nbsp;{{ $register->last_name }}</b>, <br/>
 	<p>
 		Our warmest congratulations on your new account opening! This only shows that you have grown your business well. I pray for your prosperous.
 	</p>

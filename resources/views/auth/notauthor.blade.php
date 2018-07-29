@@ -143,7 +143,7 @@ data-open="click" data-menu="horizontal-menu" data-col="2-columns">
                             <h4 class="card-title">Verify Code</h4>
                           </div>
                           <div class="card-body">
-                            <form class="form" action="{{route('emailverify') }}" method="POST">
+                            <form class="form" action="{{ route('emailverify') }}" method="POST">
                               {{csrf_field()}}
                               <div class="form-body">
                                 <div class="form-group">

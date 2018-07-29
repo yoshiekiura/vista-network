@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Mail;
 use App\Mail\VerificationEmail;
+use App\Mail\ForgetPasswordEmail;
 
 class FontendController extends Controller
 {
@@ -197,6 +198,7 @@ class FontendController extends Controller
         $this->validate($request, [
             'code' => 'required'
         ]);
+
         $user = User::find(Auth::id());
 
         $code = $request->code;
@@ -272,6 +274,7 @@ class FontendController extends Controller
         $this->validate($request,[
                 'email' => 'required',
             ]);
+
         $user = User::where('email', $request->email)->first();
         if ($user == null)
         {
@@ -280,16 +283,21 @@ class FontendController extends Controller
         else
         {
             $to =$user->email;
-            $name = $user->first_name;
-            $subject = 'Password Reset';
             $code = str_random(30);
-            $message = 'Use This Link to Reset Password: '.url('/').'/reset/'.$code;
+          //  $message = 'Use This Link to Reset Password: '.url('/').'/reset/'.$code;
+            
+            $objPass = new \stdClass();
+            $objPass->first_name = $user->first_name;
+            $objPass->email = $user->email;
+            $objPass->code = $code;
 
             DB::table('password_resets')->insert(
-                ['email' => $to, 'token' => $code, 'status' => 0, 'created_at' => date("Y-m-d h:i:s")]
+                ['email' => $to, 'token' => $code, 'created_at' => date("Y-m-d h:i:s"), 'status' => 0]
             );
 
-            send_email($to, $subject, $name, $message);
+            Mail::to($user->email)->send(new ForgetPasswordEmail($objPass));
+
+        //    send_email($to, $subject, $name, $message);
 
             return back()->with('message', 'Password Reset Email Sent Succesfully');
         }
