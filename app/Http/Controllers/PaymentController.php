@@ -29,12 +29,14 @@ class PaymentController extends Controller
 
         $track = Session::get('Track');
         $data = Deposit::where('trx',$track)->orderBy('id', 'DESC')->first();
+        
         if($data->status != 0)
         {
             return redirect()->back()->with('alert', 'An Error Occurd!');
          //   return response()->json( 'error' );
 
         }
+
         $gatewayData = Gateway::where('id', $data->gateway_id)->first();
 
         if ($data->gateway_id==1)

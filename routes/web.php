@@ -50,6 +50,7 @@ Route::post('/sendsmsver', 'FontendController@sendsmsver')->name('sendsmsver');
 Route::post('/smsverify', 'FontendController@smsverify')->name('smsverify');
 Route::post('/g2fa-verify', 'FontendController@verify2fa')->name('go2fa.verify');
 Route::get('/pagenotfound', 'FontendController@pageNotFound')->name('pagenot.found');
+Route::get('mail/send', 'MailController@send');
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -144,8 +145,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/downloadUsersList', 'ExcelController@downloadUsersList')->middleware('admin');
     Route::post('/users-import', 'ExcelController@usersImport')->name('import.users.list')->middleware('admin');
 
-    Route::get('footer', 'FooterController@footerIndex')->name('footer.content')->middleware('admin');    
-    Route::put('footer_update/{id}', 'FooterController@footerUpdate')->name('footer.update')->middleware('admin');
+  //  Route::get('footer', 'FooterController@footerIndex')->name('footer.content')->middleware('admin');    
+ //   Route::put('footer_update/{id}', 'FooterController@footerUpdate')->name('footer.update')->middleware('admin');
 
     Route::get('/footer', "GeneralController@indexFooter")->name('footer.index.admin')->middleware('admin');
     Route::put('/footer/update', "GeneralController@updateFooter")->name('footer.update')->middleware('admin');
