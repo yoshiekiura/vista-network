@@ -83,10 +83,11 @@ class RegisterController extends Controller
         $ref_id = $data['referrer_id'];
         $poss = $data['position'];
         $posid =  getLastChildOfLR($ref_id,$poss);
+        $to = $data['email'];
 
         Mail::send('mails.registration', $data, function($message) {
-            $message->to($data['email'], 'Vista Network')->subject('Vista Account Created Successfully');
-            $message->from('vista@vibetron.com','Vista Network');
+            $message->to($to, 'Vista Network')->subject('Vista Account Created Successfully');
+            $message->from('vista@vibetron.com', 'Vista Network');
         });
     //    $sms =  'Congratulation, for registration. Your username is '.$data['username'].'. Your password is '.$data['password'].'';
      //   send_sms($data['mobile'], $sms);
