@@ -17,11 +17,11 @@ class RegisterEmail extends Mailable
      * @return void
      */
 
-    public $data;
+    public $register;
 
-    public function __construct($data)
+    public function __construct($register)
     {
-        $this->data = $data;
+        $this->register = $register;
     }
 
     /**
@@ -34,16 +34,9 @@ class RegisterEmail extends Mailable
      //   return $this->view('view.name');
         return $this->from('vista@vibetron.com')
                     ->view('mails.registration')
-                    ->with(
-                      [
-                            'first_name' => $data['first_name'],
-                            'last_name' => $data['last_name'],
-                            'username' => $data['username'],
-                            'password' => $data['password'],
-                      ])
-                      ->attach(public_path('/assets/images/logo').'/logo.png', [
+                    ->attach(public_path('/assets/images/logo').'/logo.png', [
                               'as' => 'logo.png',
                               'mime' => 'image/png',
-                      ]);
+                    ]);
     }
 }
