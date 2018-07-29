@@ -53,6 +53,7 @@
                       <i class="ft-at-sign"></i>
                     </div>
                   </fieldset>
+                  <br/>
                   <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('password') ? ' has-error' : '' }}">
                     <input type="password" class="form-control form-control-lg input-lg" name="password" id="password" tabindex="1" placeholder="New Password" required>
                     @if ($errors->has('password'))
@@ -61,9 +62,10 @@
                         </span>
                     @endif
                     <div class="form-control-position">
-                      <i class="ft-at-sign"></i>
+                      <i class="ft-lock"></i>
                     </div>
                   </fieldset>
+                  <br/>
                   <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                     <input type="password" class="form-control form-control-lg input-lg" name="password_confirmation" id="password-confirm" tabindex="1" placeholder="Confirm Password" required>
                     @if ($errors->has('password_confirmation'))
@@ -72,7 +74,7 @@
                         </span>
                     @endif
                     <div class="form-control-position">
-                      <i class="ft-at-sign"></i>
+                      <i class="ft-lock"></i>
                     </div>
                   </fieldset>
                   <br/>
