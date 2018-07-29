@@ -39,7 +39,7 @@ class RegisterEmail extends Mailable
                       [
                             'testVarOne' => '1',
                             'testVarTwo' => '2',
-                      ]);
+                      ])
                       ->attach(public_path('/assets/images/logo').'/logo.png', [
                               'as' => 'logo.png',
                               'mime' => 'image/png',
