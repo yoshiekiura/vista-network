@@ -15,6 +15,7 @@ use App\User;
 use App\General;
 use App\ShippingAddress;
 use Carbon\Carbon;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -61,8 +62,8 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
             'referrer_id' => 'required',
             'position' => 'required',
-            'first_name' => ['required', 'regex:/^[A-ZÀÂÇÉÈÊËÎÏÔÛÙÜŸÑÆŒa-zàâçéèêëîïôûùüÿñæœ0-9_.,() ]+$/'],
-            'last_name' => ['required', 'regex:/^[A-ZÀÂÇÉÈÊËÎÏÔÛÙÜŸÑÆŒa-zàâçéèêëîïôûùüÿñæœ0-9_.,() ]+$/'],
+            'first_name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
+            'last_name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'username' => 'required',
         ]);
     }
@@ -83,24 +84,11 @@ class RegisterController extends Controller
         $poss = $data['position'];
         $posid =  getLastChildOfLR($ref_id,$poss);
 
-        // $general = General::first();
-
-         $message = '<tr>';
-         $message .='<td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">';
-         $message .='<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;color:green;">Our warmest congratulations on your new account opening! This only shows that you have grown your business well. I pray for your prosperous.</p>';
-                       
-         $message .='<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">You have taken this path knowing that you can do it. Good luck with your new business. I wish you all the success and fulfillment towards your goal.</p>';
-         $message .='<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Your username is '.$data['username'].' .</p>';
-
-         $message .='<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Your password is '.$data['password'].' .</p>';
-
-          $message .='<p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px; color:red;">Remember, never share your password with otherone. And you are agree with our Terms and Policy.</p>';
-          $message .='</td>';
-          $message .='</tr>';
-
-        send_email($data['email'], 'Account Created Successfully', $data['first_name'], $message);
-
-        $sms =  'Congratulation, for registration. Your username is '.$data['username'].'. Your password is '.$data['password'].'';
+        Mail::send('mails.registration', $data, function($message) {
+            $message->to($data['email'], 'Vista Network')->subject('Vista Account Created Successfully');
+            $message->from('vista@vibetron.com','Vista Network');
+        });
+    //    $sms =  'Congratulation, for registration. Your username is '.$data['username'].'. Your password is '.$data['password'].'';
      //   send_sms($data['mobile'], $sms);
 
         return User::create([

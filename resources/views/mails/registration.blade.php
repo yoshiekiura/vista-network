@@ -1,20 +1,29 @@
-Hello <i> Demo</i>,
-<p>This is a demo email for testing purposes! Also, it's the HTML version.</p>
- 
-<p><u>Demo object values:</u></p>
- 
-<div>
-<p><b>Demo One:</b>&nbsp;</p>
-<p><b>Demo Two:</b>&nbsp;</p>
-</div>
- 
-<p><u>Values passed by With method:</u></p>
- 
-<div>
-<p><b>testVarOne:</b>&nbsp;</p>
-<p><b>testVarTwo:</b>&nbsp;</p>
-</div>
- 
-Thank You,
-<br/>
-<i>Vista Network</i>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vista Network</title>
+</head>
+
+<body>
+
+	<b>Hello</b> {{ $data['first_name'] }} &nbsp; {{ $data['last_name'] }} <br/><br/>
+	<p>
+		Our warmest congratulations on your new account opening! This only shows that you have grown your business well. I pray for your prosperous.
+	</p>
+	<p>
+		You have taken this path knowing that you can do it. Good luck with your new business. I wish you all the success and fulfillment towards your goal.
+	</p>
+	<p>
+		Your Username: <b>{{ $data['username'] }}</b><br/>
+		Your Password: <b>{{ $data['password'] }}</b>
+	</p>	
+	<p>
+		Remember, never share your password with others. And you are agree with our Terms and Policy.
+	</p>	
+	<br/>
+	Thank You,
+	<br/>
+	<i>Vista Network</i>
+
+</body>
+</html>
