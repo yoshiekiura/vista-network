@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Mail;
 use App\Mail\VerificationEmail;
 use App\Mail\ForgetPasswordEmail;
+use App\Mail\PasswordChangedEmail;
 
 class FontendController extends Controller
 {
@@ -326,7 +327,9 @@ class FontendController extends Controller
             ]);
 
         $reset = DB::table('password_resets')->where('token', $request->token)->orderBy('created_at', 'desc')->first();
+
         $user = User::where('email', $reset->email)->first();
+        
         if ( $reset->status == 1)
         {
             return redirect()->route('login')->with('alert', 'Invalid Reset Link');
@@ -340,10 +343,14 @@ class FontendController extends Controller
 
                 DB::table('password_resets')->where('email', $user->email)->update(['status' => 1]);
 
-                $msg =  'Password Changed Successfully';
-                send_email($user->email,'Password Changed', $user->username, $msg);
-                $sms =  'Password Changed Successfully';
-                send_sms($user->mobile, $sms);
+                $objChange = new \stdClass();
+                $objChange->first_name = $user->first_name;
+
+            //    $msg =  'Password Changed Successfully';
+                Mail::to($user->email)->send(new PasswordChangedEmail($objChange));
+            //    send_email($user->email,'Password Changed', $user->username, $msg);
+            //    $sms =  'Password Changed Successfully';
+           //     send_sms($user->mobile, $sms);
 
                 return redirect()->route('login')->with('success', 'Password Changed');
             }
