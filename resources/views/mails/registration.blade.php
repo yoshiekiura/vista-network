@@ -6,7 +6,7 @@
 
 <body>
 
-	<b>Hello</b> {{ $register->first_name }} &nbsp; {{ $register->last_name }} <br/><br/>
+	<b>Hello</b> {{ $register->first_name }}&nbsp;{{ $register->last_name }}, <br/>
 	<p>
 		Our warmest congratulations on your new account opening! This only shows that you have grown your business well. I pray for your prosperous.
 	</p>

@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class RegisterEmail extends Mailable
+class VerificationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,12 +16,11 @@ class RegisterEmail extends Mailable
      *
      * @return void
      */
+    public $verify;
 
-    public $register;
-
-    public function __construct($register)
+    public function __construct($verify)
     {
-        $this->register = $register;
+        $this->verify = $verify;
     }
 
     /**
@@ -31,10 +30,9 @@ class RegisterEmail extends Mailable
      */
     public function build()
     {
-     //   return $this->view('view.name');
         return $this->from('vista@vibetron.com')
-                    ->subject('Vista Network: New Account Details')
-                    ->view('mails.registration')
+                    ->subject('Vista Network: Verification Code')
+                    ->view('mails.authorization')
                     ->attach(public_path('/assets/images/logo').'/logo.png', [
                               'as' => 'logo.png',
                               'mime' => 'image/png',

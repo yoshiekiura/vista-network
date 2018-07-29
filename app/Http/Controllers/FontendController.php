@@ -17,6 +17,8 @@ use App\WithdrawTrasection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Mail;
+use App\Mail\VerificationEmail;
 
 class FontendController extends Controller
 {
@@ -151,10 +153,16 @@ class FontendController extends Controller
             $user['vercode'] = $code ;
             $user['vsent'] = time();
             $user->save();
-           send_email($user->email,'Verification Code', $user['first_name'], $message);
+           
+            $objVer = new \stdClass();
+            $objVer->code = $code;
+            $objVer->first_name = $user->first_name;
 
-            $sms = $message;
-            send_sms($user['mobile'], $sms);
+        //    send_email($user->email,'Verification Code', $user['first_name'], $message);
+            Mail::to($user->email)->send(new VerificationEmail($objVer));
+
+        //    $sms = $message;
+         //   send_sms($user['mobile'], $sms);
             return back()->with('success', 'Email verification code sent succesfully');
         }
 

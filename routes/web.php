@@ -50,7 +50,6 @@ Route::post('/sendsmsver', 'FontendController@sendsmsver')->name('sendsmsver');
 Route::post('/smsverify', 'FontendController@smsverify')->name('smsverify');
 Route::post('/g2fa-verify', 'FontendController@verify2fa')->name('go2fa.verify');
 Route::get('/pagenotfound', 'FontendController@pageNotFound')->name('pagenot.found');
-Route::get('mail/send', 'MailController@send');
 
 Route::group(['prefix' => 'admin'], function () {
 
