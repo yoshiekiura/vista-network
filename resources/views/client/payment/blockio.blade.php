@@ -62,11 +62,11 @@
                       
                       <div class="text-center">
 
-                        <h1><img src="{{ asset('assets/images/logo/fsdf.png') }}"style="width:48px;">{{$amon}}
+                        <h1><img src="{{ asset('assets/images/logo/fsdf.png') }}" style="width:48px;">{{$amon}}
                         <i class="fa fa-exchange"></i> <i class="fa fa-bitcoin"></i>{{ $bcoin }}</h1>
                         <br><br><br>
                         <h3> PLEASE SEND EXACTLY <span style="color: green"> {{ $bcoin }} BTC</span> <br><br>
-                          TO <span style="color: green"> {{ $sendadd}}</span> <br></h3>
+                          TO <span style="color: green"> {{ $sendadd }}</span> <br></h3>
                           <br><br>
                           {!! $qrurl !!}
                           <h2 style="font-weight:bold;">SCAN TO SEND</h2>
