@@ -16,7 +16,9 @@ use Stripe\Charge;
 use Stripe\Stripe;
 use Stripe\Token;
 use App\General;
+use App\Mail\DepositFundEmail;
 use Illuminate\Support\Facades\View;
+use Mail;
 
 class PaymentController extends Controller
 {
@@ -559,20 +561,22 @@ class PaymentController extends Controller
                     $data['status'] = 1;
                     $data->save();
 
-                   $general = General::first();
+                    $general = General::first();
 
-         $message ='Welcome! Your payment was processed successfully.</br>   
-         Successfully Add : '.$data['amount'].$general->symbol.'</br>
-          And your current balance is '.$new_balance.$general->symbol.' .';
-        send_email($user['email'], 'Add Fund Successfull' ,$user['first_name'], $message);
+                    $objStripe = new \stdClass();
+                    $objStripe->first_name = $user['first_name'];
+                    $objStripe->amount = $data['amount'];
+                    $objStripe->symbol = $general->symbol;
+                    $objStripe->balance = $new_balance; 
+                    $objStripe->gateway = 'Stripe';
 
-                    $sms = $message;
-                    send_sms($user['mobile'], $sms);
+                    Mail::to($user['email'])->send(new DepositFundEmail($objStripe));
+
+                  //  $sms = $message;
+                 //   send_sms($user['mobile'], $sms);
                 
-
-
             //    return redirect()->route('home')->with('success', 'Added Successfully!');
-                  return redirect()->back()->with('success', 'Added Successfully!');  
+                  return redirect()->back()->with('success', 'Funds Deposit Successfully!');  
 
                 }
 
