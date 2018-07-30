@@ -31,7 +31,7 @@ class ForgetPasswordEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('vista@vibetron.com')
+        return $this->from('contact@vista.network')
                     ->subject('Vista Network: Forget Password')
                     ->view('mails.forget-password')
                     ->attach(public_path('/assets/images/logo').'/logo.png', [

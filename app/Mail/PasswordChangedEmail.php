@@ -30,7 +30,7 @@ class PasswordChangedEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('vista@vibetron.com')
+        return $this->from('contact@vista.network')
                     ->subject('Vista Network: Password Changed')
                     ->view('mails.password-changed')
                     ->attach(public_path('/assets/images/logo').'/logo.png', [

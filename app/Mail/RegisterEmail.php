@@ -32,7 +32,7 @@ class RegisterEmail extends Mailable
     public function build()
     {
      //   return $this->view('view.name');
-        return $this->from('vista@vibetron.com')
+        return $this->from('contact@vista.network')
                     ->subject('Vista Network: New Account Details')
                     ->view('mails.registration')
                     ->attach(public_path('/assets/images/logo').'/logo.png', [

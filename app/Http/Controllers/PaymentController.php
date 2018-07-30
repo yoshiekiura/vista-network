@@ -250,6 +250,9 @@ class PaymentController extends Controller
 
             return view('client.payment.blockio', compact('bcoin','amon','sendadd','qrurl'));
         }
+        elseif($data->gateway_id == 9){
+
+        }
 
 
     }

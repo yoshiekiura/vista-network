@@ -30,7 +30,7 @@ class VerificationEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('vista@vibetron.com')
+        return $this->from('contact@vista.network')
                     ->subject('Vista Network: Verification Code')
                     ->view('mails.authorization')
                     ->attach(public_path('/assets/images/logo').'/logo.png', [

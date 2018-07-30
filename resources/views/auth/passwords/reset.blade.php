@@ -39,9 +39,11 @@
             </div>
             <div class="card-content">
               <div class="card-body">
+                
                 <form class="form-horizontal form-simple" method="post" action="{{ route('reset.passw') }}" accept-charset="UTF-8">
                   {{ csrf_field() }}
                   <input type="hidden" name="token" value="{{ $reset->token }}">
+                  
                   <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('email') ? ' has-error' : '' }}">
                     <input type="email" class="form-control form-control-lg input-lg" name="email" id="email" tabindex="1" value="{{ $reset->email }}" required autofocus readonly>
                     @if ($errors->has('email'))
@@ -54,6 +56,7 @@
                     </div>
                   </fieldset>
                   <br/>
+
                   <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('password') ? ' has-error' : '' }}">
                     <input type="password" class="form-control form-control-lg input-lg" name="password" id="password" tabindex="1" placeholder="New Password" required>
                     @if ($errors->has('password'))
@@ -66,6 +69,7 @@
                     </div>
                   </fieldset>
                   <br/>
+                  
                   <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                     <input type="password" class="form-control form-control-lg input-lg" name="password_confirmation" id="password-confirm" tabindex="1" placeholder="Confirm Password" required>
                     @if ($errors->has('password_confirmation'))
@@ -78,14 +82,15 @@
                     </div>
                   </fieldset>
                   <br/>
+                  
                   <button type="submit" class="btn btn-info btn-block"><i class="ft-lock"></i> Reset Password</button>
+
                 </form>
               </div>
             </div>
             <div class="card-footer">
               <div class="">
               <!--  <p class="float-sm-left text-center m-0"><a href="recover-password.html" class="card-link">Recover password</a></p>  -->
-                <p class="float-sm-right text-center m-0"><a href="{{ route('login') }}" class="card-link">Back</a></p>
               </div>
             </div>
           </div>
