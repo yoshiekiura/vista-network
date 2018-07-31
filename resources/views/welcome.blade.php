@@ -530,7 +530,7 @@ making it easier for all of the members to get their questions answers faster..<
                         </thead>
                         <tbody>
                         <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/1.png') }}" class="currency-icon" alt="">Bitcoin</td>
+                            <td><img src="{{ URL::asset('front/img/coin/bitcoin.jpg') }}" class="currency-icon" alt="">Bitcoin</td>
                             <td>{{ $btcc_usd_euro->data->quotes->USD->price }} $</td>
                             <td class="up">
                                 @if($btcc_usd_euro->data->quotes->USD->percent_change_24h >= 0)
@@ -547,7 +547,7 @@ making it easier for all of the members to get their questions answers faster..<
                             <td>{{ $btcc_usd_euro->data->circulating_supply }}</td>
                         </tr>
                         <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/2.png') }}" class="currency-icon" alt="">Ethereum</td>
+                            <td><img src="{{ URL::asset('front/img/coin/ethereum.jpg') }}" class="currency-icon" alt="">Ethereum</td>
                             <td>{{ $ethh_usd_euro->data->quotes->USD->price }} $</td>
                             <td class="up">
                                 @if($ethh_usd_euro->data->quotes->USD->percent_change_24h >= 0)
@@ -564,7 +564,7 @@ making it easier for all of the members to get their questions answers faster..<
                             <td>{{ $ethh_usd_euro->data->circulating_supply }}</td>
                         </tr>
                         <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/4.png') }}" class="currency-icon" alt="">Ripple</td>
+                            <td><img src="{{ URL::asset('front/img/coin/ripple.jpg') }}" class="currency-icon" alt="">Ripple</td>
                             <td>{{ $xrpp_usd_euro->data->quotes->USD->price }} $</td>
                             <td class="up">
                                 @if($xrpp_usd_euro->data->quotes->USD->percent_change_24h >= 0)
@@ -581,7 +581,7 @@ making it easier for all of the members to get their questions answers faster..<
                             <td>{{ $xrpp_usd_euro->data->circulating_supply }}</td>
                         </tr>
                         <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/8.png') }}" class="currency-icon" alt=""> Litecoin</td>
+                            <td><img src="{{ URL::asset('front/img/coin/litecoin.jpg') }}" class="currency-icon" alt=""> Litecoin</td>
                             <td>{{ $litecoinn_usd_euro->data->quotes->USD->price }} $</td>
                             <td class="up">
                                 @if($litecoinn_usd_euro->data->quotes->USD->percent_change_24h >= 0)
@@ -598,7 +598,7 @@ making it easier for all of the members to get their questions answers faster..<
                             <td>{{ $litecoinn_usd_euro->data->circulating_supply }}</td>
                         </tr>
                         <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/8.png') }}" class="currency-icon" alt=""> IOTA</td>
+                            <td><img src="{{ URL::asset('front/img/coin/iota.jpg') }}" class="currency-icon" alt=""> IOTA</td>
                             <td>{{ $iotaa_usd_euro->data->quotes->USD->price }} $</td>
                             <td class="up">
                                 @if($iotaa_usd_euro->data->quotes->USD->percent_change_24h >= 0)
@@ -615,7 +615,7 @@ making it easier for all of the members to get their questions answers faster..<
                             <td>{{ $iotaa_usd_euro->data->circulating_supply }}</td>
                         </tr>
                         <tr>
-                            <td><img src="{{ URL::asset('front/img/coin/8.png') }}" class="currency-icon" alt=""> Dash</td>
+                            <td><img src="{{ URL::asset('front/img/coin/dash.jpg') }}" class="currency-icon" alt=""> Dash</td>
                             <td>{{ $dashh_usd_euro->data->quotes->USD->price }} $</td>
                             <td class="up">
                                 @if($dashh_usd_euro->data->quotes->USD->percent_change_24h >= 0)

@@ -25,6 +25,8 @@ use App\ShippingAddress;
 use App\Order;
 use App\PaymentFull;
 use App\PaymentInstallment;
+use App\Mail\PasswordChangedEmail;
+use Mail;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -688,6 +690,11 @@ class HomeController extends Controller
                 $password = Hash::make($request->password);
                 $user->password = $password;
                 $user->save();
+
+                $objChange = new \stdClass();
+                $objChange->first_name = $user->first_name;
+
+                Mail::to($user->email)->send(new PasswordChangedEmail($objChange));
 
                 return redirect()->back()->with('message','Password Change Successfully.');
             }else{
