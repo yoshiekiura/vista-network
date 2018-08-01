@@ -50,7 +50,7 @@ $(document).ready(function(){
 		swal({   title: "Sweet!",   text: "Here's a custom image.",   icon: "../../../app-assets/images/icons/thumbs-up.jpg" });
 	});
 
-	$('#hp_detail_alert').on('click',function(){
+	$('.hp_detail_alert').on('click',function(){
 		swal({   title: "Hash Power!",   text: "Hash Power Lay Away Program.",   icon: "../../../app-assets/images/icons/hashpl.png" });
 	});
 

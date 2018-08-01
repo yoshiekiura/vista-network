@@ -1120,7 +1120,7 @@
                           <td><i class="la la-usd"></i> {{ $hp->price }}</td>
                           <td><i class="la la-usd"></i> {{ $hp->total }}</td>
                           <td>
-                            <button class="btn btn-sm round btn-outline-info" id="hp_detail_alert"> View</button>
+                            <button class="btn btn-sm round btn-outline-info hp_detail_alert"> View</button>
                           </td>
                         </tr>
                         @endforeach
