@@ -71,7 +71,13 @@
                               <td>{{$data->transaction_id}}</td>
                               <td>{{$data->commission_rate}} %</td>
                               <td>{{$general->symbol}}{{$data->commission_amount}}</td>
-                              <td>{{$data->description}}</td>
+                              <td>
+                                  @if($data->description == 'HP Daily Commission')
+                                     <label class="text-info">{{$data->description}}</label>
+                                  @else
+                                     <label class="text-warning">{{$data->description}}</label>
+                                  @endif
+                              </td>
                               <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y - h:i A') }}</td>
                           </tr>
                         @endforeach

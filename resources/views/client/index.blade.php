@@ -271,7 +271,7 @@
                       <h6 class="text-muted">Coin</h6>
                     </div>
                     <div class="col-5 text-right">
-                      <h4>{{ $available_vista_coins }}</h4>
+                      <h4>{{ number_format((float)$available_vista_coins, 2) }}</h4>
                       <h6 class="success darken-4">{{ $general->symbol }}{{ $vista_rate }}<!--<i class="la la-arrow-up"></i>--></h6>
                     </div>
                   </div>
@@ -297,7 +297,7 @@
                       <h6 class="text-muted">Coin</h6>
                     </div>
                     <div class="col-5 text-right">
-                      <h4>{{ $available_alxa_coins }}</h4>
+                      <h4>{{ number_format((float)$available_alxa_coins, 2) }}</h4>
                       <h6 class="success darken-4">{{ $general->symbol }}{{ $alxa_rate }}<!--<i class="la la-arrow-up"></i>--></h6>
                     </div>
                   </div>
@@ -323,7 +323,7 @@
                       <h6 class="text-muted">Balance</h6>
                     </div>
                     <div class="col-5 text-right">
-                      <h4>{{ $general->symbol }}{{ Auth::user()->hp_balance }}</h4>
+                      <h4>{{ $general->symbol }}{{ number_format((float)Auth::user()->hp_balance, 2) }}</h4>
                       <h6 class="danger">{{ $hp_commission }}% <!--<i class="la la-arrow-down"></i>--></h6>
                     </div>
                   </div>
@@ -343,7 +343,7 @@
                   <div class="card-body">
                     <div class="media d-flex">
                       <div class="media-body">
-                        <h1>{{$general->symbol}}{{ number_format((float)Auth::user()->balance, 2, '.', '') }}</h1>
+                        <h1>{{$general->symbol}}{{ number_format((float)Auth::user()->balance, 2) }}</h1>
                         <span class="text-muted">Total Balance</span>
                       </div>
                       <div class="align-self-center">
@@ -472,7 +472,7 @@
                               <h5 class="text-bold-600 mb-0">Buy VISTA</h5>
                             </div>
                             <div class="col-8 text-right">
-                              <p class="text-muted mb-0">USD Balance: <span class="usd_balance">{{ $general->symbol }}{{ number_format((float)Auth::user()->balance, 2, '.', '') }}</span></p>
+                              <p class="text-muted mb-0">USD Balance: <span class="usd_balance">{{ $general->symbol }}{{ number_format((float)Auth::user()->balance, 2) }}</span></p>
                             </div>
                           </div>
                           <meta name="csrf-token" content="{{ csrf_token() }}" /> 
@@ -531,7 +531,7 @@
                               <h5 class="text-bold-600 mb-0">Sell VISTA</h5>
                             </div>
                             <div class="col-8 text-right">
-                              <p class="text-muted mb-0">VISTA Balance: <span class="coin_balance">{{ $available_vista_coins }}</span></p>
+                              <p class="text-muted mb-0">VISTA Balance: <span class="coin_balance">{{ number_format((float)$available_vista_coins, 2) }}</span></p>
                             </div>
                           </div>
                           <meta name="csrf-token" content="{{ csrf_token() }}" /> 
@@ -594,7 +594,7 @@
                               <h5 class="text-bold-600 mb-0">Buy ALEXA</h5>
                             </div>
                             <div class="col-8 text-right">
-                              <p class="text-muted mb-0">USD Balance: <span class="usd_balance">{{ $general->symbol }}{{ number_format((float)Auth::user()->balance, 2, '.', '') }}</span></p>
+                              <p class="text-muted mb-0">USD Balance: <span class="usd_balance">{{ $general->symbol }}{{ number_format((float)Auth::user()->balance, 2) }}</span></p>
                             </div>
                           </div>
                           <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -652,7 +652,7 @@
                               <h5 class="text-bold-600 mb-0">Sell ALEXA</h5>
                             </div>
                             <div class="col-8 text-right">
-                              <p class="text-muted mb-0">BTC Balance: <span class="coin_balance">{{ $available_alxa_coins }}</span></p>
+                              <p class="text-muted mb-0">Alexa Balance: <span class="coin_balance">{{ number_format((float)$available_alxa_coins, 2)  }}</span></p>
                             </div>
                           </div>
                           <meta name="csrf-token" content="{{ csrf_token() }}" /> 
@@ -1106,7 +1106,7 @@
                         <th>Product</th>
                         <th>Price</th>
                         <th>Total</th>
-                        <th>Cancel</th>
+                        <th>Details</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1120,7 +1120,7 @@
                           <td><i class="la la-usd"></i> {{ $hp->price }}</td>
                           <td><i class="la la-usd"></i> {{ $hp->total }}</td>
                           <td>
-                            <button class="btn btn-sm round btn-outline-danger"> Cancel</button>
+                            <button class="btn btn-sm round btn-outline-info" id="hp_detail_alert"> View</button>
                           </td>
                         </tr>
                         @endforeach

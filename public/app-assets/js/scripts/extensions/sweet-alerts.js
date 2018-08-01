@@ -50,6 +50,10 @@ $(document).ready(function(){
 		swal({   title: "Sweet!",   text: "Here's a custom image.",   icon: "../../../app-assets/images/icons/thumbs-up.jpg" });
 	});
 
+	$('#hp_detail_alert').on('click',function(){
+		swal({   title: "Hash Power!",   text: "Hash Power Lay Away Program.",   icon: "../../../app-assets/images/icons/hashpl.png" });
+	});
+
 	$('#auto-close').on('click',function(){
 		swal({   title: "Auto close alert!",   text: "I will close in 2 seconds.",   timer: 2000,   showConfirmButton: false });
 	});
