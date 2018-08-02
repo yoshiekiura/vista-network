@@ -592,7 +592,7 @@ class AdminController extends Controller
                     'description' => 'ADMIN'. '#ID'.'-'.'ADD'.rand(),
                     'amount' => $request->amount,
                     'new_balance' => $new_balance,
-                    'type' => 5,
+                    'type' => 10,
                 ]);
 
                 send_email($user['email'], 'Admin Balance Add' ,$user['first_name'], $message);
@@ -615,7 +615,7 @@ class AdminController extends Controller
                         'description' => 'ADMIN'. '#ID'.'-'.'SUBTRACT'.rand(),
                         'amount' => '-'.$request->amount,
                         'new_balance' => $new_balance,
-                        'type' => 6,
+                        'type' => 11,
                     ]);
 
                     send_email($user['email'], 'Admin Balance Subtract' ,$user['first_name'], $message);

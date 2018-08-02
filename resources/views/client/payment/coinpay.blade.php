@@ -8,11 +8,11 @@
     <div class="row breadcrumbs-top">
       <div class="breadcrumb-wrapper col-12">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a>
+          <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a>
           </li>
-          <li class="breadcrumb-item"><a href="#">Dashboard</a>
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a>
           </li>
-          <li class="breadcrumb-item"><a href="#">Deposit Funds</a>
+          <li class="breadcrumb-item"><a href="{{ route('add.fund.index') }}">Deposit Funds</a>
           </li>
           <li class="breadcrumb-item active">Coin Payment
           </li>
