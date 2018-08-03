@@ -23,7 +23,7 @@ class HashpowerController extends Controller
     
     public function index()
     {
-        $product = HashPower::orderBy('id', 'asc')->paginate(8);
+        $product = HashPower::orderBy('id', 'asc')->paginate(12);
         $hp_comm = ChargeCommision::where('id', 1)->value('hp_commission');
         $hp_bonus = ChargeCommision::where('id', 1)->value('hp_miner_bonus');
 

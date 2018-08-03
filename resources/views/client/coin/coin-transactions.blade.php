@@ -72,7 +72,7 @@
                           <td>{{ $key+1 }}</td>
                           <td>{{ $data->transaction_id }}</td>
                           <th>
-                              @if($data->coin->name == "ALEXA Coin")
+                              @if($data->coin_id == 1)
                                 <span class="primary">{{ $data->coin->name }}</span>
                               @else
                                 <span class="warning">{{ $data->coin->name }}</span>

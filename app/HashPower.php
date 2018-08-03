@@ -16,6 +16,6 @@ class HashPower extends Model
 
     public function hptransaction()
     {
-        return $this->belongsTo(HpTransaction::class)->withDefault();
+        return $this->belongsTo(HashPower::class)->withDefault();
     }
 }
