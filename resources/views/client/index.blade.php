@@ -1116,7 +1116,7 @@
                           <td>{{ $hp->created_at }}</td>
                           <td class="success">Deposit</td>
                           <td><i class="la la-stop"></i> {{ $hp->transaction_id }}</td>
-                          <td><i class="la la-sort"></i> {{ $hp->hashproduct->title }}</td>
+                          <td><i class="la la-sort"></i> {{ $hp->hashpower->title }}</td>
                           <td><i class="la la-usd"></i> {{ $hp->price }}</td>
                           <td><i class="la la-usd"></i> {{ $hp->total }}</td>
                           <td>

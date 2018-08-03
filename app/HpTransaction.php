@@ -17,7 +17,7 @@ class HpTransaction extends Model
         return $this->hasOne(User::class, 'id', 'user_id')->withDefault();
     }
 
-    public function hashproduct()
+    public function hashpower()
     {
         return $this->hasOne(HashPower::class, 'id', 'product_id')->withDefault();
     }

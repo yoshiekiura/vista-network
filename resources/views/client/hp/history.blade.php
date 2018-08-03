@@ -78,7 +78,7 @@
                     <tr>
                       <td>{{ $key+1 }}</td>
                       <td>{{ $data->transaction_id }}</td>
-                      <td><a href="{{ route('hp.user.index') }}">{{ $data->hashproduct->title }}</a></td>
+                      <td><a href="{{ route('hp.user.index') }}">{{ $data->hashpower->title }}</a></td>
                       <td>{{ $general->symbol }}{{ $data->price }}</td>
                       <td>{{ $general->symbol }}{{ $data->total }}</td>
                       <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y') }}</td>

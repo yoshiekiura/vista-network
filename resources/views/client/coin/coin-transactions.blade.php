@@ -75,7 +75,7 @@
                               @if($data->coin_id == 1)
                                 <span class="primary">{{ $data->coin->name }}</span>
                               @else
-                                <span class="warning">{{ $data->coin->name }}</span>
+                                <span class="danger">{{ $data->coin->name }}</span>
                               @endif
                           </th>
                           <td>{{ $general->symbol }}{{ $data->rate }}</td>

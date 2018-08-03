@@ -48,7 +48,7 @@
                                         <tr id="row1">
                                             <td> <b>{{$data->transaction_id}}</b></td>
                                             <td> {{$data->memberrr->first_name}} {{$data->memberrr->last_name}}</td>
-                                            <td> {{$data->hashproduct->title}} </td>
+                                            <td> {{$data->hashpower->title}} </td>
                                             <td class="text-center"><b>{{$data->qty}} </b></td>
                                             <td> {{$general->symbol}} {{$data->price}}</td>
                                             <td> {{$general->symbol}} {{$data->total}}</td>
