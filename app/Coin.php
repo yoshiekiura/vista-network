@@ -17,6 +17,6 @@ class Coin extends Model
 
     public function cointransaction()
     {
-        return $this->belongsTo(Coin::class)->withDefault();
+        return $this->belongsTo(CoinTransaction::class)->withDefault();
     }
 }
