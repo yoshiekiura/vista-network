@@ -33,7 +33,7 @@ use Intervention\Image\Facades\Image;
 use DB;
 use Mail;
 use App\Mail\AdminEmailtoUser;
-use App\Mail\ShipmentMessageProcessed;
+use App\Mail\ShipmentMessageProcessedd; 
 use App\Mail\ShipmentMessageDelivered;
 use App\Mail\ShipmentMessageRejected;
 
@@ -881,7 +881,7 @@ class AdminController extends Controller
             $objShip->first_name = $user->first_name;
             $objShip->order_id = $p->order_id;
 
-            Mail::to($user->email)->send(new ShipmentMessageProcessed($objShip));
+            Mail::to($user->email)->send(new ShipmentMessageProcessedd($objShip));
             
         //    send_email($user['email'], 'Product Processed' ,$user['first_name'], $message);
             $p->save();

@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ShipmentMessagestoUser extends Mailable
+class ShipmentMessageProcessedd extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,7 +16,6 @@ class ShipmentMessagestoUser extends Mailable
      *
      * @return void
      */
-
     public $ship;
 
     public function __construct($ship)
