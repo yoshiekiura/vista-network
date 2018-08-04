@@ -4,7 +4,7 @@
 @include('client.partials._head')
 
 <body class="horizontal-layout horizontal-menu horizontal-menu-padding 2-columns   menu-expanded"
-data-open="click" data-menu="horizontal-menu" data-col="2-columns">
+data-open="hover" data-menu="horizontal-menu" data-col="2-columns">
 
 @include('client.partials._fixed-top')
 

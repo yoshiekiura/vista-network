@@ -31,6 +31,11 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use DB;
+use Mail;
+use App\Mail\AdminEmailtoUser;
+use App\Mail\ShipmentMessageProcessed;
+use App\Mail\ShipmentMessageDelivered;
+use App\Mail\ShipmentMessageRejected;
 
 class AdminController extends Controller
 {
@@ -639,7 +644,16 @@ class AdminController extends Controller
         $user = User::find($id);
         $subject =$request->subject;
         $message = $request->message;
-        send_email($user['email'], $subject ,$user['first_name'], $message);
+        
+        $objAdmin = new \stdClass();
+        $objAdmin->first_name = $user->first_name;
+        $objAdmin->subject = $subject;
+        $objAdmin->message = $message;
+
+        Mail::to($user->email)->send(new AdminEmailtoUser($objAdmin));
+
+        // send_email($user['email'], $subject ,$user['first_name'], $message);
+        
         return redirect()->back()->withMsg('Mail Send');
 
     }
@@ -862,8 +876,14 @@ class AdminController extends Controller
             ->update([
                 'status' => 1,
             ]);
+
+            $objShip = new \stdClass();
+            $objShip->first_name = $user->first_name;
+            $objShip->order_id = $p->order_id;
+
+            Mail::to($user->email)->send(new ShipmentMessageProcessed($objShip));
             
-            send_email($user['email'], 'Product Processed' ,$user['first_name'], $message);
+        //    send_email($user['email'], 'Product Processed' ,$user['first_name'], $message);
             $p->save();
 
             return redirect('admin/shipment')->withMsg('Successfully Done');
@@ -878,7 +898,12 @@ class AdminController extends Controller
                 'status' => 2,
             ]);
 
-            send_email($user['email'], 'Product Delivered' ,$user['first_name'], $message);
+            $objShip = new \stdClass();
+            $objShip->first_name = $user->first_name;
+            $objShip->order_id = $p->order_id;
+
+            Mail::to($user->email)->send(new ShipmentMessageDelivered($objShip));
+        //    send_email($user['email'], 'Product Delivered' ,$user['first_name'], $message);
             $p->save();
             return redirect('admin/shipment')->withMsg('Successfully Done');
 
@@ -890,11 +915,19 @@ class AdminController extends Controller
             $user = User::findOrFail($p->user_id);
             $user->balance = $user->balance + $p->price;
             $user->save();
+            
             Order::whereId($oid)
             ->update([
                 'status' => 3,
             ]);
-            send_email($user['email'], 'Buy Request Rejected And Product Price Added' ,$user['first_name'], $message);
+
+            $objShip = new \stdClass();
+            $objShip->first_name = $user->first_name;
+            $objShip->order_id = $p->order_id;
+
+            Mail::to($user->email)->send(new ShipmentMessageRejected($objShip));
+
+        //    send_email($user['email'], 'Buy Request Rejected And Product Price Added' ,$user['first_name'], $message);
 
             return redirect('admin/shipment')->withMsg('Successfully Done');
         }

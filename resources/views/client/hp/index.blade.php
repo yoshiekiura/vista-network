@@ -50,7 +50,9 @@
                             swal("Warning!", "Your do not have enough balance!", "error");
                           }else{
                             swal("Success!", "Your have successfully deposit in your HP Wallet!", "success");
+                            var remain_bal = 5000 - result;
                             $('#hp_bal').html(result);
+                            $('#remain_bal').html(remain_bal);
                           } 
                       },
                       error: function (data) {
@@ -123,6 +125,7 @@
         <div class="heading-elements">
           <div class="dropdown">
             <button class="btn btn-sm round btn-danger btn-glow"><i class="la la-sort font-medium-1"></i> HP Balance: {{ $general->symbol }}<span id="hp_bal">{{ Auth::user()->hp_balance }}</span></button>
+            <button class="btn btn-sm round btn-primary btn-glow"><i class="la la-sort font-medium-1"></i> 1st Milestone Remaining Balance: {{ $general->symbol }}<span id="remain_bal">{{ 5000 - Auth::user()->hp_balance }}</span></button>
           </div>
         </div>
       </div>

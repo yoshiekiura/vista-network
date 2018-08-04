@@ -85,7 +85,7 @@
               <div class="col-lg-4 col-md-12 col-sm-12 border-right-blue-grey border-right-lighten-5">
                 <div class="p-1 text-center">
                   <div>
-                    <h3 class="display-4 blue-grey darken-1">{{ $available_vista_coins }}</h3>
+                    <h3 class="display-4 blue-grey darken-1">{{ number_format((float)$available_vista_coins, 2) }}</h3>
                     <span class="blue-grey darken-1">VISTA COINS</span>
                   </div>
                   <br/>
@@ -107,7 +107,7 @@
               <div class="col-lg-4 col-md-12 col-sm-12 border-right-blue-grey border-right-lighten-5">
                 <div class="p-1 text-center">
                   <div>
-                    <h3 class="display-4 blue-grey darken-1">{{ $available_alxa_coins }}</h3>
+                    <h3 class="display-4 blue-grey darken-1">{{ number_format((float)$available_alxa_coins, 2) }}</h3>
                     <span class="blue-grey darken-1">ALEXA COINS</span>
                   </div>
                   <br/>

@@ -3,7 +3,7 @@
     <div class="navbar-container main-menu-content container center-layout" data-menu="menu-container">
       <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
         <li class="dropdown nav-item" data-menu="dropdown">
-          <a class="dropdown-toggle nav-link" href="{{ route('home') }}"><i class="la la-home"></i>
+          <a class="nav-link" href="{{ route('home') }}"><i class="la la-home"></i>
             <span>Dashboard</span>
           </a>
         </li>

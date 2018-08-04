@@ -56,6 +56,7 @@
             <div class="heading-elements">
               <td>
                   <button class="btn btn-sm round btn-danger btn-glow"><i class="la la-sort font-medium-1"></i> HP Balance: {{ $general->symbol }}{{ Auth::user()->hp_balance }}</button>
+                  <button class="btn btn-sm round btn-primary btn-glow"><i class="la la-sort font-medium-1"></i> 1st Milestone Remaining Balance: {{ $general->symbol }}<span id="remain_bal">{{ 5000 - Auth::user()->hp_balance }}</span></button>
               </td>
             </div>
           </div>

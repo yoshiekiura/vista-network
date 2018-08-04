@@ -222,7 +222,7 @@
                 </a>
             </li>
 
-            <li class="nav-item start @php echo "active",(request()->path() != 'admin/users')?:"";@endphp">
+            <li class="nav-item start {{ request()->path() == 'admin/users' || request()->path() == 'admin/users/detail/' ? "active" : "" }}">
                 <a href="{{route('user.manage')}}" class="nav-link nav-toggle">
                     <i class="fas fa-users"></i>
                     <span class="title">Users Management</span>
