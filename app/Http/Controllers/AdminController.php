@@ -17,6 +17,7 @@ use App\HPImage;
 use App\Withdraw;
 use App\ShippingAddress;
 use App\WithdrawTrasection;
+use App\Notification;
 use App\SchedulePayment;
 use App\PaymentInstallment;
 use App\CoinTransaction;
@@ -641,6 +642,11 @@ class AdminController extends Controller
 
     public function userSendMailUser(Request $request, $id)
     {
+        $this->validate($request,[
+            'subject' => 'required',
+            'message' => 'required|max:500',
+        ]);
+
         $user = User::find($id);
         $subject =$request->subject;
         $message = $request->message;
@@ -656,6 +662,27 @@ class AdminController extends Controller
         
         return redirect()->back()->withMsg('Mail Send');
 
+    }
+
+    public function userSendNotification($id)
+    {
+        $user = User::find($id);
+        return view('admin.user_mmanagement.user_notifications',compact('user'));   
+    }
+
+    public function userSendNotificationUser(Request $request, $id)
+    {
+        $user = User::find($id);
+        $subject =$request->subject;
+        $message = $request->message;
+
+        Notification::create([
+            'user_id' => $id,
+            'subject' => $subject,
+            'message' => $message
+        ]);
+
+         return redirect()->back()->withMsg('Notification Send');
     }
 
     public function matchIndex()
@@ -880,6 +907,7 @@ class AdminController extends Controller
             $objShip = new \stdClass();
             $objShip->first_name = $user->first_name;
             $objShip->order_id = $p->order_id;
+            $objShip->message = $message;
 
             Mail::to($user->email)->send(new ShipmentMessageProcessedd($objShip));
             
@@ -901,6 +929,7 @@ class AdminController extends Controller
             $objShip = new \stdClass();
             $objShip->first_name = $user->first_name;
             $objShip->order_id = $p->order_id;
+            $objShip->message = $message;
 
             Mail::to($user->email)->send(new ShipmentMessageDelivered($objShip));
         //    send_email($user['email'], 'Product Delivered' ,$user['first_name'], $message);
@@ -924,6 +953,7 @@ class AdminController extends Controller
             $objShip = new \stdClass();
             $objShip->first_name = $user->first_name;
             $objShip->order_id = $p->order_id;
+            $objShip->message = $message;
 
             Mail::to($user->email)->send(new ShipmentMessageRejected($objShip));
 

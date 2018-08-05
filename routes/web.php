@@ -96,7 +96,9 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::post('/users/amount/{id}', 'AdminController@indexBalanceUpdate')->name('user.balance.update')->middleware('admin');
     Route::get('/users/send/mail/{id}', 'AdminController@userSendMail')->name('user.mail.send')->middleware('admin');
+    Route::get('/users/send/notification/{id}', 'AdminController@userSendNotification')->name('user.notification.send')->middleware('admin');
     Route::post('/send/mail/{id}', 'AdminController@userSendMailUser')->name('send.mail.user')->middleware('admin');
+    Route::post('/send/notification/{id}', 'AdminController@userSendNotificationUser')->name('send.notification.user')->middleware('admin');
     Route::get('/users/balance/{id}', 'AdminController@indexUserBalance')->name('add.subs.index')->middleware('admin');
     Route::get('/users/detail/{id}', 'AdminController@indexUserDetail')->name('user.view')->middleware('admin');
     Route::put('/users/update/{id}', 'AdminController@userUpdate')->name('user.detail.update')->middleware('admin');
@@ -243,6 +245,7 @@ Route::group(['middleware' => 'prevent-back-history'],function(){
 
 Route::group(['middleware' => 'web'], function() {
 	Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/hash-power-task-progress', 'HomeController@getHPTaskProgress');
 	Route::get('/profile', 'HomeController@profileIndex')->name('profile.index');
 	Route::put('/profile/update', 'HomeController@updateProfile')->name('profile.update');
 	Route::get('/shipping', 'HomeController@shippingIndex')->name('shipping.index');

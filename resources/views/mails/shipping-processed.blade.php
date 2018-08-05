@@ -10,6 +10,9 @@
 	<p>
 		You order {{ $ship->order_id }} have successfully processed!<br/>
 	</p>	
+	<p>
+		{{ $ship->message }}
+	</p>
 	<br/>
 	Thank You,
 	<br/>

@@ -92,6 +92,12 @@ class HomeController extends Controller
     //    return view('client.index',compact('available_alxa_coins','available_vista_coins','alxa_rate','vista_rate','alexa_trade','vista_trade','hashpower'));
     }
 
+    public function getHPTaskProgress()
+    {
+        $hp_balance = User::where('id', Auth::user()->id)->value('hp_balance');
+        return $hp_balance;
+    }
+
     public function binarySummeryindex()
     {
         $cbv = MemberExtra::where('user_id', Auth::user()->id)->first();

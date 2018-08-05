@@ -12,7 +12,7 @@
 	</p>
 	<p>
 		<b>Subject:</b> {{ $admin->subject }} <br/>
-		<b>Message:</b> {{ $admin->message }}
+		<b>Message:</b> {!! $admin->message !!}
 	</p>	
 	<br/>
 	Thank You,

@@ -40,6 +40,17 @@ $(window).on("load", function(){
             // ------------------------------
             var myChart = ec.init(document.getElementById('task-pie-chart'));
 
+            $.ajax({
+                type: "GET",
+                url: "/hash-power-task-progress",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    balance = data;
+                    remaining = 5000 - data;
+                }
+            });
+
             // Chart Options
             // ------------------------------
             chartOptions = {
@@ -61,18 +72,19 @@ $(window).on("load", function(){
                 legend: {
                     orient: 'horizontal',
                     x: 'left',
-                    data: ['Open', 'Closed']
+                    data: ['Remaining', 'Balance']
                 },
 
                 // Add custom colors
-                color: ['#FECEA8', '#FF847C'],
+              //  color: ['#FECEA8', '#FF847C'],
+                color: ['#1E9FF2', '#FF6221'],
 
                 // Display toolbox
                 toolbox: {
                     show: true,
                     orient: 'horizontal',
                     //Enable if you need
-                    /*feature: {
+                    feature: {
                         magicType: {
                             show: true,
                             title: {
@@ -100,7 +112,7 @@ $(window).on("load", function(){
                             title: 'Same as image',
                             lang: ['Save']
                         }
-                    }*/
+                    } 
                 },
 
                 // Enable drag recalculate
@@ -108,13 +120,13 @@ $(window).on("load", function(){
 
                 // Add series
                 series: [{
-                    name: 'Browsers',
+                    name: 'Hash Power',
                     type: 'pie',
                     radius: '70%',
                     center: ['50%', '57.5%'],
                     data: [
-                        {value: 18, name: 'Open'},
-                        {value: 82, name: 'Closed'}
+                        {value: remaining, name: 'Remaining'},
+                        {value: balance, name: 'Balance'}
                     ]
                 }]
             };

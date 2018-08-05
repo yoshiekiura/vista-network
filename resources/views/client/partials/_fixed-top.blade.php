@@ -194,13 +194,13 @@
                   href="#"><i class="flag-icon flag-icon-de"></i> German</a></div>
             </li>  -->
             @php
-              $ship = \App\ShippingAddress::where('user_id', Auth::user()->id)->value('street_address');
-              $datetime = \App\ShippingAddress::where('user_id', Auth::user()->id)->value('created_at');
+            
+              $count_noti = \App\Notification::where('user_id', Auth::user()->id)->where('status', 0)->count();
             @endphp
             <li class="dropdown dropdown-notification nav-item">
               <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
-                @if($ship == "" || $ship == NULL)
-                  <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">1</span>
+                @if($count_noti >= 1)
+                  <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">{{ $count_noti }}</span>
                 @endif
               </a>
               <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
@@ -208,35 +208,39 @@
                   <h6 class="dropdown-header m-0">
                     <span class="grey darken-2">Notifications</span>
                   </h6>
-                <!--  <span class="notification-tag badge badge-default badge-danger float-right m-0">1 New</span> -->
+                  @if($count_noti >= 1)
+                    <span class="notification-tag badge badge-default badge-danger float-right m-0">{{ $count_noti }} New</span>
+                  @endif   
                 </li>
                 <li class="scrollable-container media-list w-100">
-                  @if($ship == "" || $ship == NULL)
+                                    
+                  @php
+                    $noti = \App\Notification::where('user_id', Auth::user()->id)->take(5)->get();
+                  @endphp
+                  @foreach($noti as $no)
                   <a href="javascript:void(0)">
                     <div class="media">
-                      <div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+                      <div class="media-left align-self-center"><i class="ft-check-circle icon-bg-circle bg-cyan"></i></div>
                       <div class="media-body">
-                        <h6 class="media-heading">Shipping Address!</h6>
-                        <p class="notification-text font-small-3 text-muted">Your shipping address is missing...</p>
+                        <h6 class="media-heading">{{ $no->subject }}</h6>
+                        @php
+                          $message = strlen($no->message);
+                          $message_sub = substr($no->message, 0,34);
+                          if($message < 34)
+                            $message_new = $message;
+                          else
+                            $message_new = $message_sub . "..."; 
+                        @endphp
+                        <p class="notification-text font-small-3 text-muted">{!! $message_new !!}</p>
                         <small>
-                          <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">{{ $datetime }}</time>
+                          <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">
+                            {{ \Carbon\Carbon::createFromTimeStamp(strtotime($no->created_at))->diffForHumans() }}
+                          </time>
                         </small>
                       </div>
                     </div>
                   </a>
-                  @else
-                  <a href="javascript:void(0)">
-                    <div class="media">
-                      <div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
-                      <div class="media-body">
-                        <h6 class="media-heading">No New Notification</h6>
-                        <small>
-                          <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">0 minutes ago</time>
-                        </small>
-                      </div>
-                    </div>
-                  </a>
-                  @endif
+                  @endforeach
                 <!--  <a href="javascript:void(0)">
                     <div class="media">
                       <div class="media-left align-self-center"><i class="ft-download-cloud icon-bg-circle bg-red bg-darken-1"></i></div>

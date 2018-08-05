@@ -145,12 +145,16 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="row">
-                                    <div class="col-md-6 uppercase">
+                                    <div class="col-md-4 uppercase">
                                         <a href="{{route('add.subs.index', $user->id)}}" class="btn blue btn-lg btn-block"> <i class="fas fa-money-bill-alt"></i> add / substruct balance  </a>
                                     </div>
 
-                                    <div class="col-md-6 uppercase">
+                                    <div class="col-md-4 uppercase">
                                         <a href="{{route('user.mail.send', $user->id)}}" class="btn btn-info btn-lg btn-block"> <i class="fa fa-envelope"></i> send email  </a>
+                                    </div>
+
+                                    <div class="col-md-4 uppercase">
+                                        <a href="{{route('user.notification.send', $user->id)}}" class="btn btn-info btn-lg btn-block"> <i class="fa fa-bell"></i> send notification  </a>
                                     </div>
 
                                 </div>

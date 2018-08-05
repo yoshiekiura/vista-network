@@ -362,87 +362,6 @@
 
         <!-- Trade History & Place Order -->
         <div class="row">
-          <div class="col-12 col-xl-4">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">Trade History</h4>
-                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <label class="btn round btn-sm btn-outline-info active" id="vista">
-                      <input type="radio" name="trade" value="Vista"> Vista
-                    </label>
-                    <label class="btn round btn-sm btn-outline-info" id="alexa">
-                      <input type="radio" name="trade" value="Alexa"> Alexa
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div class="card-content">
-                <div class="table-responsive mt-1">
-                  
-                  <table class="table table-xs" id="vista_trade">
-                    <thead>
-                      <tr>
-                        <th>Price($)</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @if(!$vista_trade->isEmpty())
-                        @foreach($vista_trade as $vista)
-                        <tr>
-                          @if($vista->amount < 0)
-                            <td class="danger">{{ $vista->rate }}</td>
-                          @else
-                            <td class="success">{{ $vista->rate }}</td>
-                          @endif
-                          <td><i class="cc BTC-alt"></i> {{ abs($vista->amount) }}</td>
-                          <td>{{ date("m.d.y", strtotime($vista->created_at)) }}</td>
-                        </tr>
-                        @endforeach
-                      @else
-                        <tr>
-                            <td colspan="4">No Vista Coin Transaction Found!</td>
-                        </tr>  
-                      @endif  
-                    </tbody>
-                  </table>
-
-                  <table class="table table-xs" id="alexa_trade">
-                    <thead>
-                      <tr>
-                        <th>Price($)</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @if(!$alexa_trade->isEmpty())
-                        @foreach($alexa_trade as $alexa)
-                        <tr>
-                          @if($alexa->amount < 0)
-                            <td class="danger">{{ $alexa->rate }}</td>
-                          @else
-                            <td class="success">{{ $alexa->rate }}</td>
-                          @endif
-                          <td><i class="cc BTC-alt"></i> {{ abs($alexa->amount) }}</td>
-                          <td>{{ date("m.d.y", strtotime($alexa->created_at)) }}</td>
-                        </tr>
-                        @endforeach
-                      @else
-                        <tr>
-                            <td colspan="4">No Alexa Coin Transaction Found!</td>
-                        </tr>  
-                      @endif  
-                    </tbody>
-                  </table>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="col-12 col-xl-8">
             <div class="card">
               <div class="card-header">
@@ -711,6 +630,107 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-12 col-xl-4">
+            @if($hashpower->isEmpty())
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Trade History</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn round btn-sm btn-outline-info active" id="vista">
+                      <input type="radio" name="trade" value="Vista"> Vista
+                    </label>
+                    <label class="btn round btn-sm btn-outline-info" id="alexa">
+                      <input type="radio" name="trade" value="Alexa"> Alexa
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="table-responsive mt-1">      
+                  <table class="table table-xs" id="vista_trade">
+                    <thead>
+                      <tr>
+                        <th>Price($)</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @if(!$vista_trade->isEmpty())
+                        @foreach($vista_trade as $vista)
+                        <tr>
+                          @if($vista->amount < 0)
+                            <td class="danger">{{ $vista->rate }}</td>
+                          @else
+                            <td class="success">{{ $vista->rate }}</td>
+                          @endif
+                          <td><i class="cc BTC-alt"></i> {{ abs($vista->amount) }}</td>
+                          <td>{{ date("m.d.y", strtotime($vista->created_at)) }}</td>
+                        </tr>
+                        @endforeach
+                      @else
+                        <tr>
+                            <td colspan="4">No Vista Coin Transaction Found!</td>
+                        </tr>  
+                      @endif  
+                    </tbody>
+                  </table>
+
+                  <table class="table table-xs" id="alexa_trade">
+                    <thead>
+                      <tr>
+                        <th>Price($)</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @if(!$alexa_trade->isEmpty())
+                        @foreach($alexa_trade as $alexa)
+                        <tr>
+                          @if($alexa->amount < 0)
+                            <td class="danger">{{ $alexa->rate }}</td>
+                          @else
+                            <td class="success">{{ $alexa->rate }}</td>
+                          @endif
+                          <td><i class="cc BTC-alt"></i> {{ abs($alexa->amount) }}</td>
+                          <td>{{ date("m.d.y", strtotime($alexa->created_at)) }}</td>
+                        </tr>
+                        @endforeach
+                      @else
+                        <tr>
+                            <td colspan="4">No Alexa Coin Transaction Found!</td>
+                        </tr>  
+                      @endif  
+                    </tbody>
+                  </table>
+                  
+                </div>
+              </div>
+            </div> 
+            @else
+            <div class="card">
+              <div class="card-head">
+                <div class="card-header">
+                  <h4 class="card-title">Hash Power Progress</h4>
+                  <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                  <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                      <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="card-body">
+                  <div id="task-pie-chart" class="height-400 echart-container"></div>
+                </div>
+              </div>
+            </div>
+            @endif
           </div>
         </div>
 
@@ -1142,3 +1162,8 @@
       <br/><br/>  
 @endsection
 
+@section('script')
+
+<script src="{{ URL::asset('app-assets/js/scripts/pages/project-summary-task.js') }}" type="text/javascript"></script>
+
+@endsection

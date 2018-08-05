@@ -9,7 +9,10 @@
 	Dear <b>{{ $ship->first_name }}</b>, <br/>
 	<p>
 		You order {{ $ship->order_id }} have successfully delivered!<br/>
-	</p>	
+	</p>
+	<p>
+		{{ $ship->message }}
+	</p>		
 	<br/>
 	Thank You,
 	<br/>
