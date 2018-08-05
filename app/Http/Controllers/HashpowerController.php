@@ -12,6 +12,8 @@ use App\General;
 use App\User;
 use Auth;
 use Carbon\Carbon;
+use Mail;
+use App\Mail\HPPurchaseEmail;
 
 class HashpowerController extends Controller
 {
@@ -119,14 +121,15 @@ class HashpowerController extends Controller
                 }     
 
             }
-            
-            
-            $message = 'You bought '.$p->title.' successfully. And Product price '.$g->symbol.$p->price.' charged from your balance.
-         And your current balance is '.$g->symbol.$new_balance.'. 
-         And Your current Shopping Status is pending, wait for approval.';
 
-                send_email($user->email, 'HP/LP Buy Complete' ,$user->first_name, $message); 
+            $objHashpower = new \stdClass();
+            $objHashpower->first_name = $user->first_name;
+            $objHashpower->product_title = $p->title;
+            $objHashpower->product_price = $p->price;
+            $objHashpower->hp_balance = $new_hp_balance;
 
+            Mail::to($user->email)->send(new HPPurchaseEmail($objHashpower));
+             
             //    return redirect('hash-power')->with('message', 'Paid Complete');
                 return response()->json( $new_hp_balance );
             

@@ -26,6 +26,8 @@ use App\Order;
 use App\PaymentFull;
 use App\PaymentInstallment;
 use App\Mail\PasswordChangedEmail;
+use App\Mail\ProductPurchaseEmail;
+use App\Mail\ProductPurchaseInstallmentEmail;
 use Mail;
 use Carbon\Carbon;
 use DB;
@@ -956,11 +958,13 @@ class HomeController extends Controller
                     'post_code' => $request->post_code,
                 ]); 
 
-                $message = 'You bought '.$p->title.' successfully. And Product price '.$g->symbol.$total.' charged from your balance.
-         And your current balance is '.$g->symbol.$new_balance.'. 
-         And Your current Shopping Status is pending, wait for approval.';
+                $objProduct = new \stdClass();
+                $objProduct->first_name = $user->first_name;
+                $objProduct->product_title = $p->title;
+                $objProduct->product_price = $p->price;
+                $objProduct->balance = $new_balance;
 
-                send_email($user->email, 'Product Buy Complete' ,$user->first_name, $message); 
+                Mail::to($user->email)->send(new ProductPurchaseEmail($objProduct));
 
             //    return redirect('shopping')->with('message', 'Paid Complete, Wait for Delivery');
                 return response()->json( 'full' );
@@ -1000,12 +1004,16 @@ class HomeController extends Controller
 
                 }
 
-                $message = 'You bought on Installment '.$p->title.' successfully. And Product price '.$g->symbol.$total.' charged from your balance.
-         And your current balance is '.$g->symbol.$new_balance.'. 
-         And Your current Shopping Status is pending, wait for approval. The product will deliver to your shipping address once all installments will complete.';
+                $objProduct = new \stdClass();
+                $objProduct->first_name = $user->first_name;
+                $objProduct->product_title = $p->title;
+                $objProduct->product_price = $p->price;
+                $objProduct->installment = $request->installment;
+                $objProduct->duration = $request->duration;
+                $objProduct->payment_no = $payment_no;
 
-                send_email($user->email, 'Product Buy on Installment Complete' ,$user->first_name, $message); 
-
+                Mail::to($user->email)->send(new ProductPurchaseInstallmentEmail($objProduct));
+                
              //   return redirect('shopping')->with('message', 'Paid Complete');
                 return response()->json( 'installment' );
 
