@@ -113,7 +113,13 @@
                               </div>
                           @endif
                       </td>
-                      <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y') }}</td>
+                      @php    
+
+                          $dt = $data->created_at;
+                          $created_format = $dt->toFormattedDateString();
+
+                      @endphp
+                      <td>{{ $created_format }}</td>
                     </tr>
                   @endforeach
                 @else

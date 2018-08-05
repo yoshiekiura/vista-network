@@ -77,7 +77,13 @@
                       <td>{{$key+1}}</td>
                       <td>{{$data->ticket}}</td>
                       <td><b>{{$data->subject}}</b></td>
-                      <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y - h:i A') }}</td>
+                      @php    
+
+                          $dt = $data->created_at;
+                          $created_format = $dt->toFormattedDateString();
+
+                      @endphp
+                      <td>{{ $created_format }}</td>
                       <td>
                           @if($data->status == 1 || $data->status == 3)
                               <div class="badge badge-warning round">

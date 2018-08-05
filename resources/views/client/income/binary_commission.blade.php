@@ -68,7 +68,13 @@
                                 <td>{{$key+1}}</td>
                                 <td>{{$data->amount}} {{$general->symbol}}</td>
                                 <td>{{$data->description}}</td>
-                                <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y - h:i A') }}</td>
+                                @php    
+
+                                    $dt = $data->created_at;
+                                    $created_format = $dt->toFormattedDateString();
+
+                                @endphp
+                                <td>{{ $created_format }}</td>
                             </tr>
                         @endforeach
                       </tbody>

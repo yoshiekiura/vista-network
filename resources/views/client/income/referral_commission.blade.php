@@ -72,7 +72,13 @@
                               <td>{{$data->alxa_coin_comm . ' alexa coins'}}</td>
                               <td>{{$data->vista_coin_comm . ' vista coins'}}</td>
                               <td>{{$data->description}}</td>
-                              <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y - h:i A') }}</td>
+                              @php    
+
+                                  $dt = $data->created_at;
+                                  $created_format = $dt->toFormattedDateString();
+
+                              @endphp
+                              <td>{{ $created_format }}</td>
                           </tr>
                         @endforeach
                       </tbody>

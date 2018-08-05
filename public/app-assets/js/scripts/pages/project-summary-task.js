@@ -77,7 +77,7 @@ $(window).on("load", function(){
 
                 // Add custom colors
               //  color: ['#FECEA8', '#FF847C'],
-                color: ['#1E9FF2', '#FF6221'],
+                color: ['#1E9FF2', '#FF2133'],
 
                 // Display toolbox
                 toolbox: {

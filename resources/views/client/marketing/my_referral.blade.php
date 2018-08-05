@@ -78,7 +78,13 @@
                     <td>{{ $data->username }}</td>
                     <td>{{ $data->first_name }} {{ $data->last_name }}</td>
                     <td>{{ $data->email }}</td>
-                    <td>{{ $data->created_at }}</td>
+                    @php    
+
+                          $dt = $data->created_at;
+                          $created_format = $dt->toFormattedDateString();
+
+                    @endphp
+                    <td>{{ $created_format }}</td>
                 </tr>
                 @endforeach  
                 </tbody>

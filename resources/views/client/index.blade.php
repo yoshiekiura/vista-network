@@ -1133,7 +1133,13 @@
                       @if(!$hashpower->isEmpty())
                         @foreach($hashpower as $hp)
                         <tr>
-                          <td>{{ $hp->created_at }}</td>
+                          @php    
+
+                              $dt = $hp->created_at;
+                              $created_format = $dt->toFormattedDateString();
+
+                          @endphp
+                          <td>{{ $created_format }}</td>
                           <td class="success">Deposit</td>
                           <td><i class="la la-stop"></i> {{ $hp->transaction_id }}</td>
                           <td><i class="la la-sort"></i> {{ $hp->hashpower->title }}</td>
