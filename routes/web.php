@@ -101,6 +101,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/send/notification/{id}', 'AdminController@userSendNotificationUser')->name('send.notification.user')->middleware('admin');
     Route::get('/users/balance/{id}', 'AdminController@indexUserBalance')->name('add.subs.index')->middleware('admin');
     Route::get('/users/detail/{id}', 'AdminController@indexUserDetail')->name('user.view')->middleware('admin');
+    Route::get('/users/notification/{id}', 'AdminController@indexUserNotification')->name('user.notification.view')->middleware('admin');
     Route::put('/users/update/{id}', 'AdminController@userUpdate')->name('user.detail.update')->middleware('admin');
 
     Route::get('/tree/image', 'GeneralController@indexTreeImage')->name('user.tree.image')->middleware('admin');
@@ -257,6 +258,8 @@ Route::group(['middleware' => 'web'], function() {
 	Route::post('/product/buy', 'HomeController@buyProduct')->name('buy.product');
 	Route::get('/product/{id}/view', 'HomeController@shoopingView')->name('view.detail');
 	Route::get('/product/purchase/history', 'HomeController@shoppingHistory')->name('user.shopping.history');
+
+    Route::get('/notification', 'HomeController@viewNotifications')->name('notification');
 
 	Route::post('/get/user', 'HomeController@confirmUserAjax')->name('get.user');
 	Route::post('/get/charge', 'HomeController@getChargeAjax')->name('get.total.charge');

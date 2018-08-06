@@ -529,6 +529,14 @@ class AdminController extends Controller
         return view('admin.user_mmanagement.view',compact('user','available_alxa_coins','available_vista_coins'));
     }
 
+    public function indexUserNotification($id)
+    {
+        $user = User::find($id);
+        $notification = Notification::where('user_id', $id)->orderBy('id', 'desc')->paginate(15);
+
+        return view('admin.user_mmanagement.view_notifications', compact('notification', 'user'));
+    }
+
     public function userUpdate(Request $request ,$id)
     {
         $this->validate($request,[

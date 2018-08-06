@@ -10,7 +10,7 @@
 	<p>
 		Congratulations! You purchased {{ $product->product_title }} successfully on Installment, product price is ${{ $product->product_price }}.<br/><br/>
 		Installment No: <b>{{ $product->payment_no }}</b><br/>
-		Installment per Month: <b>{{ $product->installment }}</b><br/>
+		Installment per Month: <b>${{ $product->installment }}</b><br/>
 		Duration: <b>{{ $product->duration }}</b><br/>
 		Your current Shopping Status is pending, wait for approval.
 	</p>

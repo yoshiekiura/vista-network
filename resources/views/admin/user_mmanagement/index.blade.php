@@ -110,7 +110,8 @@
                                         <th>Email</th>
                                         <th>Mobile</th>
                                         <th> Balance </th>
-                                        <th> Action </th>
+                                        <th> Details </th>
+                                        <th> Notifications </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -130,7 +131,10 @@
                                             <td>{{ $data->mobile}}</td>
                                             <td>{{$general->symbol}} {{ $data->balance }}</td>
                                             <td>
-                                                <a class="btn purple" href="{{route('user.view', $data->id)}}"><i class="fas fa-desktop"></i>  View Detail</a>
+                                                <a class="btn purple" href="{{route('user.view', $data->id)}}" title="view details"><i class="fas fa-desktop"></i></a>
+                                            </td>
+                                            <td>
+                                                <a class="btn purple" href="{{route('user.notification.view', $data->id)}}" title="view notifications"><i class="fas fa-bell"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

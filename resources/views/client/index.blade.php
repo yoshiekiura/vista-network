@@ -1107,7 +1107,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Hash-Power Transactions</h4>
+                <h4 class="card-title">Hash Power Transactions</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                   <td>

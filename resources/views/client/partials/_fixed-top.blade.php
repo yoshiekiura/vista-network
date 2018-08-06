@@ -288,7 +288,7 @@
                     </div>
                   </a>  -->
                 </li>
-                <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all notifications</a></li>
+                <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="{{ route('notification') }}">Read all notifications</a></li>
               </ul>
             </li> 
         <!--    <li class="dropdown dropdown-notification nav-item">

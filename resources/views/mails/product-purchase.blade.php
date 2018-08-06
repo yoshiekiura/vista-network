@@ -9,7 +9,7 @@
 	Dear <b>{{ $product->first_name }}</b>, <br/>
 	<p>
 		Congratulations! You purchased {{ $product->product_title }} successfully, product price is ${{ $product->product_price }}.<br/><br/>
-		Current Balance: <b>{{ $product->balance }}</b><br/><br/>
+		Current Balance: <b>${{ $product->balance }}</b><br/><br/>
 		Your current Shopping Status is pending, wait for approval.
 	</p>
 	<p>

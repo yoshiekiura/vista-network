@@ -410,12 +410,15 @@
                         <div class="card-body">
                           <ul class="nav nav-tabs nav-underline no-hover-bg">
                             <li class="nav-item">
-                              <a class="nav-link active" id="base-limit" data-toggle="tab" aria-controls="limit"
-                              href="#limit" aria-expanded="true">Vista Coin</a>
+                              <a class="nav-link active" id="base-vista" data-toggle="tab" aria-controls="vista-coin"
+                              href="#vista-coin" aria-expanded="true">Vista Coin</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" id="base-market" data-toggle="tab" aria-controls="market" href="#market"
-                              aria-expanded="false">Alexa Coin</a>
+                              <a class="nav-link" id="base-alexa" data-toggle="tab" aria-controls="alexa-coin" href="#alexa-coin" aria-expanded="false">Alexa Coin</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" id="base-transfer" data-toggle="tab" aria-controls="transfer-coin" href="#transfer-coin"
+                              aria-expanded="false">Transfer Coins</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" id="base-stop-limit" data-toggle="tab" aria-controls="stop-limit"
@@ -423,9 +426,10 @@
                             </li>
                           </ul>
                           <div class="tab-content px-1 pt-1">
-                            <div role="tabpanel" class="tab-pane active" id="limit" aria-expanded="true" aria-labelledby="base-limit">
+                            <!-- tab for vista coins -->
+                            <div role="tabpanel" class="tab-pane active" id="vista-coin" aria-expanded="true" aria-labelledby="base-vista">
                               <div class="row">
-                                <div class="col-12 col-xl-4 border-right-blue-grey border-right-lighten-4 pr-2 p-0">
+                                <div class="col-12 col-xl-6 border-right-blue-grey border-right-lighten-4 pr-2 p-0">
                                   <div class="row my-2">
                                     <div class="col-4">
                                       <h5 class="text-bold-600 mb-0">Buy VISTA</h5>
@@ -465,15 +469,6 @@
                                         </div>
                                       </div>
                                       <div class="form-group row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-9">
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">25%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">50%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">75%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">100%</button>
-                                        </div>
-                                      </div>
-                                      <div class="form-group row">
                                         <label class="col-md-3 col-form-label" for="btc-limit-buy-total">Total</label>
                                         <div class="col-md-9">
                                           <div class="input-group">
@@ -492,13 +487,13 @@
                                     </div>
                                   </form>
                                 </div>
-                                <div class="col-12 col-xl-4 border-right-blue-grey border-right-lighten-4">
+                                <div class="col-12 col-xl-6 pl-2 p-0">
                                   <div class="row my-2">
                                     <div class="col-4">
                                       <h5 class="text-bold-600 mb-0">Sell VISTA</h5>
                                     </div>
                                     <div class="col-8 text-right">
-                                      <p class="text-muted mb-0">VISTA Balance: <span class="coin_balance">{{ $available_vista_coins }}</span></p>
+                                      <p class="text-muted mb-0">VISTA Balance: <span class="coin_balance">{{ number_format((float)$available_vista_coins, 2) }}</span></p>
                                     </div>
                                   </div>
                                   <meta name="csrf-token" content="{{ csrf_token() }}" /> 
@@ -532,15 +527,6 @@
                                         </div>
                                       </div>
                                       <div class="form-group row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-9">
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">25%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">50%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">75%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">100%</button>
-                                        </div>
-                                      </div>
-                                      <div class="form-group row">
                                         <label class="col-md-3 col-form-label" for="btc-limit-sell-total">Total</label>
                                         <div class="col-md-9">
                                           <div class="input-group">
@@ -559,72 +545,12 @@
                                     </div>
                                   </form>
                                 </div>
-                                <div class="col-12 col-xl-4 pl-2 p-0">
-                                  <div class="row my-2">
-                                    <div class="col-6">
-                                      <h5 class="text-bold-600 mb-0">Transfer VISTA</h5>
-                                    </div>
-                                    <div class="col-6 text-right">
-                                      <p class="text-muted mb-0">VISTA Balance: <span class="coin_balance">{{ $available_vista_coins }}</span></p>
-                                    </div>
-                                  </div>
-                                  <meta name="csrf-token" content="{{ csrf_token() }}" /> 
-                                  <form class="form form-horizontal transfer_coin" method="post">
-                                    <input type="hidden" name="coin_id" value="2">
-                                    <div class="form-body">
-                                      <div class="form-group row">
-                                        <label class="col-md-3 col-form-label" for="btc-limit-buy-price">User</label>
-                                        <div class="col-md-9">
-                                          <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text" id="basic-addon1">
-                                                <i class="la la-user"></i>
-                                              </span>
-                                            </div>
-                                            <input type="text" name="username" class="form-control" id="refname" aria-describedby="basic-addon1" placeholder="USERNAME to Transfer" required>
-                                            <input type="hidden" name="rate" id="vista_transfer_price" value="{{ $vista_rate }}">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="form-group row">
-                                        <div class="col-md-3">
-                                        </div>
-                                        <div class="col-md-9" id="resu">
-                                        </div>  
-                                      </div>  
-                                      <div class="form-group row">
-                                        <label class="col-md-3 col-form-label" for="btc-limit-buy-amount">Coins</label>
-                                        <div class="col-md-9">
-                                          <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text" id="basic-addon1">
-                                                <i class="la la-bitcoin"></i>
-                                              </span>
-                                            </div>
-                                            <input type="number" class="form-control" id="vista_transfer_coins" aria-describedby="basic-addon1" placeholder="Number of Coins" name="coins" onBlur="checkVistaTransfer()" required step=".000001">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="form-group row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-9">
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">25%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">50%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">75%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">100%</button>
-                                        </div>
-                                      </div>
-                                      <div class="form-actions pb-0">
-                                        <button type="submit" name="submit" class="btn round btn-info btn-block btn-glow"> Transfer VISTA </button>
-                                      </div>
-                                    </div>
-                                  </form>
-                                </div>
                               </div>
                             </div>
-                            <div class="tab-pane" id="market" aria-labelledby="base-market">
+                            <!-- tab for alexa coins -->
+                            <div class="tab-pane" id="alexa-coin" aria-labelledby="base-alexa">
                               <div class="row">
-                                <div class="col-12 col-xl-4 border-right-blue-grey border-right-lighten-4 pr-2 p-0">
+                                <div class="col-12 col-xl-6 border-right-blue-grey border-right-lighten-4 pr-2 p-0">
                                   <div class="row my-2">
                                     <div class="col-4">
                                       <h5 class="text-bold-600 mb-0">Buy ALEXA</h5>
@@ -663,15 +589,6 @@
                                         </div>
                                       </div>
                                       <div class="form-group row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-9">
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">25%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">50%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">75%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">100%</button>
-                                        </div>
-                                      </div>
-                                      <div class="form-group row">
                                         <label class="col-md-3 col-form-label" for="btc-limit-buy-total">Total</label>
                                         <div class="col-md-9">
                                           <div class="input-group">
@@ -690,13 +607,13 @@
                                     </div>
                                   </form>
                                 </div>
-                                <div class="col-12 col-xl-4 border-right-blue-grey border-right-lighten-4">
+                                <div class="col-12 col-xl-6 pl-2 p-0">
                                   <div class="row my-2">
                                     <div class="col-4">
                                       <h5 class="text-bold-600 mb-0">Sell ALEXA</h5>
                                     </div>
                                     <div class="col-8 text-right">
-                                      <p class="text-muted mb-0">ALEXA Balance: <span class="coin_balance">{{ $available_alxa_coins }}</span></p>
+                                      <p class="text-muted mb-0">ALEXA Balance: <span class="coin_balance">{{ number_format((float)$available_alxa_coins, 2) }}</span></p>
                                     </div>
                                   </div>
                                   <meta name="csrf-token" content="{{ csrf_token() }}" /> 
@@ -730,15 +647,6 @@
                                         </div>
                                       </div>
                                       <div class="form-group row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-9">
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">25%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">50%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">75%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">100%</button>
-                                        </div>
-                                      </div>
-                                      <div class="form-group row">
                                         <label class="col-md-3 col-form-label" for="btc-limit-buy-total">Total</label>
                                         <div class="col-md-9">
                                           <div class="input-group">
@@ -757,13 +665,70 @@
                                     </div>
                                   </form>
                                 </div>
-                                <div class="col-12 col-xl-4 pl-2 p-0">
+                              </div>
+                            </div>
+                            <!-- Coin Transfer Tab -->
+                            <div role="tabpanel" class="tab-pane" id="transfer-coin" aria-expanded="true" aria-labelledby="base-transfer">
+                              <div class="row">
+                                <div class="col-12 col-xl-6 border-right-blue-grey border-right-lighten-4">
+                                  <div class="row my-2">
+                                    <div class="col-6">
+                                      <h5 class="text-bold-600 mb-0">Transfer VISTA</h5>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                      <p class="text-muted mb-0">VISTA Balance: <span class="coin_balance">{{ number_format((float)$available_vista_coins, 2) }}</span></p>
+                                    </div>
+                                  </div>
+                                  <meta name="csrf-token" content="{{ csrf_token() }}" /> 
+                                  <form class="form form-horizontal transfer_coin" method="post">
+                                    <input type="hidden" name="coin_id" value="2">
+                                    <div class="form-body">
+                                      <div class="form-group row">
+                                        <label class="col-md-3 col-form-label" for="btc-limit-buy-price">Username</label>
+                                        <div class="col-md-9">
+                                          <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">
+                                                <i class="la la-user"></i>
+                                              </span>
+                                            </div>
+                                            <input type="text" name="username" class="form-control" id="refname" aria-describedby="basic-addon1" placeholder="USERNAME to Transfer" required>
+                                            <input type="hidden" name="rate" id="vista_transfer_price" value="{{ $vista_rate }}">
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <div class="col-md-3">
+                                        </div>
+                                        <div class="col-md-9" id="result_found">
+                                        </div>  
+                                      </div>  
+                                      <div class="form-group row">
+                                        <label class="col-md-3 col-form-label" for="btc-limit-buy-amount">Coins</label>
+                                        <div class="col-md-9">
+                                          <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text" id="basic-addon1">
+                                                <i class="la la-bitcoin"></i>
+                                              </span>
+                                            </div>
+                                            <input type="number" class="form-control" id="vista_transfer_coins" aria-describedby="basic-addon1" placeholder="Number of Coins" name="coins" onBlur="checkVistaTransfer()" required step=".000001">
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="form-actions pb-0">
+                                        <button type="submit" name="submit" class="btn round btn-info btn-block btn-glow"> Transfer VISTA </button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                                <div class="col-12 col-xl-6 pl-2 p-0">
                                   <div class="row my-2">
                                     <div class="col-6">
                                       <h5 class="text-bold-600 mb-0">Transfer ALEXA</h5>
                                     </div>
                                     <div class="col-6 text-right">
-                                      <p class="text-muted mb-0">ALEXA Balance: <span class="coin_balance">{{ $available_alxa_coins }}</span></p>
+                                      <p class="text-muted mb-0">ALEXA Balance: <span class="coin_balance">{{ number_format((float)$available_alxa_coins, 2) }}</span></p>
                                     </div>
                                   </div>
                                   <meta name="csrf-token" content="{{ csrf_token() }}" /> 
@@ -771,7 +736,7 @@
                                     <input type="hidden" name="coin_id" value="1">
                                     <div class="form-body">
                                       <div class="form-group row">
-                                        <label class="col-md-3 col-form-label" for="btc-limit-buy-price">User</label>
+                                        <label class="col-md-3 col-form-label" for="btc-limit-buy-price">Username</label>
                                         <div class="col-md-9">
                                           <div class="input-group">
                                             <div class="input-group-prepend">
@@ -787,7 +752,7 @@
                                       <div class="form-group row">
                                         <div class="col-md-3">
                                         </div>
-                                        <div class="col-md-9" id="resu-a">
+                                        <div class="col-md-9" id="result_found_alexa">
                                         </div>  
                                       </div>
                                       <div class="form-group row">
@@ -803,15 +768,6 @@
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="form-group row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-9">
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">25%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">50%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">75%</button>
-                                          <button type="button" class="btn round btn-outline-secondary btn-sm">100%</button>
-                                        </div>
-                                      </div>
                                       <div class="form-actions pb-0">
                                         <button type="submit" name="submit" class="btn round btn-info btn-block btn-glow"> Transfer ALEXA </button>
                                       </div>
@@ -820,7 +776,6 @@
                                 </div>
                               </div>
                             </div>
-
                           </div>
                         </div>
                       </div>
@@ -858,7 +813,20 @@
                         '_token' : token
                     },
                     success:function(data){
-                        $("#resu").html(data);
+                      //  $("#resu").html(data);
+                        if(data.status == 'warning'){
+                           swal("Warning!", data.msg, "warning");  
+                           $("#result_found").html('');
+                        }
+                        else if(data.status == 'danger'){
+                           swal("Error!", data.msg, "error");  
+                           $("#result_found").html('');
+                        }
+                        else if(data.status == 'success'){
+                           swal("Success!", data.msg, "success");
+                           $("#result_found").html(data.transferer_id);  
+                        }
+                        
                     }
                 });
             });
@@ -874,7 +842,19 @@
                         '_token' : token
                     },
                     success:function(data){
-                        $("#resu-a").html(data);
+                      //  $("#resu-a").html(data);
+                        if(data.status == 'warning'){
+                           swal("Warning!", data.msg, "warning");  
+                           $("#result_found_alexa").html('');
+                        }
+                        else if(data.status == 'danger'){
+                           swal("Error!", data.msg, "error");  
+                           $("#result_found_alexa").html('');
+                        }
+                        else if(data.status == 'success'){
+                           swal("Success!", data.msg, "success");
+                           $("#result_found_alexa").html(data.transferer_id);  
+                        }
                     }
                 });
             });

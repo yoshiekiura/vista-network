@@ -19,6 +19,7 @@ use App\General;
 use App\HpTransaction;
 use App\SchedulePayment;
 use App\WithdrawTrasection;
+use App\Notification;
 use App\CoinTransaction;
 use App\Coin;
 use App\ShippingAddress;
@@ -461,17 +462,37 @@ class HomeController extends Controller
     {
         if (Auth::user()->username == $request->name)
         {
-            return "<span class='btn btn-warning btn-block'><i class='la la-warning'></i> Your Username</span>";
+              $result = array(
+                    'status' => 'warning',
+                    'msg' => 'This is your own Username'
+              );  
+              return $result;
+         //   return "<span class='btn btn-warning btn-block'><i class='la la-warning'></i> Your Username</span>";
         }else{
             $user_name = User::where('username', $request->name)->first();
 
             if ($user_name == '')
             {
-                return "<span class='btn btn-danger btn-block'><i class='la la-close'></i> Username not found</span>";
+                
+                $result = array(
+                    'status' => 'danger',
+                    'msg' => 'Username Not Found!'
+                );
+
+                return $result;
+              //  return "<span class='btn btn-danger btn-block'><i class='la la-close'></i> Username not found</span>";
             }
             else{
-                return "<span class='btn btn-success btn-block'><i class='la la-check'></i> Username Found</span>
-                            <input type='hidden' name='username' value='$user_name->id' >";
+
+                $result = array(
+                    'status' => 'success',
+                    'msg' => 'Username Found!',
+                    'transferer_id' => "<i class='la la-check text-success'></i> Username Found!<input type='hidden' name='username' value='$user_name->id'>",
+                ); 
+
+                return $result;
+             //   return "<span class='btn btn-success btn-block'><i class='la la-check'></i> Username Found</span>
+                  //          <input type='hidden' name='username' value='$user_name->id' >";
             }
 
         }
@@ -1050,6 +1071,18 @@ class HomeController extends Controller
 
         return view('client.finance.wallet', compact('alxa_rate', 'vista_rate', 'available_alxa_coins', 'available_vista_coins', 'hp_comm'));
     
+    }
+
+    public function viewNotifications()
+    {
+        Notification::where('user_id', Auth::user()->id)
+                    ->update([
+                       'status' => 1
+                    ]);
+
+        $notification = Notification::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(15);
+
+        return view('client.notification.view_notification', compact('notification'));
     }
 
 }
