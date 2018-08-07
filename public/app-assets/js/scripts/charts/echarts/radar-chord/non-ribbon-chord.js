@@ -40,6 +40,95 @@ $(window).on("load", function(){
             // ------------------------------
             var myChart = ec.init(document.getElementById('non-ribbon-chord'));
 
+            $.ajax({
+                type: "GET",
+                url: "/my-tree-chart",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    result = data;
+                    console.log(result.length);
+                }
+
+            });
+
+            if(result.length > 2){
+                nodesData = [];
+                $.each(result, function (index, value) {
+                  
+                    item = {}
+                    item ["name"] = value;        
+                   
+                    nodesData.push(item); 
+                
+                });
+
+                linksData = [];
+                $.each(result, function (index, value) {
+                  
+                    if(index !== 0){
+                        item = {}
+                        item ["source"] = result[0];
+                        item ["target"] = value;  
+                        item ["weight"] = 0.9;      
+                        item ["name"] = 'Effectiveness';
+                       
+                        linksData.push(item);
+                    }     
+                
+                });
+
+                $.each(result, function (index, value) {
+                  
+                    if(index !== 0){
+                        item = {}
+                        item ["target"] = result[0];
+                        item ["source"] = value;  
+                        item ["weight"] = 1;      
+                       
+                        linksData.push(item);
+                    }     
+                
+                });
+            
+            }else if(result.length == 2){
+
+                nodesData = [];
+                linksData = [];
+                nodesData = [
+                                {name: result[0]},
+                                {name: result[1]},
+                                {name: 'empty'}
+                            ];
+
+                linksData = [       
+                                {source: result[0], target: result[1], weight: 0.9, name: 'Effectiveness'},
+                                {source: result[0], target: 'empty', weight: 0.9, name: 'Effectiveness'},
+
+                                {target: result[0], source: result[1], weight: 1},
+                                {target: result[0], source: 'empty', weight: 1}
+                            ]; 
+                
+            }else if(result.length == 1){
+
+                nodesData = [];
+                linksData = [];
+                nodesData = [
+                                {name: result[0]},
+                                {name: 'empty-left'},
+                                {name: 'empty-right'}
+                            ];
+
+                linksData = [       
+                                {source: result[0], target: 'empty-left', weight: 0.9, name: 'Effectiveness'},
+                                {source: result[0], target: 'empty-right', weight: 0.9, name: 'Effectiveness'},
+
+                                {target: result[0], source: 'empty-left', weight: 1},
+                                {target: result[0], source: 'empty-right', weight: 1}
+                            ]; 
+                
+            }    
+
             // Chart Options
             // ------------------------------
             chartOptions = {
@@ -61,7 +150,8 @@ $(window).on("load", function(){
                 legend: {
                     orient: 'vertical',
                     x: 'left',
-                    data: ['Arsenal', 'Bayern', 'Dortmund']
+                    data: result
+                 //   data: ['Arsenal', 'Bayern', 'Dortmund']
                 },
 
                 // Add series
@@ -85,7 +175,8 @@ $(window).on("load", function(){
                                 }
                             }
                         },
-                        nodes: [
+                        nodes: nodesData,
+                    /*    nodes: [
                             {name: 'Gibbs'},
                             {name: 'Ozil'},
                             {name: 'Podolski'},
@@ -103,8 +194,9 @@ $(window).on("load", function(){
                             {name: 'Arsenal'},
                             {name: 'Bayern'},
                             {name: 'Dortmund'}
-                        ],
-                        links: [
+                        ], */
+                        links: linksData 
+                    /*    links: [
                             {source: 'Arsenal', target: 'Gibbs', weight: 0.9, name: 'Effectiveness'},
                             {source: 'Arsenal', target: 'Ozil', weight: 0.9, name: 'Effectiveness'},
                             {source: 'Arsenal', target: 'Podolski', weight: 0.9, name: 'Effectiveness'},
@@ -134,8 +226,8 @@ $(window).on("load", function(){
                             {target: 'Dortmund', source: 'Hummels', weight: 1},
                             {target: 'Dortmund', source: 'Reus', weight: 1},
                             {target: 'Dortmund', source: 'Durm', weight: 1},
-                            {target: 'Dortmund', source: 'Sahin', weight: 1}
-                        ]
+                            {target: 'Dortmund', source: 'Sahin', weight: 1} 
+                        ] */
                     }
                 ]
             };

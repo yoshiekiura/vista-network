@@ -31,8 +31,8 @@
             <li data-menu="">
               <a class="dropdown-item" href="{{ route('binary.summery.index') }}" data-toggle="dropdown"><i class="la la-copy"></i>Binary Summary</a>
             </li>
-        <!--    <li data-menu=""><a class="dropdown-item " href="{{ route('tree.index') }}" data-toggle="dropdown"><i class="la la-eye-slash"></i>My Tree</a>
-            </li> -->
+            <li data-menu=""><a class="dropdown-item " href="{{ route('tree.index') }}" data-toggle="dropdown"><i class="la la-tree"></i>My Tree</a>
+            </li> 
             <li data-menu="">
               <a class="dropdown-item" href="{{ route('referral.index') }}" data-toggle="dropdown"><i class="la la-android"></i>My Referral</a>
             </li>

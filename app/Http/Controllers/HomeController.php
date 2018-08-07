@@ -109,12 +109,21 @@ class HomeController extends Controller
 
     public function treeIndex()
     {
-        if(isset($_GET['name'])) {
-            $treefor = $_GET['name'];
-        }else{
-            $treefor = Auth::user()->username;
-        }
-        return view('client.marketing.my_tree', compact('treefor'));
+        
+        $referrers_count = User::where('referrer_id', Auth::user()->id)->count();
+        $treefor = Auth::user()->username;
+        
+        return view('client.marketing.my_tree', compact('treefor', 'referrers_count'));
+    }
+
+    public function getTreeData()
+    {
+        $referrers = User::where('referrer_id', Auth::user()->id)->pluck('username');
+        $root = Auth::user()->username;
+        $sponsors = $referrers->toArray();    
+        array_unshift($sponsors, $root);
+        
+        return $sponsors;
     }
 
     public function referralIndex()

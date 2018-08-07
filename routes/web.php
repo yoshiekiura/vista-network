@@ -282,6 +282,7 @@ Route::group(['middleware' => 'web'], function() {
 	Route::get('/tree/search', 'HomeController@searchTreeIndex')->name('tree.username.search');
 	Route::get('/referral', 'HomeController@referralIndex')->name('referral.index');
 	Route::get('/binary/summary', 'HomeController@binarySummeryindex')->name('binary.summery.index');
+    Route::get('/my-tree-chart', 'HomeController@getTreeData');
 
 	Route::get('/fund', 'HomeController@fundIndex')->name('add.fund.index');
 	Route::get('/fund/transfer', 'HomeController@transferFundIndex')->name('fund.transfer.index');
