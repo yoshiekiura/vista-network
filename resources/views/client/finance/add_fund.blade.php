@@ -74,17 +74,31 @@
 </div>
 
 @if (Session::has('message'))
-  <div class="alert alert-success">{{ Session::get('message') }}</div>
+  <div class="alert bg-success alert-dismissible mb-2" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Well done!</strong> {{ Session::get('message') }}
+  </div>
 @endif
 
 @if (Session::has('alert'))
-  <div class="alert alert-warning">{{ Session::get('alert') }}</div>
+  <div class="alert bg-warning alert-dismissible mb-2" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Warning!</strong> {{ Session::get('alert') }}
+  </div>
 @endif
 
 @if (Session::has('success'))
-  <div class="alert alert-success">{{ Session::get('success') }}</div>
+  <div class="alert bg-success alert-dismissible mb-2" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Well done!</strong> {{ Session::get('success') }}
+  </div>
 @endif
-
 
 @if (count($errors) > 0)
     <div class="row">

@@ -142,7 +142,7 @@ class FontendController extends Controller
 
     public function sendemailver()
     {
-        $user = User::find(Auth::id());
+        $user = User::find(Auth::user()->id);
         $chktm = $user->vsent+1000;
         if ($chktm >time())
         {
@@ -153,9 +153,14 @@ class FontendController extends Controller
         {
             $code = substr(rand(),0,6);
             $message = 'Your Verification code is: '.$code;
-            $user['vercode'] = $code ;
-            $user['vsent'] = time();
-            $user->save();
+        //    $user['vercode'] = $code ;
+        //    $user['vsent'] = time();
+         //   $user->save();
+            User::whereId(Auth::user()->id)
+                ->update([
+                   'vercode' => $code,
+                   'vsent' => time()
+                ]);
            
             $objVer = new \stdClass();
             $objVer->code = $code;
@@ -201,15 +206,22 @@ class FontendController extends Controller
             'code' => 'required'
         ]);
 
-        $user = User::find(Auth::id());
+        $user = User::find(Auth::user()->id);
 
         $code = $request->code;
         if ($user->vercode == $code)
         {
-            $user['emailv'] = 1;
-            $user['vercode'] = str_random(10);
-            $user['vsent'] = 0;
-            $user->save();
+          //  $user['emailv'] = 1;
+          //  $user['vercode'] = str_random(10);
+          //  $user['vsent'] = 0;
+           // $user->save();
+
+            User::whereId(Auth::user()->id)
+                ->update([
+                   'emailv' => 1,
+                   'vercode' => str_random(10),
+                   'vsent' => 0
+                ]);
 
             return redirect('home')->with('success', 'Email Verified');
         }

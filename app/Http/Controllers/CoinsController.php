@@ -10,6 +10,11 @@ use App\Coin;
 use App\User;
 use Carbon\Carbon;
 use Auth;
+use Mail;
+use App\Mail\CoinPurchaseEmail;
+use App\Mail\CoinSellEmail;
+use App\Mail\CoinTransferEmail;
+use App\Mail\CoinReceiveEmail;
 
 class CoinsController extends Controller
 {
@@ -84,6 +89,7 @@ class CoinsController extends Controller
             ]);
 
             $total =  $request->total;
+            $coin_name = Coin::where('id', $request->coin_id)->value('name');
 
             $new_balance = Auth::user()->balance - $total;
 
@@ -109,10 +115,14 @@ class CoinsController extends Controller
             $general = General::first();
             $user = User::find(Auth::user()->id);
 
-            $message ='Hello! Your coins purchase request is success. You purchased coin : '.$coin->coins.' 
-             your current balance is '.$new_balance.$general->symbol.' .';
+            $objCoin = new \stdClass();
+            $objCoin->first_name = $user->first_name;
+            $objCoin->coin_name = $coin_name;
+            $objCoin->coin_number = $request->coins;
+            $objCoin->coin_rate = $request->rate;
+            $objCoin->coin_balance = $new_coins_balance;
 
-            send_email($user['email'], 'Successfully Withdraw' ,$user['first_name'], $message);
+            Mail::to($user->email)->send(new CoinPurchaseEmail($objCoin));
 
           //  return redirect('home')->with('message', 'Coins Purchase Request Success.');
             return response()->json(['success' => true, 'balance' => $new_balance, 'coin_balance' => $new_coins_balance]);
@@ -145,6 +155,7 @@ class CoinsController extends Controller
             ]);
 
             $total =  $request->total;
+            $coin_name = Coin::where('id', $request->coin_id)->value('name');
 
             $new_balance = Auth::user()->balance + $total;
 
@@ -170,10 +181,14 @@ class CoinsController extends Controller
             $general = General::first();
             $user = User::find(Auth::user()->id);
 
-            $message ='Hello! Your coins withdraw request is success. You withdraw coins : '.$coin->coins.' 
-             your current balance is '.$new_balance.$general->symbol.' .';
+            $objCoin = new \stdClass();
+            $objCoin->first_name = $user->first_name;
+            $objCoin->coin_name = $coin_name;
+            $objCoin->coin_number = $request->coins;
+            $objCoin->coin_rate = $request->rate;
+            $objCoin->coin_balance = $new_coins_balance;
 
-            send_email($user['email'], 'Successfully Withdraw' ,$user['first_name'], $message);
+            Mail::to($user->email)->send(new CoinSellEmail($objCoin));
 
         //    return redirect('home')->with('message', 'Coins Withdraw Request Success.');
             return response()->json(['success' => true, 'balance' => $new_balance, 'coin_balance' => $new_coins_balance]);
@@ -212,6 +227,7 @@ class CoinsController extends Controller
         }else{
 
             $coin_rate = Coin::where('id', $request->coin_id)->value('rate');
+            $coin_name = Coin::where('id', $request->coin_id)->value('name');
 
             $receiver = User::find($request->username);
 
@@ -255,16 +271,18 @@ class CoinsController extends Controller
 
             $general = General::first();
 
-            $message ='Thank you! Your coins transfer process is complete.Your transfer coins : '.$request->coins. 'Your current balance is '.$giver->balance.'';
+            $objCoin = new \stdClass();
+            $objCoin->giver_first_name = $giver->first_name;
+            $objCoin->giver_last_name = $giver->last_name;
+            $objCoin->receiver_first_name = $receiver->first_name;
+            $objCoin->receiver_last_name = $receiver->last_name;
+            $objCoin->coin_name = $coin_name;
+            $objCoin->coin_number = $request->coins;
+            $objCoin->coin_balance = $giver_coins_balance;
 
-            send_email($giver->email, 'Coins Transfer Complete' ,$giver->first_name, $message);
+            Mail::to($giver->email)->send(new CoinTransferEmail($objCoin));
 
-
-
-            $message ='Congratulation! Your coins add process is complete.
-        '.$giver->first_name.' '.$giver->last_name.' transfer '.$request->coins.' to your account.</p>';
-
-            send_email($receiver['email'], 'Coins Add Complete' ,$receiver['first_name'], $message);
+            Mail::to($receiver->email)->send(new CoinReceiveEmail($objCoin));
 
          //   return redirect()->back()->with('message', 'Coins Transfer Success');
             return response()->json(['success' => true, 'balance' => $giver->balance, 'coin_balance' => $giver_coins_balance]);

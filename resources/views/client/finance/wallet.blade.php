@@ -24,32 +24,6 @@
   </div>
 </div>
 
-@if (Session::has('message'))
-  <div class="alert alert-success">{{ Session::get('message') }}</div>
-@endif
-
-@if (Session::has('alert'))
-  <div class="alert alert-warning">{{ Session::get('alert') }}</div>
-@endif
-
-@if (Session::has('success'))
-  <div class="alert alert-success">{{ Session::get('success') }}</div>
-@endif
-
-
-@if (count($errors) > 0)
-    <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <b><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Alert!</b>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </div>
-        </div>
-    </div>
-@endif
         
 <div class="content-body">
 

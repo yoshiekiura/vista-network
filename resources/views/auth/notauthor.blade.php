@@ -92,13 +92,28 @@ data-open="click" data-menu="horizontal-menu" data-col="2-columns">
     <div class="content-wrapper">
 
         @if (Session::has('alert'))
-            <div class="alert alert-danger mb-2">{{ Session::get('alert') }}</div>
+            <div class="alert bg-danger alert-dismissible mb-2" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>Oh snap!</strong> {{ Session::get('alert') }}
+            </div>
         @endif
         @if (Session::has('message'))
-            <div class="alert alert-success mb-2">{{ Session::get('message') }}</div>
+            <div class="alert bg-success alert-dismissible mb-2" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>Well done!</strong> {{ Session::get('message') }}
+            </div>
         @endif
         @if (Session::has('success'))
-            <div class="alert alert-success mb-2">{{ Session::get('success') }}</div>
+            <div class="alert bg-success alert-dismissible mb-2" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>Well done!</strong> {{ Session::get('success') }}
+            </div>
         @endif    
 
         <div class="content-body">
@@ -148,7 +163,7 @@ data-open="click" data-menu="horizontal-menu" data-col="2-columns">
                               <div class="form-body">
                                 <div class="form-group">
                                   <label for="donationinput1" class="sr-only">Name</label>
-                                  <input type="text" class="form-control"  name="code" placeholder="Enter Verification Code" required>
+                                  <input type="text" class="form-control" name="code" placeholder="Enter Verification Code" required>
                                 </div>
                               </div>
                               <div class="form-actions center">
