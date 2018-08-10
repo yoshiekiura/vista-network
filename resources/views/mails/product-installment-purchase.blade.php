@@ -9,6 +9,10 @@
 	Dear <b>{{ $product->first_name }}</b>, <br/>
 	<p>
 		Congratulations! You purchased {{ $product->product_title }} successfully on Installment, product price is ${{ $product->product_price }}.<br/><br/>
+		
+		Transaction ID: <b>{{ $product->order_id }}</b><br/>
+		<p>Your payment plan is as following:</p>
+		
 		Installment No: <b>{{ $product->payment_no }}</b><br/>
 		Installment per Month: <b>${{ $product->installment }}</b><br/>
 		Duration: <b>{{ $product->duration }}</b><br/>

@@ -9,6 +9,7 @@
 	Dear <b>{{ $coin->first_name }}</b>, <br/>
 	<p>
 		Congratulations! You successfully withdraw/sold {{ $coin->coin_number }}&nbsp;{{ $coin->coin_name }}, coin rate is ${{ $coin->coin_rate }}.<br/><br/>
+		Coin Transaction ID: <b>{{ $coin->trans_id }}</b></br>
 		{{ $coin->coin_name }} Balance: <b>{{ $coin->coin_balance }}</b>
 	</p>
 	<p>

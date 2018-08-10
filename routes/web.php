@@ -269,6 +269,7 @@ Route::group(['middleware' => 'web'], function() {
 	Route::post('/coins/sell', 'CoinsController@coinsWithdraw')->name('coins.withdraw');
 	Route::post('/coins/transfer', 'CoinsController@transferCoins')->name('store.transfer.coin');
 	Route::get('/coins/transactions', 'CoinsController@coinTransactions')->name('coins.transactions');
+    Route::get('/coin/transaction/details/{id}', 'CoinsController@coinTransactionDetails');
 
 	Route::get('/hash-power', 'HashpowerController@index')->name('hp.user.index');
 	Route::post('/hash-power/deposit', 'HashpowerController@buyProduct')->name('buy.hplp.product');

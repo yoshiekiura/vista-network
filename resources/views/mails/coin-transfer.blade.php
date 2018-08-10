@@ -9,6 +9,7 @@
 	Dear <b>{{ $coin->giver_first_name }}</b>, <br/>
 	<p>
 		Congratulations! You successfully transfer {{ $coin->coin_number }}&nbsp;{{ $coin->coin_name }} to {{ $coin->receiver_first_name }}&nbsp;{{ $coin->receiver_last_name }}.<br/><br/>
+		Coin Transaction ID: <b>{{ $coin->trans_id }}</b></br>
 		{{ $coin->coin_name }} Balance: <b>{{ $coin->coin_balance }}</b>
 	</p>
 	<p>

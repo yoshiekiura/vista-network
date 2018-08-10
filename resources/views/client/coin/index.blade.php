@@ -7,6 +7,9 @@
 
     $(document).ready(function() {
 
+        $('#result_found_msg').hide();
+        $('#result_found_alexa_msg').hide();
+
         $( '.buy_coin' ).on( 'submit', function(e) {
       
             e.preventDefault();
@@ -155,7 +158,7 @@
             });
 
             var form = $(this);
-
+          
             swal({
                 title: "Confirm Transfer",
                 text: "You are going to transfer coins!",
@@ -707,7 +710,7 @@
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="form-group row">
+                                      <div class="form-group row" id="result_found_msg">
                                         <div class="col-md-3">
                                         </div>
                                         <div class="col-md-9" id="result_found">
@@ -759,7 +762,7 @@
                                           </div>
                                         </div>
                                       </div>
-                                      <div class="form-group row">
+                                      <div class="form-group row" id="result_found_alexa_msg">
                                         <div class="col-md-3">
                                         </div>
                                         <div class="col-md-9" id="result_found_alexa">
@@ -834,7 +837,11 @@
                         }
                         else if(data.status == 'success'){
                            swal("Success!", data.msg, "success");
+                           $('#result_found_msg').show();
                            $("#result_found").html(data.transferer_id);  
+                        }
+                        else{
+                           swal("Error!", 'Transaction Failed!', "error");
                         }
                         
                     }
@@ -863,7 +870,11 @@
                         }
                         else if(data.status == 'success'){
                            swal("Success!", data.msg, "success");
+                           $('#result_found_alexa_msg').show();
                            $("#result_found_alexa").html(data.transferer_id);  
+                        }
+                        else{
+                           swal("Error!", 'Transaction Failed!', "error");
                         }
                     }
                 });

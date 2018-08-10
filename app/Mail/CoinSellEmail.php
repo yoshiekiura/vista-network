@@ -32,7 +32,7 @@ class CoinSellEmail extends Mailable
     public function build()
     {
         return $this->from('contact@vista.network')
-                    ->subject('Vista Network: Coin Withdraw Complete ({$this->coin->trans_id})')
+                    ->subject('Vista Network: Coin Withdraw Complete')
                     ->view('mails.coin-withdraw')
                     ->attach(public_path('/assets/images/logo').'/logo.png', [
                               'as' => 'logo.png',

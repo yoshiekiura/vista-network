@@ -298,4 +298,34 @@ class CoinsController extends Controller
         return view('client.coin.coin-transactions', compact('coins'));
     }
 
+    public function coinTransactionDetails($id)
+    {
+        $coin = CoinTransaction::findOrFail($id);
+        $coin_name = Coin::where('id', $coin->coin_id)->value('name');
+        
+        if($coin->status == 1){
+            $status = 'Buy';
+        }
+        elseif($coin->status == 0){
+            $status = 'Sell';   
+        }
+        elseif($coin->status == 2){
+            $status = 'Transfer';   
+        }
+        elseif($coin->status == 3){
+            $status = 'Received';   
+        }
+
+        return response()->json([
+                                'success' => true, 
+                                'trans_id' => $coin->transaction_id, 
+                                'coin_name' => $coin_name,
+                                'coin_num' => $coin->number_of_coins,
+                                'coin_rate' => $coin->rate,
+                                'coin_amount' => $coin->amount,
+                                'status' => $status
+                            ]);
+    
+    }
+
 }

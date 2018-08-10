@@ -19,7 +19,7 @@ class CoinReceiveEmail extends Mailable
 
     public $coin;
     
-    public function __construct($coin;)
+    public function __construct($coin)
     {
         $this->coin = $coin;
     }
@@ -32,7 +32,7 @@ class CoinReceiveEmail extends Mailable
     public function build()
     {
         return $this->from('contact@vista.network')
-                    ->subject('Vista Network: Coins Received ({$this->coin->trans_id})')
+                    ->subject('Vista Network: Coins Received')
                     ->view('mails.coin-received')
                     ->attach(public_path('/assets/images/logo').'/logo.png', [
                               'as' => 'logo.png',

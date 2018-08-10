@@ -124,6 +124,7 @@ class HashpowerController extends Controller
 
             $objHashpower = new \stdClass();
             $objHashpower->first_name = $user->first_name;
+            $objHashpower->trans_id = $hp->transaction_id;
             $objHashpower->product_title = $p->title;
             $objHashpower->product_price = $p->price;
             $objHashpower->hp_balance = $new_hp_balance;

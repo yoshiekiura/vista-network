@@ -496,7 +496,7 @@ class HomeController extends Controller
                 $result = array(
                     'status' => 'success',
                     'msg' => 'Username Found!',
-                    'transferer_id' => "<i class='la la-check text-success'></i> Username Found!<input type='hidden' name='username' value='$user_name->id'>",
+                    'transferer_id' => "<i class='la la-check text-success'></i> Username Found!<input type='hidden' name='username' value='{$user_name->id}'>",
                 ); 
 
                 return $result;
@@ -514,6 +514,8 @@ class HomeController extends Controller
             'amount' => 'required|numeric|min:1',
             'username' => 'required',
         ]);
+
+        dd($request->all());
 
         if(Auth::user()->balance < $request->amount)
         {
@@ -992,6 +994,7 @@ class HomeController extends Controller
 
                 $objProduct = new \stdClass();
                 $objProduct->first_name = $user->first_name;
+                $objProduct->order_id = $order->order_id;
                 $objProduct->product_title = $p->title;
                 $objProduct->product_price = $p->price;
                 $objProduct->balance = $new_balance;
@@ -1041,6 +1044,7 @@ class HomeController extends Controller
 
                 $objProduct = new \stdClass();
                 $objProduct->first_name = $user->first_name;
+                $objProduct->order_id = $order->order_id;
                 $objProduct->product_title = $p->title;
                 $objProduct->product_price = $p->price;
                 $objProduct->installment = $request->installment;
