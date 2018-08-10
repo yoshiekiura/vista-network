@@ -296,12 +296,19 @@
                 </ul>
             </li>
 
+            @php 
+                $now = \Carbon\Carbon::now();     
+                $installments = \App\SchedulePayment::whereDate('due_date', '<=', $now)
+                                                    ->where('status', 0)
+                                                    ->count(); 
+            
+            @endphp
             <li class="nav-item start @php echo "active",(request()->path() != 'admin/orders/list')?:"";@endphp
             @php echo "active",(request()->path() != 'admin/orders/list/installments')?:"";@endphp
             @php echo "active",(request()->path() != 'admin/orders/commissions')?:"";@endphp">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fab fa-bitcoin"></i>
-                    <span class="title">Order Management</span>
+                    <span class="title">Order Management <span class="badge badge-danger">{{ $installments != 0 ? $installments : '' }}</span></span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
@@ -315,7 +322,7 @@
                     <li class="nav-item  @if( request()->path() == 'admin/orders/list/installments' ) active open @endif">
                         <a href="{{route('orders.installment')}}" class="nav-link ">
                             <i class="fas fa-check-circle"></i>
-                            <span class="title">Installements</span>
+                            <span class="title">Installements <span class="badge badge-danger">{{ $installments != 0 ? $installments : '' }}</span></span>
                         </a>
                     </li>
 

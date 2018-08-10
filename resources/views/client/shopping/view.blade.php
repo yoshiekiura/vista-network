@@ -6,7 +6,7 @@
 
       $(document).ready(function() {
 
-          $( ".installment_plan" ).hide();
+          $(".installment_plan").hide();
           $("#payment_installment").hide();
           $('#advance').attr("disabled","disabled");
           $('#installment').attr("disabled","disabled");
@@ -54,8 +54,10 @@
           });
 
            
-          $( '.purchase_product' ).on( 'submit', function(e) {
+        /*  $( '.purchase_product' ).on( 'submit', function(e) {
            
+              $("#loader").show();
+
               $.ajaxSetup({
                   headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -88,16 +90,16 @@
                           swal("Error!", "Purchase not complete!", "error");
                     }
               });
-          });
+          }); */
 
-      });
+      }); 
 
       function Accept(dat){
 
           var terms = $('.terms').is(':checked');
-
-          if(terms){
-       //       window.location.href=dat.href;
+          if(terms === true){
+            $("#info").fadeOut(3000);
+            return true;
           }else{
               swal("Warning!", "Please accept terms and condition!", "warning");
               return false;
@@ -363,9 +365,9 @@ aria-hidden="true">
         </table>  
 
         <div class="d-flex justify-content-end">
-          <meta name="csrf-token" content="{{ csrf_token() }}" />  
-          <form class="purchase_product" role="form" method="post"> 
-        
+      <!--    <meta name="csrf-token" content="{{ csrf_token() }}" />  -->
+          <form class="purchase_product" role="form" method="post" action="{{ route('buy.product') }}"> 
+          {{ csrf_field() }}
           <input type="hidden" name="advance" id="advance" value="{{ $product->advance }}">
           <input type="hidden" name="installment" id="installment" value="{{ ceil($ipm) }}">
           <input type="hidden" name="duration" id="duration" value="{{ $product->duration }}">
@@ -373,9 +375,9 @@ aria-hidden="true">
           <input type="hidden" name="product_quantity" id="product_quantity" value="1">
           <input type="hidden" name="product" id="product" value="{{ $product->id }}">
           
-          <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn grey btn-outline-secondary" id="close" data-dismiss="modal">Close</button>
           @if(Auth::user()->balance > $product->price)
-          <button type="submit" name="product" value="{{ $product->id }}" class="btn btn-outline-info" onClick="return Accept(this);">Confirm</button>
+          <button type="submit" name="product" value="{{ $product->id }}" id="confirm" class="btn btn-outline-info" onClick="return Accept(this);">Confirm</button>
           @else
             <a href="#" class="btn btn-outline-primary">Add Fund</a>
           @endif
@@ -386,6 +388,7 @@ aria-hidden="true">
   </div>
 </div>
 <br/><br/>
+
 @endsection
 
 @section('script')

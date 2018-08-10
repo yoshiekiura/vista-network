@@ -68,7 +68,9 @@
                                                     <span class="badge badge-warning">In Progress</span>
                                                 @endif
                                             </td>
-                                            <td><a href="{{ route('installment.details', $data->order_id) }}" class="btn blue btn-xs">Pay Installment</a></td> 
+                                            <td>
+                                                <a href="{{ route('installment.details', $data->order_id) }}" class="btn blue btn-xs">Pay Installment</a>
+                                            </td> 
                                         </tr>
                                     @endforeach
                                     </tbody>

@@ -117,6 +117,7 @@ class CoinsController extends Controller
 
             $objCoin = new \stdClass();
             $objCoin->first_name = $user->first_name;
+            $objCoin->trans_id = $coin->transaction_id;
             $objCoin->coin_name = $coin_name;
             $objCoin->coin_number = $request->coins;
             $objCoin->coin_rate = $request->rate;
@@ -183,6 +184,7 @@ class CoinsController extends Controller
 
             $objCoin = new \stdClass();
             $objCoin->first_name = $user->first_name;
+            $objCoin->trans_id = $coin->transaction_id;
             $objCoin->coin_name = $coin_name;
             $objCoin->coin_number = $request->coins;
             $objCoin->coin_rate = $request->rate;
@@ -276,6 +278,7 @@ class CoinsController extends Controller
             $objCoin->giver_last_name = $giver->last_name;
             $objCoin->receiver_first_name = $receiver->first_name;
             $objCoin->receiver_last_name = $receiver->last_name;
+            $objCoin->trans_id = $coin->transaction_id;
             $objCoin->coin_name = $coin_name;
             $objCoin->coin_number = $request->coins;
             $objCoin->coin_balance = $giver_coins_balance;

@@ -57,8 +57,7 @@ $(window).on("load", function(){
                 $.each(result, function (index, value) {
                   
                     item = {}
-                    item ["name"] = value;        
-                   
+                    item ["name"] = value;                           
                     nodesData.push(item); 
                 
                 });

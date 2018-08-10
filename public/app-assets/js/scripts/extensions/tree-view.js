@@ -9,6 +9,17 @@
 ==========================================================================================*/
 $(document).ready(function(){
 
+    $.ajax({
+        type: "GET",
+        url: "/my-tree-chart",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            result = data;
+        }
+
+    });
+
     var defaultData = [{
         text: 'Parent 1',
         href: '#parent1',

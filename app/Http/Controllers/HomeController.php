@@ -988,6 +988,8 @@ class HomeController extends Controller
                     'post_code' => $request->post_code,
                 ]); 
 
+                $order_id = $order->order_id;
+
                 $objProduct = new \stdClass();
                 $objProduct->first_name = $user->first_name;
                 $objProduct->product_title = $p->title;
@@ -996,8 +998,9 @@ class HomeController extends Controller
 
                 Mail::to($user->email)->send(new ProductPurchaseEmail($objProduct));
 
-            //    return redirect('shopping')->with('message', 'Paid Complete, Wait for Delivery');
-                return response()->json( 'full' );
+                return view('client.shopping.thanks', compact('order_id'));
+            //    return redirect()->route('shopping.user.index')->with('message', 'Paid Complete, Wait for Delivery');
+            //    return response()->json( 'full' );
 
             }else{
 
@@ -1034,6 +1037,8 @@ class HomeController extends Controller
 
                 }
 
+                $order_id = $order->order_id;
+
                 $objProduct = new \stdClass();
                 $objProduct->first_name = $user->first_name;
                 $objProduct->product_title = $p->title;
@@ -1043,9 +1048,10 @@ class HomeController extends Controller
                 $objProduct->payment_no = $payment_no;
 
                 Mail::to($user->email)->send(new ProductPurchaseInstallmentEmail($objProduct));
-                
-             //   return redirect('shopping')->with('message', 'Paid Complete');
-                return response()->json( 'installment' );
+              
+                return view('client.shopping.thanks', compact('order_id'));  
+            //    return redirect()->route('shopping.user.index')->with('message', 'Paid Complete');
+            //    return response()->json( 'installment' );
 
             } 
 
