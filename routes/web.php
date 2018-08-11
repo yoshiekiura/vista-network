@@ -100,6 +100,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/send/mail/{id}', 'AdminController@userSendMailUser')->name('send.mail.user')->middleware('admin');
     Route::post('/send/notification/{id}', 'AdminController@userSendNotificationUser')->name('send.notification.user')->middleware('admin');
     Route::get('/users/balance/{id}', 'AdminController@indexUserBalance')->name('add.subs.index')->middleware('admin');
+    Route::get('/users/coins/balance/{id}', 'AdminController@indexUserCoinBalance')->name('add.subs.coins.index')->middleware('admin');
+    Route::post('/users/coins/balance/{id}', 'AdminController@coinsBalanceUpdate')->name('user.coins.balance.update')->middleware('admin');
     Route::get('/users/detail/{id}', 'AdminController@indexUserDetail')->name('user.view')->middleware('admin');
     Route::get('/users/notification/{id}', 'AdminController@indexUserNotification')->name('user.notification.view')->middleware('admin');
     Route::put('/users/update/{id}', 'AdminController@userUpdate')->name('user.detail.update')->middleware('admin');
@@ -316,6 +318,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/support/ticket', 'TicketController@ticketCreate')->name('add.new.ticket');
     Route::post('/support/ticket', 'TicketController@ticketStore')->name('ticket.store');
     Route::get('/comment/close/{ticket}', 'TicketController@ticketClose')->name('ticket.close');
+    Route::get('/comment/reopen/{ticket}', 'TicketController@ticketReopen')->name('ticket.reopen');
     Route::get('/support/reply/{ticket}', 'TicketController@ticketReply')->name('ticket.customer.reply');
     Route::post('/support/store/{ticket}', 'TicketController@ticketReplyStore')->name('store.customer.reply');
 

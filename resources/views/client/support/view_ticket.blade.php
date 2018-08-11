@@ -7,14 +7,14 @@
     function closeTicket() {
 
         var ticket = document.getElementById("ticket").value;
-      
+        $('#close_ticket').fadeOut(4000);
+
         $.ajax({
 
             url: '/comment/close/'+ticket,
             type: 'GET',
             success: function( result ) {
 
-              console.log(result);
                 if(result.success == true){
                     swal("Success!", "Ticket closed, But you can start again any time.", "success");
                     $("#open-hide").hide();
@@ -23,6 +23,34 @@
                     $("#close-hide").hide();
                     $("#close-show").show();
 
+                }else{
+                    swal("Error!", "Ticket can't closed due to some technical error!", "error");
+                }
+            }
+
+        }); 
+
+    }
+
+    function openTicket() {
+
+        var ticket = document.getElementById("ticket").value;
+        $('#open_ticket').fadeOut(4000);
+
+        $.ajax({
+
+            url: '/comment/reopen/'+ticket,
+            type: 'GET',
+            success: function( result ) {
+
+                if(result.success == true){
+                    swal("Success!", "Ticket Reopen, But you can close again any time.", "success");
+                    $("#solve-hide").hide();
+                    $("#reply-hide").hide();
+                    $("#close-hide").hide();
+                    $("#open-hide").hide();
+                    $("#solve-show").show();
+                    
                 }else{
                     swal("Error!", "Ticket can't closed due to some technical error!", "error");
                 }
@@ -128,13 +156,13 @@
                    <h4><b>Ticket Subject:</b> {{ $ticket_object->subject }} </h4>
                    <h4><b>Status:</b> 
                       @if($ticket_object->status == 1)
-                          <div class="badge border-warning warning round badge-border" id="open-hide">
+                          <div class="badge border-success success round badge-border" id="open-hide">
                               <span>Open</span>
                               <i class="la la-folder-open font-medium-2"></i>
                           </div>
                       @elseif($ticket_object->status == 2)
-                          <div class="badge border-success success round badge-border" id="solve-hide">
-                              <span>Solved</span>
+                          <div class="badge border-primary primary round badge-border" id="solve-hide">
+                              <span>Admin Reply</span>
                               <i class="la la-check font-medium-2"></i>
                           </div>
                       @elseif($ticket_object->status == 3)
@@ -152,11 +180,19 @@
                               <span>Close</span>
                               <i class="la la-lock font-medium-2"></i>
                           </div>
+                          <div class="badge border-success success round badge-border" id="solve-show" style="display: none;">
+                              <span>Open</span>
+                              <i class="la la-folder-open font-medium-2"></i>
+                          </div>
                    </h4>
                 </div>
                 <div class="col-md-6">
                   <p class="float-right">
-                    <button type="button" id="close_ticket" onClick="closeTicket()" class="btn btn-danger round btn-min-width mr-1 mb-1">Close Ticket</button>
+                    @if($ticket_object->status == 9)
+                      <button type="button" id="open_ticket" onClick="openTicket()" class="btn btn-success round btn-min-width mr-1 mb-1">Reopen Ticket</button>
+                    @else
+                      <button type="button" id="close_ticket" onClick="closeTicket()" class="btn btn-danger round btn-min-width mr-1 mb-1">Close Ticket</button>
+                    @endif
                     <input type="hidden" id="ticket" value="{{ $ticket_object->ticket }}">
                   </p>  
                 </div>  

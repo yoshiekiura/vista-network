@@ -154,6 +154,16 @@
                                     <i class="la la-check-circle-o font-medium-2"></i>
                                     <span>Received</span>
                                   </div>
+                              @elseif($data->status == 4)
+                                  <div class="badge badge-success round">
+                                    <i class="la la-check-circle-o font-medium-2"></i>
+                                    <span>Admin Added</span>
+                                  </div>
+                              @elseif($data->status == 5)
+                                  <div class="badge badge-secondary round">
+                                    <i class="la la-remove font-medium-2"></i>
+                                    <span>Admin Deduct</span>
+                                  </div>
                               @endif
                           </td>
                           @php    

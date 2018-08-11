@@ -145,16 +145,20 @@
                             </div>
                             <div class="portlet-body">
                                 <div class="row">
-                                    <div class="col-md-4 uppercase">
-                                        <a href="{{route('add.subs.index', $user->id)}}" class="btn blue btn-lg btn-block"> <i class="fas fa-money-bill-alt"></i> add / substruct balance  </a>
+                                    <div class="col-md-3">
+                                        <a href="{{route('add.subs.index', $user->id)}}" class="btn blue btn-lg btn-block"> <i class="fas fa-money-bill-alt"></i> Add/Subtract Balance  </a>
                                     </div>
 
-                                    <div class="col-md-4 uppercase">
-                                        <a href="{{route('user.mail.send', $user->id)}}" class="btn btn-info btn-lg btn-block"> <i class="fa fa-envelope"></i> send email  </a>
+                                    <div class="col-md-3">
+                                        <a href="{{route('add.subs.coins.index', $user->id)}}" class="btn blue btn-lg btn-block"> <i class="fab fa-bitcoin"></i> Add/Subtract Coins  </a>
                                     </div>
 
-                                    <div class="col-md-4 uppercase">
-                                        <a href="{{route('user.notification.send', $user->id)}}" class="btn btn-info btn-lg btn-block"> <i class="fa fa-bell"></i> send notification  </a>
+                                    <div class="col-md-3">
+                                        <a href="{{route('user.mail.send', $user->id)}}" class="btn btn-info btn-lg btn-block"> <i class="fa fa-envelope"></i> Send Email  </a>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <a href="{{route('user.notification.send', $user->id)}}" class="btn btn-info btn-lg btn-block"> <i class="fa fa-bell"></i> Send Notification  </a>
                                     </div>
 
                                 </div>

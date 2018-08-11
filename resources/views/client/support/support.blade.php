@@ -32,7 +32,7 @@
             <h4 class="card-title">My Tickets</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">            
-                <a href="{{ route('add.new.ticket') }}"><button type="button" class="btn btn-primary btn-sm round">New Ticket</button></a>
+                <a href="{{ route('add.new.ticket') }}"><button type="button" class="btn btn-danger btn-sm round">New Ticket</button></a>
             </div>
           </div>
           <div class="card-content">
@@ -66,7 +66,7 @@
                           @if($data->status == 1 || $data->status == 3)
                               <div class="badge badge-warning round">
                                 <i class="la la-clock-o font-medium-2"></i>
-                                <span>Opened</span>
+                                <span>Open</span>
                               </div>
                           @elseif($data->status == 9)
                               <div class="badge badge-danger round">
@@ -76,11 +76,11 @@
                           @elseif($data->status == 2)
                               <div class="badge badge-success round">
                                 <i class="la la-check font-medium-2"></i>
-                                <span>Solved</span>
+                                <span>Admin Reply</span>
                               </div>    
                           @endif
                       </td>
-                      <td><a href="{{route('ticket.customer.reply', $data->ticket )}}"><button class="btn btn-secondary round btn-sm">View Ticket</button></a></td>
+                      <td><a href="{{route('ticket.customer.reply', $data->ticket )}}"><button class="btn btn-primary round btn-sm">View Ticket</button></a></td>
                   </tr>
                   @endforeach
                 @else

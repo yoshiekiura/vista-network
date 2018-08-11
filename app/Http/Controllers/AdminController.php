@@ -21,8 +21,8 @@ use App\Notification;
 use App\SchedulePayment;
 use App\PaymentInstallment;
 use App\CoinTransaction;
-use App\HpTransaction;
 use App\Coin;
+use App\HpTransaction;
 use App\Order;
 use App\Commission;
 use Carbon\Carbon;
@@ -37,6 +37,10 @@ use App\Mail\AdminEmailtoUser;
 use App\Mail\ShipmentMessageProcessedd; 
 use App\Mail\ShipmentMessageDelivered;
 use App\Mail\ShipmentMessageRejected;
+use App\Mail\AdminCoinAddEmail;
+use App\Mail\AdminCoinSubtractEmail;
+use App\Mail\AdminBalanceAddEmail;
+use App\Mail\AdminBalanceSubtractEmail;
 
 class AdminController extends Controller
 {
@@ -586,6 +590,24 @@ class AdminController extends Controller
         return view('admin.user_mmanagement.balance',compact('user'));
     }
 
+    public function indexUserCoinBalance($id)
+    {
+
+        $user = User::find($id);
+
+        $alxa_coin_balance = CoinTransaction::where('user_id', $id)
+                                            ->where('coin_id', 1)
+                                            ->sum('number_of_coins');
+        $vista_coin_balance = CoinTransaction::where('user_id', $id)
+                                            ->where('coin_id', 2)
+                                            ->sum('number_of_coins');
+
+        $coins = Coin::all();
+
+        return view('admin.user_mmanagement.coin_balance',compact('user','alxa_coin_balance','vista_coin_balance','coins'));
+    
+    }
+
     public function indexBalanceUpdate(Request $request ,$id)
     {
         $this->validate($request,[
@@ -609,11 +631,15 @@ class AdminController extends Controller
                     'type' => 10,
                 ]);
 
-                send_email($user['email'], 'Admin Balance Add' ,$user['first_name'], $message);
+                $objBalance = new \stdClass();
+                $objBalance->first_name = $user->first_name;
+                $objBalance->amount = $request->amount;
+                $objBalance->balance = $new_balance;
 
+                Mail::to($user->email)->send(new AdminBalanceAddEmail($objBalance));
 
-                $sms = $request->message;
-                send_sms($user['mobile'], $sms);
+            //    $sms = $request->message;
+            //    send_sms($user['mobile'], $sms);
                 return redirect()->back()->withMsg('Balance Add Successful');
             }else{
                 $user = User::find($id);
@@ -632,13 +658,122 @@ class AdminController extends Controller
                         'type' => 11,
                     ]);
 
-                    send_email($user['email'], 'Admin Balance Subtract' ,$user['first_name'], $message);
-                    $sms = $request->message;
-                    send_sms($user['mobile'], $sms);
+                    $objBalance = new \stdClass();
+                    $objBalance->first_name = $user->first_name;
+                    $objBalance->amount = $request->amount;
+                    $objBalance->balance = $new_balance;
+
+                    Mail::to($user->email)->send(new AdminBalanceSubtractEmail($objBalance));
+
+               //     send_email($user['email'], 'Admin Balance Subtract' ,$user['first_name'], $message);
+                //    $sms = $request->message;
+                //    send_sms($user['mobile'], $sms);
                     return redirect()->back()->withMsg('Balance Subtract Successful');
                     }
                 return redirect()->back()->withdelmsg('Insufficient Balance');
             }
+
+    }
+
+    public function coinsBalanceUpdate(Request $request ,$id)
+    {
+        $this->validate($request,[
+            'amount' => 'required|numeric|min:1',
+        ]);
+
+        $coin_name = Coin::where('id', $request->coin)->value('name');
+    
+        if ($request->operation == 'on'){
+
+            $user = User::find($id);
+
+            $coin = CoinTransaction::create([
+               'coin_id' => $request->coin,
+               'number_of_coins' => $request->amount,
+               'rate' => 0,
+               'amount' => 0,
+               'status' => 4,
+               'transaction_id' => 'CN'.rand(),
+               'user_id' => $id,
+            ]);
+
+            Transaction::create([
+                'user_id' => $id,
+                'trans_id' => rand(),
+                'time' => Carbon::now(),
+                'description' => 'ADMIN'. '#ID'.'-'.'ADD-COIN-'.$coin->transaction_id,
+                'amount' => 0,
+                'new_balance' => $user['balance'],
+                'type' => 12,
+            ]);
+
+            $new_coins_balance = CoinTransaction::where('user_id', $id)
+                                            ->where('coin_id', $request->coin)
+                                            ->sum('number_of_coins');
+
+            $objCoin = new \stdClass();
+            $objCoin->first_name = $user->first_name;
+            $objCoin->coin_name = $coin_name;
+            $objCoin->coin_number = $request->amount;
+            $objCoin->coin_balance = $new_coins_balance;
+
+            Mail::to($user->email)->send(new AdminCoinAddEmail($objCoin));
+        //    $sms = $request->message;
+        //    send_sms($user['mobile'], $sms);
+
+            return redirect()->back()->withMsg('Coins Added Successful');
+        
+        }else{
+            
+            $coins_balance = CoinTransaction::where('user_id', $id)
+                                        ->where('coin_id', $request->coin)
+                                        ->sum('number_of_coins');  
+
+            if ($coins_balance > $request->amount){
+    
+                $user = User::find($id);               
+                $coins_num = '-' . $request->amount;
+
+                $coin = CoinTransaction::create([
+                   'coin_id' => $request->coin,
+                   'number_of_coins' => $coins_num,
+                   'rate' => 0,
+                   'amount' => 0,
+                   'status' => 5,
+                   'transaction_id' => 'CN'.rand(),
+                   'user_id' => $id,
+                ]);
+
+                Transaction::create([
+                    'user_id' => $id,
+                    'trans_id' => rand(),
+                    'time' => Carbon::now(),
+                    'description' => 'ADMIN'. '#ID'.'-'.'SUBTRACT-COIN-'.$coin->transaction_id,
+                    'amount' => 0,
+                    'new_balance' => $user['balance'],
+                    'type' => 13,
+                ]);
+
+                $new_coins_balance = CoinTransaction::where('user_id', $id)
+                                            ->where('coin_id', $request->coin)
+                                            ->sum('number_of_coins');
+
+                $objCoin = new \stdClass();
+                $objCoin->first_name = $user->first_name;
+                $objCoin->coin_name = $coin_name;
+                $objCoin->coin_number = $request->amount;
+                $objCoin->coin_balance = $new_coins_balance;
+
+                Mail::to($user->email)->send(new AdminCoinSubtractEmail($objCoin));
+
+             //   $sms = $request->message;
+             //   send_sms($user['mobile'], $sms);
+                return redirect()->back()->withMsg('Coin Balance Subtracted Successful');
+            
+            }
+
+            return redirect()->back()->withdelmsg('Insufficient Balance');
+        }
 
     }
 

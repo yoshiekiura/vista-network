@@ -368,12 +368,12 @@
                         </a>
                     </li>
 
-                    <li class="nav-item  @if( request()->path() == 'admin/coins/balance' ) active open @endif">
+                <!--    <li class="nav-item  @if( request()->path() == 'admin/coins/balance' ) active open @endif">
                         <a href="{{route('coins.balance')}}" class="nav-link ">
                             <i class="fas fa-check-circle"></i>
                             <span class="title">Coins Balance</span>
                         </a>
-                    </li>
+                    </li>  -->
 
                     <li class="nav-item  @if( request()->path() == 'admin/coins/log' ) active open @endif">
                         <a href="{{route('coins.viewlog.admin')}}" class="nav-link ">

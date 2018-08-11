@@ -28,6 +28,68 @@
         background-color: #ffffff;
     }
 </style>
+  <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}" ></script>
+  <script>
+
+    function closeTicket() {
+
+        var ticket = document.getElementById("ticket").value;
+        $('#close_ticket').fadeOut(4000);
+
+        $.ajax({
+
+            url: '/comment/close/'+ticket,
+            type: 'GET',
+            success: function( result ) {
+
+              console.log(result);
+                if(result.success == true){
+                    swal("Success!", "Ticket closed, But you can start again any time.", "success");
+                    $("#open-hide").hide();
+                    $("#solve-hide").hide();
+                    $("#reply-hide").hide();
+                    $("#close-hide").hide();
+                    $("#close-show").show();
+
+                }else{
+                    swal("Error!", "Ticket can't closed due to some technical error!", "error");
+                }
+            }
+
+        }); 
+
+    }
+
+    function openTicket() {
+
+        var ticket = document.getElementById("ticket").value;
+        $('#open_ticket').fadeOut(4000);
+
+        $.ajax({
+
+            url: '/comment/reopen/'+ticket,
+            type: 'GET',
+            success: function( result ) {
+
+                if(result.success == true){
+                    swal("Success!", "Ticket Reopen, But you can close again any time.", "success");
+                    $("#solve-hide").hide();
+                    $("#reply-hide").hide();
+                    $("#close-hide").hide();
+                    $("#open-hide").hide();
+                    $("#solve-show").show();
+                    
+                }else{
+                    swal("Error!", "Ticket can't closed due to some technical error!", "error");
+                }
+            }
+
+        }); 
+
+    }
+
+  </script>
+
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -65,18 +127,26 @@
                     <div class="portlet box purple">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-edit"></i>#{{$ticket_object->ticket}} - {{$ticket_object->subject}}
+                                <i class="fa fa-edit"></i> {{$ticket_object->subject}} -  #{{$ticket_object->ticket}}
                             </div>
                             <div class="tools">
                                 @if($ticket_object->status == 1)
-                                    <button class="btn btn-warning"> Opened</button>
+                                    <span class="label label-default"> Open</span>
                                 @elseif($ticket_object->status == 2)
-                                    <button type="button" class="btn btn-success">  Answered </button>
+                                    <span class="label label-success">  Answered </span>
                                 @elseif($ticket_object->status == 3)
-                                    <button type="button" class="btn btn-info"> Customer Reply </button>
+                                    <span class="label label-info"> Customer Reply </span>
                                 @elseif($ticket_object->status == 9)
-                                    <button type="button" class="btn btn-danger">  Closed </button>
+                                    <span class="label label-danger">  Close </span>
                                 @endif
+
+                                &nbsp; 
+                                @if($ticket_object->status == 9)
+                                  <button type="button" id="open_ticket" onClick="openTicket()" class="btn btn-success">Reopen Ticket</button>
+                                @else
+                                  <button type="button" id="close_ticket" onClick="closeTicket()" class="btn btn-danger">Close Ticket</button>
+                                @endif
+                                <input type="hidden" id="ticket" value="{{ $ticket_object->ticket }}">
 
                             </div>
                         </div>

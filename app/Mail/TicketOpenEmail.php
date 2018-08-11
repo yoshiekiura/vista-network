@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class DepositFundEmail extends Mailable
+class TicketOpenEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,12 +16,12 @@ class DepositFundEmail extends Mailable
      *
      * @return void
      */
-    
-    public $deposit;
 
-    public function __construct($deposit)
+    public $ticket;
+
+    public function __construct($ticket)
     {
-        $this->deposit = $deposit;
+        $this->ticket = $ticket;
     }
 
     /**
@@ -32,8 +32,8 @@ class DepositFundEmail extends Mailable
     public function build()
     {
         return $this->from('contact@vista.network')
-                    ->subject('Vista Network: Funds Deposit')
-                    ->view('mails.forget-password')
+                    ->subject('Vista Network: Ticket Reopen')
+                    ->view('mails.ticket-reopen')
                     ->attach(public_path('/assets/images/logo').'/logo.png', [
                               'as' => 'logo.png',
                               'mime' => 'image/png',

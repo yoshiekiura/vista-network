@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Ticket;
 use App\TicketComment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Mail\SupportTicketEmail;
+use App\Mail\TicketAdminReplyEmail;
+use App\Mail\TicketCloseEmail;
+use App\Mail\TicketOpenEmail;
+use Mail;
 
 class TicketController extends Controller
 {
@@ -42,6 +48,17 @@ class TicketController extends Controller
            'type' => 1,
            'comment' => $request->detail,
         ]);
+
+        $email = Auth::user()->email;
+
+        $objTicket = new \stdClass();
+        $objTicket->first_name = Auth::user()->first_name;
+        $objTicket->ticket_id = $ticket->ticket;
+        $objTicket->subject = $request->subject;
+        $objTicket->details = $request->detail;
+        $objTicket->status = 'Open';
+
+        Mail::to($email)->send(new SupportTicketEmail($objTicket));
 
         Session::flash('message', 'Ticket Successfully Created!');
         return redirect()->route('add.new.ticket');
@@ -112,7 +129,19 @@ class TicketController extends Controller
         Ticket::where('ticket', $ticket)
             ->update([
                 'status' => 2
-            ]);
+            ]); 
+
+        $customer_id = Ticket::where('ticket', $ticket)->value('customer_id');
+        $customer_first_name = User::where('id', $customer_id)->value('first_name');
+        $customer_email = User::where('id', $customer_id)->value('email');
+
+        $objTicket = new \stdClass();
+        $objTicket->first_name = $customer_first_name;
+        $objTicket->ticket_id = $ticket;
+        $objTicket->comment = $request->comment;
+        $objTicket->status = 'Admin Reply';
+
+        Mail::to($customer_email)->send(new TicketAdminReplyEmail($objTicket));
 
         return redirect()->back()->with('message', 'Message Send Successful');
 
@@ -126,8 +155,41 @@ class TicketController extends Controller
                 'status' => 9
             ]);
 
+        $customer_id = Ticket::where('ticket', $ticket)->value('customer_id');
+        $customer_first_name = User::where('id', $customer_id)->value('first_name');
+        $customer_email = User::where('id', $customer_id)->value('email');
+
+        $objTicket = new \stdClass();
+        $objTicket->first_name = $customer_first_name;
+        $objTicket->ticket_id = $ticket;
+        $objTicket->status = 'Close';
+
+        Mail::to($customer_email)->send(new TicketCloseEmail($objTicket));
+
       //  return redirect()->back()->with('message', 'Conversation closed, But you can start again');
           return response()->json(['success' => true]);
+    }
+
+    public function ticketReopen($ticket)
+    {
+        Ticket::where('ticket', $ticket)
+            ->update([
+                'status' => 1
+            ]);
+
+        $customer_id = Ticket::where('ticket', $ticket)->value('customer_id');
+        $customer_first_name = User::where('id', $customer_id)->value('first_name');
+        $customer_email = User::where('id', $customer_id)->value('email');
+
+        $objTicket = new \stdClass();
+        $objTicket->first_name = $customer_first_name;
+        $objTicket->ticket_id = $ticket;
+        $objTicket->status = 'Open';
+
+        Mail::to($customer_email)->send(new TicketOpenEmail($objTicket));
+
+      //  return redirect()->back()->with('message', 'Conversation closed, But you can start again');
+          return response()->json(['success' => true]);   
     }
 
 
