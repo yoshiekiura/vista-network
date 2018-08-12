@@ -103,6 +103,8 @@
 
 @section('script')
 
+<script src="{{ URL::asset('app-assets/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script> 
+<script src="{{ URL::asset('app-assets/vendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('app-assets/js/scripts/charts/echarts/radar-chord/non-ribbon-chord.js') }}"
   type="text/javascript"></script>
 <script src="{{ URL::asset('app-assets/js/scripts/extensions/tree-view.js') }}" type="text/javascript"></script>
