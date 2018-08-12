@@ -8,15 +8,14 @@
 
 <div class="content-header row">
   <div class="content-header-left col-md-6 col-12 mb-2">
-    <h3 class="content-header-title">Binary Tree</h3>
+    <h3 class="content-header-title">My Tree</h3>
     <div class="row breadcrumbs-top">
       <div class="breadcrumb-wrapper col-12">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a>
-          </li>
-          <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Binary Tree
+          <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="javascript:;">Marketing</a></li>
+          <li class="breadcrumb-item active">My Tree
           </li>
         </ol>
       </div>

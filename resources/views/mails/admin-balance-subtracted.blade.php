@@ -8,9 +8,9 @@
 
 	Dear <b>{{ $balance->first_name }}</b>, <br/>
 	<p>
-		This is to inform you that Vista Network administration has deducted {{ $balance->amount }} from your account.<br/><br/>
+		This is to inform you that Vista Network administration has deducted ${{ $balance->amount }} from your account.<br/><br/>
 
-		New Balance: <b>{{ $balance->balance }}</b><br/>
+		New Balance: <b>${{ $balance->balance }}</b><br/>
 	</p>	
 	<br/>
 	Thank You,

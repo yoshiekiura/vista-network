@@ -1,6 +1,6 @@
 @extends('master')
 @section('site-title')
-    Admin DashBoard | Vista Network
+    Vista Network | Admin Dashboard 
 @endsection
 @section('style')
     <style>

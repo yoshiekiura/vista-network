@@ -315,6 +315,12 @@ class CoinsController extends Controller
         elseif($coin->status == 3){
             $status = 'Received';   
         }
+        elseif($coin->status == 4){
+            $status = 'Admin Added';   
+        }
+        elseif($coin->status == 5){
+            $status = 'Admin Deducted';   
+        }
 
         return response()->json([
                                 'success' => true, 

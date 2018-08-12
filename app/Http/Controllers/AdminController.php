@@ -173,17 +173,17 @@ class AdminController extends Controller
         ]);
 
         $withdraw = Withdraw::whereId($id)
-        ->update([
-            'name' => $request->name,
-            'min_amo' => $request->min_amo,
-            'max_amo' => $request->max_amo,
-            'chargefx' => $request->chargefx,
-            'chargepc' => $request->chargepc,
-            'rate' => $request->rate,
-            'currency' => $request->currency,
-            'processing_day' => $request->processing_day,
-            'status' => $request->status,
-        ]);
+                            ->update([
+                                'name' => $request->name,
+                                'min_amo' => $request->min_amo,
+                                'max_amo' => $request->max_amo,
+                                'chargefx' => $request->chargefx,
+                                'chargepc' => $request->chargepc,
+                                'rate' => $request->rate,
+                                'currency' => $request->currency,
+                                'processing_day' => $request->processing_day,
+                                'status' => $request->status,
+                            ]);
 
         $general = Withdraw::findOrFail($id);
 
@@ -261,6 +261,7 @@ class AdminController extends Controller
                             ->get();                      
 
         return view('admin.coins.coins_balance', compact('alxa_coins','vista_coins','user'));
+        
     }
 
     public function ordersList()

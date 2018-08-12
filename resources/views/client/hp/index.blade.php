@@ -80,12 +80,9 @@
     <div class="row breadcrumbs-top">
       <div class="breadcrumb-wrapper col-12">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a>
-          </li>
-          <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Hash Power
-          </li>
+          <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+          <li class="breadcrumb-item active">Hash Power</li>
         </ol>
       </div>
     </div>

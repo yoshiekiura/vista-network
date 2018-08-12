@@ -292,7 +292,10 @@ Route::group(['middleware' => 'web'], function() {
 	Route::get('/fund/transfer', 'HomeController@transferFundIndex')->name('fund.transfer.index');
 	Route::post('/fund/transfer', 'HomeController@transferFund')->name('store.transfer.fund');
 	Route::get('/fund/transactions', 'HomeController@transacHistory')->name('transaction.history');
-	Route::post('/deposit/store', 'HomeController@storeDeposit')->name('buy.preview');
+    Route::get('/fund/deposit/preview/{id}', 'HomeController@fundDepositPreview')->name('fund.deposit.preview');
+    Route::get('/fund/deposit/data/{gateway}/{amount}', 'HomeController@getGatewayData');
+    Route::post('/fund/deposit/pay', 'PaymentController@gatewayDataPay')->name('fund.deposit.pay');
+//	Route::post('/deposit/store', 'HomeController@storeDeposit')->name('deposit.preview');
 	Route::get('/deposit/confirm', 'PaymentController@buyConfirm')->name('buy.confirm');
 	Route::get('/withdraw', 'HomeController@withdrawIndex')->name('request.users_management.index');
 	Route::post('/withdraw/preview', 'HomeController@withdrawPreview')->name('withdraw.preview.user');
@@ -306,7 +309,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::post('/ipnstripe', 'PaymentController@ipnstripe')->name('ipn.stripe');
     Route::post('/ipncoin', 'PaymentController@ipncoin')->name('ipn.coinPay');
     Route::post('/ipncoin-gate', 'PaymentController@coinGateIPN')->name('ipn.coinGate');
-    Route::get('/coin-gate', 'PaymentController@coingatePayment')->name('coinGate');
+    Route::get('/coin-gate/{trx}', 'PaymentController@coingatePayment')->name('coinGate');
     Route::post('/ipnskrill', 'PaymentController@skrillIPN')->name('ipn.skrill');
     Route::get('/ipnblock', 'PaymentController@blockIpn')->name('ipn.block');
 

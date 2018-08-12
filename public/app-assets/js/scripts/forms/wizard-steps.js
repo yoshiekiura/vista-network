@@ -76,6 +76,57 @@ $(".steps-validation").steps({
         {
             return false;
         }
+
+        if (currentIndex === 1)
+        {
+        
+            var amount = $("#inputAmountAdd").val();
+            var gateway = $("#gateway").val();
+            var minamo = $("#minamo").val();
+            var maxamo = $("#maxamo").val();
+
+            if(!Number(amount) || amount == ""){
+                alert('Enter a valid number...!');
+                return false;
+            }
+
+        /*    if ( amount < minamo || amount > maxamo )
+            { 
+                alert('Minimum or Maximum amount requirement do not meet!');
+                return false;
+            } */
+
+            $.ajax({
+                type: "GET",
+                url: "/fund/deposit/data/"+gateway+"/"+amount,
+                success: function (data) {
+                
+                    if(data.status == 'error'){
+
+                        swal("Error!", data.msg, "error");
+
+                    }
+                    else{
+
+                        var result = data;
+            
+                        var amount_deposit = '$' + result.data.amount;
+                        var charges = '$' + result.data.trx_charge;
+                        var payable_amount = '$' + result.data.usd_amount;
+                        var bcam = result.data.bcam;
+                        var trx = result.data.trx;
+
+                        $("#amount_deposit_preview").html(amount_deposit);
+                        $("#total_charges_preview").html(charges);
+                        $(".total_payable_preview").html(payable_amount);
+                        $(".in_btc_preview").html(bcam);
+                        $("#trx_preview").val(trx);
+
+                    }    
+                }
+            });
+
+        }
         // Needed in some cases if the user went back (clean up)
         if (currentIndex < newIndex)
         {
@@ -93,7 +144,9 @@ $(".steps-validation").steps({
     },
     onFinished: function (event, currentIndex)
     {
-        alert("Submitted!");
+
+        $("#form_deposit").submit();
+      
     }
 });
 
@@ -123,10 +176,10 @@ $(".steps-validation").validate({
 // ------------------------------
 
 // Date & Time Range
-$('.datetime').daterangepicker({
+/* $('.datetime').daterangepicker({
     timePicker: true,
     timePickerIncrement: 30,
     locale: {
         format: 'MM/DD/YYYY h:mm A'
     }
-});
+}); */

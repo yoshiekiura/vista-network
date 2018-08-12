@@ -8,12 +8,9 @@
     <div class="row breadcrumbs-top">
       <div class="breadcrumb-wrapper col-12">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a>
-          </li>
-          <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Customer Support Tickets
-          </li>
+          <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+          <li class="breadcrumb-item active">Tickets</li>
         </ol>
       </div>
     </div>
@@ -32,7 +29,7 @@
             <h4 class="card-title">My Tickets</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">            
-                <a href="{{ route('add.new.ticket') }}"><button type="button" class="btn btn-danger btn-sm round">New Ticket</button></a>
+                <a href="{{ route('add.new.ticket') }}"><button type="button" class="btn btn-sm round btn-danger btn-glow">New Ticket</button></a>
             </div>
           </div>
           <div class="card-content">
@@ -43,8 +40,8 @@
                     <th>#</th>
                     <th>Ticket ID</th>
                     <th>Subject</th>
-                    <th>Created On</th>
                     <th>Status</th>
+                    <th>Created On</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -61,26 +58,26 @@
                           $created_format = $dt->toFormattedDateString();
 
                       @endphp
-                      <td>{{ $created_format }}</td>
                       <td>
                           @if($data->status == 1 || $data->status == 3)
-                              <div class="badge badge-warning round">
-                                <i class="la la-clock-o font-medium-2"></i>
+                              <div class="badge badge-success round">
+                            <!--    <i class="la la-clock-o font-medium-2"></i> -->
                                 <span>Open</span>
                               </div>
                           @elseif($data->status == 9)
                               <div class="badge badge-danger round">
-                                <i class="la la-lock font-medium-2"></i>
+                          <!--      <i class="la la-lock font-medium-2"></i> -->
                                 <span>Closed</span>
                               </div>
                           @elseif($data->status == 2)
-                              <div class="badge badge-success round">
-                                <i class="la la-check font-medium-2"></i>
+                              <div class="badge badge-info round">
+                          <!--      <i class="la la-check font-medium-2"></i> -->
                                 <span>Admin Reply</span>
                               </div>    
                           @endif
                       </td>
-                      <td><a href="{{route('ticket.customer.reply', $data->ticket )}}"><button class="btn btn-primary round btn-sm">View Ticket</button></a></td>
+                      <td>{{ $created_format }}</td>
+                      <td><a href="{{route('ticket.customer.reply', $data->ticket )}}"><button class="btn btn-primary btn-sm">Details</button></a></td>
                   </tr>
                   @endforeach
                 @else

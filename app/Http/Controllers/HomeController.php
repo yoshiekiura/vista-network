@@ -265,6 +265,110 @@ class HomeController extends Controller
        return view('client.shipping', compact('ship'));
     }
 
+    public function fundDepositPreview($id)
+    {
+        $gate = Gateway::find($id);
+
+        if(is_null($gate)){
+             return back()->with('alert', 'Please Select a Payment Gateway');
+        }
+        else{
+            return view('client.finance.preview', compact('gate'));
+        }
+    }
+
+    public function getGatewayData($gateway, $amount)
+    {
+
+        $gate = Gateway::findOrFail($gateway);
+
+        if ( $amount < $gate->minamo || $amount > $gate->maxamo)
+        {
+           //  return back()->with('alert', 'Invalid Amount');
+            return response()->json( 'invalid_amount' );
+         //   return response()->json(['success' => 'invalid_amount', 'id' => $gate->id]);
+        }
+        else
+        {
+            if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8)
+                {
+                    $all = file_get_contents("https://blockchain.info/ticker");
+                    
+                    if($all){
+
+                        $res = json_decode($all);
+                        $btcrate = $res->USD->last;
+                    //    $btcrate = 0.12344;
+
+                        $btcamount = $amount/$btcrate;
+                        $btc = round($btcamount, 8);
+
+                        $one = $amount + $gate->chargefx;
+                        $two = ($amount * $gate->chargepc)/100;
+
+                        $charge = $gate->chargefx + (( $amount *  $gate->chargepc )/100);
+                        $totalbase = $amount+$charge;
+                        $totalusd = $totalbase/$gate->rate;
+                        $payablebtc = round($totalusd/$btcrate, 8); // user will pay this amount of BTC
+                        $payable_amount = $one + $two;
+
+                        $sell['user_id'] = Auth::user()->id;
+                        $sell['gateway_id'] = $gate->id;
+                        $sell['amount'] = $amount;
+                        $sell['status'] = 0;
+                        $sell['usd_amount'] = number_format($payable_amount, 2);
+                        $sell['bcam'] = $payablebtc;
+                        $sell['trx_charge'] = $charge;
+                        $sell['trx'] = 'DP'.rand();
+                        
+                        Deposit::create($sell);
+
+                        Session::put('Track', $sell['trx']);
+
+                     //   return view('client.finance.preview', compact('btc','gate','amount', 'payablebtc'));
+                        return response()->json(['status' => 'success', 'data' => $sell]);
+                    
+                    }else{
+
+                        return response()->json(['status' => 'error', 'msg' => 'Technical Error, Please try later.']);    
+                        
+                    }
+                }
+                else
+                {
+                //    $amount = $request->amount;
+                //    $usd = $request->amount;
+
+                    $one = $amount + $gate->chargefx;
+                    $two = ($amount * $gate->chargepc)/100;
+
+                    $charge = $gate->chargefx + ( $amount *  $gate->chargepc )/100;
+                    $payable_amount = $charge + $amount;
+
+                    $sell['user_id'] = Auth::id();
+                    $sell['gateway_id'] = $gate->id;
+                    $sell['amount'] = $amount;
+                    $sell['status'] = 0;
+                    $sell['usd_amount'] = number_format($payable_amount, 2);
+                    $sell['trx_charge'] = $charge;
+                    $sell['trx'] = 'DP'.rand();
+
+                    Deposit::create($sell);
+
+                    Session::put('Track', $sell['trx']);
+
+                 //   $in_usd = number_format(($one + $two)/$gate->rate, 2);
+                 //   $payable_amount = $one + $two;
+
+                //    return view('client.finance.preview', compact('usd','gate','amount'));
+
+                    return response()->json(['status' => 'success', 'data' => $sell]);
+        
+                }
+        }    
+
+    }
+
     public function storeDeposit(Request $request)
     {
         /* $this->validate($request,[
@@ -276,18 +380,18 @@ class HomeController extends Controller
 
         if ( $request->amount < $gate->minamo || $request->amount > $gate->maxamo)
         {
-           // return back()->with('alert', 'Invalid Amount');
+            return back()->with('alert', 'Invalid Amount');
            // return response()->json( 'invalid_amount' );
-            return response()->json(['success' => 'invalid_amount', 'id' => $gate->id]);
+         //   return response()->json(['success' => 'invalid_amount', 'id' => $gate->id]);
         }
         else
         {
 
             if(is_null($gate))
             {
-               //  return back()->with('alert', 'Please Select a Payment Gateway');
+                 return back()->with('alert', 'Please Select a Payment Gateway');
                //  return response()->json( 'gateway' );
-                return response()->json(['success' => 'gateway', 'id' => $gate->id]);
+             //   return response()->json(['success' => 'gateway', 'id' => $gate->id]);
             }
             else
             {
@@ -326,9 +430,10 @@ class HomeController extends Controller
 
                     Session::put('Track', $sell['trx']);
 
-                    $payable_amount = $one + $two; 
+                    return view('client.finance.preview', compact('btc','gate','amount', 'payablebtc'));
 
-                    $content = '';
+                //    $payable_amount = $one + $two;
+                /*    $content = '';
                     $content .= '<table cellpadding="5" style="width: 100%">';
                     $content .= '<tr>';
                     $content .= '<td style="width: 50%;">Payment Gateway</td>';
@@ -350,9 +455,9 @@ class HomeController extends Controller
                     $content .= '<td>In BTC</td>';
                     $content .= "<th>{$payablebtc}<input type=\"hidden\" name=\"Track\" value=\"{$sell['trx']}\"></th>";
                     $content .= '</tr>';
-                    $content .= '</table>';
+                    $content .= '</table>'; */
 
-                    return response()->json(['success' => $gate->id, 'html' => $content]);
+                //    return response()->json(['success' => $gate->id, 'html' => $content]);
                 
                 }
                 else
@@ -380,7 +485,9 @@ class HomeController extends Controller
                     $in_usd = number_format(($one + $two)/$gate->rate, 2);
                     $payable_amount = $one + $two;
 
-                    $content = '';
+                    return view('client.finance.preview', compact('usd','gate','amount'));
+
+                /*    $content = '';
                     $content .= '<table style="width: 100%" cellpadding="5">';
                     $content .= '<tr>';
                     $content .= '<td style="width: 50%;">Payment Gateway</td>';
@@ -402,9 +509,9 @@ class HomeController extends Controller
                     $content .= '<td>In USD</td>';
                     $content .= "<th>{$in_usd}<input type=\"hidden\" name=\"Track\" value=\"{$sell['trx']}\"></th>";
                     $content .= '</tr>';
-                    $content .= '</table>';
+                    $content .= '</table>'; */
 
-                    return response()->json(['success' => $gate->id, 'html' => $content]);
+                //    return response()->json(['success' => $gate->id, 'html' => $content]);
         
                 }
             }

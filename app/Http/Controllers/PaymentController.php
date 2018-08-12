@@ -23,6 +23,238 @@ use Mail;
 class PaymentController extends Controller
 {
 
+    public function gatewayDataPay(Request $request)
+    {
+
+        $trx = $request->trx_preview;
+
+        $data = Deposit::where('trx', $trx)->orderBy('id', 'DESC')->first();
+        
+        if($data->status != 0)
+        {
+            return redirect()->back()->with('alert', 'An Error Occurd!');
+          //  return response()->json( 'error' );
+
+        }
+
+        $gatewayData = Gateway::where('id', $data->gateway_id)->first();
+
+        if ($data->gateway_id==1)
+        {
+            $amount = $data->usd_amount;
+
+            $paypal['amount'] = $amount;
+            $paypal['sendto'] = $gatewayData->val1;
+            $paypal['track'] = $track;
+
+          //  return response()->json( 'paypal_success' );
+            return view('client.payment.paypal', compact('paypal'));
+
+        }
+
+        elseif ($data->gateway_id==2)
+        {
+            $amount = $data->amount;
+
+            $perfect['amount'] = $amount;
+            $perfect['value1'] = $gatewayData->val1;
+            $perfect['value2'] = $gatewayData->val2;
+            $perfect['track'] = $track;
+
+            return view('client.payment.perfect', compact('perfect'));
+        
+        }
+        elseif ($data->gateway_id==3)
+        { 
+
+            $all = file_get_contents("https://blockchain.info/ticker");
+            $res = json_decode($all);
+            $btcrate = $res->USD->last;
+
+            $amount = intval($data->bcam);
+            $usd = $amount;
+            $btcamount = $usd/$btcrate;
+            $btc = round($btcamount, 8);
+
+            $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
+
+            if($DepositData->bcam == 0){
+                $blockchain_root = "https://blockchain.info/";
+                $blockchain_receive_root = "https://api.blockchain.info/";
+                $mysite_root = url('/');
+                $secret = "ABIR";
+                $my_xpub = $gatewayData->val2;
+                $my_api_key = $gatewayData->val1;
+
+                $invoice_id = $track;
+                $callback_url = $mysite_root . "/ipnbtc?invoice_id=" . $invoice_id . "&secret=" . $secret;
+
+
+                $resp = @file_get_contents($blockchain_receive_root . "v2/receive?key=" . $my_api_key . "&callback=" . urlencode($callback_url) . "&xpub=" . $my_xpub);
+
+                if (!$resp) {
+
+//BITCOIN API HAVING ISSUE. PLEASE TRY LATER
+                //    return redirect()->route('home')->with('alert', 'BLOCKCHAIN API HAVING ISSUE. PLEASE TRY LATER');
+          //         return response()->json( 'blockchain_issue' );
+                    return redirect()->back()->with('alert', 'BLOCKCHAIN API HAVING ISSUE. PLEASE TRY LATER');
+                    exit;
+                }
+
+                $response = json_decode($resp);
+                $sendto = $response->address;
+
+// $sendto = "1HoPiJqnHoqwM8NthJu86hhADR5oWN8qG7";
+
+                $data['bcid'] = $sendto;
+                $data['bcam'] = $btc;
+                $data->save();
+
+            }
+            $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
+/////UPDATE THE SEND TO ID
+
+            $bitcoin['amount'] = $DepositData->bcam;
+            $bitcoin['sendto'] = $DepositData->bcid;
+
+            $var = "bitcoin:$DepositData->bcid?amount=$DepositData->bcam";
+            $bitcoin['code'] =  "<img src=\"https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$var&choe=UTF-8\" title='' style='width:300px;' />";
+
+            return view('client.payment.bitcoin', compact('bitcoin'));
+        }
+        elseif($data->gateway_id == 4)
+        {
+            return view('client.payment.stripe');
+        }
+        elseif($data->gateway_id == 5)
+        {
+            $ipn = route('ipn.skrill');
+            $img = asset('assets/images/logo/fsdf.png');
+
+            $gateway = Gateway::find(5);
+            $gnl = General::first();
+            $amount = intval($data->amount);
+            $usd = $amount;
+
+            $sdata['send_pay_request'] =  '<form action="https://www.moneybookers.com/app/payment.pl" method="post" id="pament_form">
+
+               <input name="pay_to_email" value="'.$gateway->val1.'" type="hidden">
+
+               <input name="transaction_id" value="'.$data->trx.'" type="hidden">
+
+               <input name="return_url" value="'.route('home').'" type="hidden">
+
+               <input name="return_url_text" value="Return '.$gnl->title.'" type="hidden">
+
+               <input name="cancel_url" value="'.route('home').'" type="hidden">
+
+               <input name="status_url" value="'.$ipn.'" type="hidden">
+
+               <input name="language" value="EN" type="hidden">
+
+               <input name="amount" value="'.$usd.'" type="hidden">
+
+               <input name="currency" value="USD" type="hidden">
+
+               <input name="detail1_description" value="'.$gnl->title.'" type="hidden">
+
+               <input name="detail1_text" value="Add Fund To '.$gnl->title.'" type="hidden">
+
+               <input name="logo_url" value="'.$img.'" type="hidden">
+
+           </form>';
+
+            return view('client.payment.skrill',$sdata);
+        }
+        elseif($data->gateway_id == 6)
+        {
+            $this->coingatePayment($trx);
+         //   return redirect()->route('coinGate', ['id' => $trx]);
+        }
+//Manual Payments
+        elseif($data->gateway_id == 7)
+        {
+            $all = file_get_contents("https://blockchain.info/ticker");
+            $res = json_decode($all);
+            $btcRate = $res->USD->last;
+            $amon = $data->amount;
+            $amount = $data->amount;
+            $bcoin = round($amount/$btcRate,8);
+            $method = Gateway::find(7);
+
+// You need to set a callback URL if you want the IPN to work
+            $callbackUrl = route('ipn.coinPay');
+
+// Create an instance of the class
+            $CP = new coinPayments();
+
+
+// Set the merchant ID and secret key (can be found in account settings on CoinPayments.net)
+            $CP->setMerchantId($method->val1);
+            $CP->setSecretKey($method->val2);
+
+// Create a payment button with item name, currency, cost, custom variable, and the callback URL
+
+            $ntrc = $data->trx;
+
+            $form = $CP->createPayment('Purchase Coin', 'btc',  $bcoin, $ntrc, $callbackUrl);
+
+            return view('client.payment.coinpay', compact('bcoin','amon','form'));
+        }
+        elseif($data->gateway_id ==8)
+        {
+            $all = file_get_contents("https://blockchain.info/ticker");
+            $res = json_decode($all);
+            $btcRate = $res->USD->last;
+            $amon = $data->usd_amount;
+            $amount = $data->usd_amount;
+            $bcoin = round($amount/$btcRate,8);
+            $method = Gateway::find(8);
+
+            $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
+
+            if($DepositData->bcam == 0){
+
+                $apiKey = $method->val1;
+                $version = 2; // API version
+                $pin =  $method->val2;
+                $block_io = new BlockIo($apiKey, $pin, $version);
+                $ad = $block_io->get_new_address();
+
+
+                if ($ad->status == 'success')
+                {
+                    $data = $ad->data;
+                    $sendadd = $data->address;
+
+                    $DepositData['bcid'] = $sendadd;
+                    $DepositData['bcam'] = $bcoin;
+                    $DepositData->save();
+                }
+                else
+                {
+                 //   return response()->json( 'blockio_error' );
+                  //  return back()->with('alert', 'Failed to Process');
+                    return redirect()->back()->with('alert', 'Failed to Process');
+                }
+            }
+
+            $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
+
+            $sendadd = $DepositData->bcid;
+            $bcoin = $DepositData->bcam;
+
+
+            $varb = "bitcoin:".$DepositData->bcid ."?amount=".$DepositData->bcam;
+            $qrurl =  "<img src=\"https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$varb&choe=UTF-8\" title='' style='width:300px;' />";
+
+            return view('client.payment.blockio', compact('bcoin','amon','sendadd','qrurl'));
+        }
+        elseif($data->gateway_id == 9){
+
+        }
+    }
+
     public function buyConfirm()
     {
       //  $track = $request->input('Track');
@@ -646,16 +878,16 @@ class PaymentController extends Controller
 
 
     //CoinGate
-    public function coingatePayment()
+    public function coingatePayment($trx)
     {
-        $track = Session::get('Track');
+      //  $track = Session::get('Track');
 
-        if (is_null($track))
+        if (is_null($trx))
         {
             return redirect()->back();
         }
 
-        $DepositData = Deposit::where('trx',$track)->first();
+        $DepositData = Deposit::where('trx',$trx)->first();
 
         $amount = $DepositData->bcam;
         
