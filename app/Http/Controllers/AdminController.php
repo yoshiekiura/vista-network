@@ -338,7 +338,7 @@ class AdminController extends Controller
         $user_first_name = User::where('id', $user_id)->value('first_name');
         $balance = User::where('id', $user_id)->value('balance');
         $installment_amount = PaymentInstallment::where('order_id', $request->input('order_id'))->value('installment');
-        $paid_amount = SchedulePayment::where('order_id', $order_id)
+        $paid_amount = SchedulePayment::where('order_id', $request->input('order_id'))
                                         ->where('status', 1)
                                         ->sum('payment_amount');
 
@@ -348,7 +348,7 @@ class AdminController extends Controller
 
         $remaining_amount = $product_price - $advance_amount - $paid_amount;
 
-        if($balance >= $installment){
+        if($balance >= $installment_amount){
 
             $new_balance = $balance - $installment_amount;
 
