@@ -64,6 +64,8 @@ $(".withdraw_preview_validation").steps({
                         var amount_withdraw = '$' + result.data.amount;
                         var charges = '$' + result.data.charge;
                         var total_withdraw = '$' + result.data.total;
+
+                        console.log(result.data.total);
                         
                         $("#amount_withdraw_preview").html(amount_withdraw);
                         $("#total_withdraw_charges_preview").html(charges);

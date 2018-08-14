@@ -1,53 +1,5 @@
 @extends('home')
 
-@section('style')
-  <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}" ></script>
-  <script>
-
-  /*    $(document).ready(function() {
- 
-          $( '.withdraw_fund' ).on( 'submit', function(e) {
-           
-              $.ajaxSetup({
-                  headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-            
-              e.preventDefault();
-
-              var form = $(this);
-        
-              $.ajax({
-                    url: '/withdraw/preview',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: form.serialize(), 
-                    success: function( result ) {
-                        if(result.success == false){
-                        //  $("#buyModal"+id).modal('hide');
-                          swal("Alert!", "There is something wrong!", "warning");  
-                        }
-                        else{  
-                        //  swal("success!", "Withdraw Success!", "success");
-                          $("#preview").modal('show');
-                          $("#preview_data").html(result.html);
-                          $("#buyModal"+result.success).modal('hide');
-                        }
-                    },
-                    error: function (data) {
-                        //  $("#buyModal"+id).modal('hide');
-                          swal("Error!", "Transaction not complete!", "error");
-                    }
-              });
-          });
-
-      });  */
-
-  </script>    
-
-@endsection
-
 @section('content')
 
 <div class="content-header row">
@@ -58,7 +10,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="javascript:;">Income</a></li>
+          <li class="breadcrumb-item"><a href="javascript:;">Finance</a></li>
           <li class="breadcrumb-item active">Withdraw Funds</li>
         </ol>
       </div>

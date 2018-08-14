@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="javascript:;">Income</a></li>
+          <li class="breadcrumb-item"><a href="javascript:;">Finance</a></li>
           <li class="breadcrumb-item active">Transactions</li>
         </ol>
       </div>

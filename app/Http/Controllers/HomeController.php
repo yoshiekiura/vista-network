@@ -283,90 +283,81 @@ class HomeController extends Controller
 
         $gate = Gateway::findOrFail($gateway);
 
-        if ( $amount < $gate->minamo || $amount > $gate->maxamo)
-        {
-           //  return back()->with('alert', 'Invalid Amount');
-            return response()->json( 'invalid_amount' );
-         //   return response()->json(['success' => 'invalid_amount', 'id' => $gate->id]);
-        }
-        else
-        {
-            if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8)
-                {
-                    $all = file_get_contents("https://blockchain.info/ticker");
-                    
-                    if($all){
+        if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8)
+            {
+                $all = file_get_contents("https://blockchain.info/ticker");
+                
+                if($all){
 
-                        $res = json_decode($all);
-                        $btcrate = $res->USD->last;
-                    //    $btcrate = 0.12344;
+                    $res = json_decode($all);
+                    $btcrate = $res->USD->last;
+                //    $btcrate = 0.12344;
 
-                        $btcamount = $amount/$btcrate;
-                        $btc = round($btcamount, 8);
-
-                        $one = $amount + $gate->chargefx;
-                        $two = ($amount * $gate->chargepc)/100;
-
-                        $charge = $gate->chargefx + (( $amount *  $gate->chargepc )/100);
-                        $totalbase = $amount+$charge;
-                        $totalusd = $totalbase/$gate->rate;
-                        $payablebtc = round($totalusd/$btcrate, 8); // user will pay this amount of BTC
-                        $payable_amount = $one + $two;
-
-                        $sell['user_id'] = Auth::user()->id;
-                        $sell['gateway_id'] = $gate->id;
-                        $sell['amount'] = $amount;
-                        $sell['status'] = 0;
-                        $sell['usd_amount'] = number_format($payable_amount, 2);
-                        $sell['bcam'] = $payablebtc;
-                        $sell['trx_charge'] = $charge;
-                        $sell['trx'] = 'DP'.rand();
-                        
-                        Deposit::create($sell);
-
-                        Session::put('Track', $sell['trx']);
-
-                     //   return view('client.finance.preview', compact('btc','gate','amount', 'payablebtc'));
-                        return response()->json(['status' => 'success', 'data' => $sell]);
-                    
-                    }else{
-
-                        return response()->json(['status' => 'error', 'msg' => 'Technical Error, Please try later.']);    
-                        
-                    }
-                }
-                else
-                {
-                //    $amount = $request->amount;
-                //    $usd = $request->amount;
+                    $btcamount = $amount/$btcrate;
+                    $btc = round($btcamount, 8);
 
                     $one = $amount + $gate->chargefx;
                     $two = ($amount * $gate->chargepc)/100;
 
-                    $charge = $gate->chargefx + ( $amount *  $gate->chargepc )/100;
-                    $payable_amount = $charge + $amount;
+                    $charge = $gate->chargefx + (( $amount *  $gate->chargepc )/100);
+                    $totalbase = $amount+$charge;
+                    $totalusd = $totalbase/$gate->rate;
+                    $payablebtc = round($totalusd/$btcrate, 8); // user will pay this amount of BTC
+                    $payable_amount = $one + $two;
 
-                    $sell['user_id'] = Auth::id();
+                    $sell['user_id'] = Auth::user()->id;
                     $sell['gateway_id'] = $gate->id;
                     $sell['amount'] = $amount;
                     $sell['status'] = 0;
-                    $sell['usd_amount'] = number_format($payable_amount, 2);
+                    $sell['usd_amount'] = $payable_amount;
+                    $sell['bcam'] = $payablebtc;
                     $sell['trx_charge'] = $charge;
                     $sell['trx'] = 'DP'.rand();
-
+                    
                     Deposit::create($sell);
 
                     Session::put('Track', $sell['trx']);
 
-                 //   $in_usd = number_format(($one + $two)/$gate->rate, 2);
-                 //   $payable_amount = $one + $two;
-
-                //    return view('client.finance.preview', compact('usd','gate','amount'));
-
+                 //   return view('client.finance.preview', compact('btc','gate','amount', 'payablebtc'));
                     return response()->json(['status' => 'success', 'data' => $sell]);
-        
+                
+                }else{
+
+                    return response()->json(['status' => 'error', 'msg' => 'Technical Error, Please try later.']);    
+                    
                 }
-        }    
+            }
+            else
+            {
+            //    $amount = $request->amount;
+            //    $usd = $request->amount;
+
+                $one = $amount + $gate->chargefx;
+                $two = ($amount * $gate->chargepc)/100;
+
+                $charge = $gate->chargefx + ( $amount *  $gate->chargepc )/100;
+                $payable_amount = $charge + $amount;
+
+                $sell['user_id'] = Auth::id();
+                $sell['gateway_id'] = $gate->id;
+                $sell['amount'] = $amount;
+                $sell['status'] = 0;
+                $sell['usd_amount'] = $payable_amount;
+                $sell['trx_charge'] = $charge;
+                $sell['trx'] = 'DP'.rand();
+
+                Deposit::create($sell);
+
+                Session::put('Track', $sell['trx']);
+
+             //   $in_usd = number_format(($one + $two)/$gate->rate, 2);
+             //   $payable_amount = $one + $two;
+
+            //    return view('client.finance.preview', compact('usd','gate','amount'));
+
+                return response()->json(['status' => 'success', 'data' => $sell]);
+    
+            }   
 
     }
 
@@ -544,7 +535,7 @@ class HomeController extends Controller
         $withdr['user_id'] = Auth::user()->id;
         $withdr['amount'] = $amount;
         $withdr['charge'] = $charge;
-        $withdr['total'] = number_format($total, 2);
+        $withdr['total'] = $total;
             
      //   $in_usd = number_format(($one + $two)/$gate->rate, 2);
      //   $payable_amount = $one + $two;
@@ -578,54 +569,60 @@ class HomeController extends Controller
         $withdraw_amount = $request->input('withdraw_amount');
         $withdraw_charges = $request->input('withdraw_charges');
         $total_amount = $request->input('withdraw_total_amount');
+
+        if($total_amount > Auth::user()->balance){
+            
+            return redirect()->back()->with('alert', 'Requested amount exceeds your balance, Withdraw amount should be less than your balance!');
+
+        }else{
         
-        $gate_name = Withdraw::where('id', $request->input('withdraw_gateway'))->value('name');
-        $gate_process_day = Withdraw::where('id', $request->input('withdraw_gateway'))->value('processing_day');
-        $gate_currency = Withdraw::where('id', $request->input('withdraw_gateway'))->value('currency');
+            $gate_name = Withdraw::where('id', $request->input('withdraw_gateway'))->value('name');
+            $gate_process_day = Withdraw::where('id', $request->input('withdraw_gateway'))->value('processing_day');
+            $gate_currency = Withdraw::where('id', $request->input('withdraw_gateway'))->value('currency');
 
-        $withdraw = WithdrawTrasection::create([
-           'amount' => $withdraw_amount,
-           'charge' => $withdraw_charges,
-           'method_name' => $gate_name,
-           'processing_time' => $gate_process_day,
-           'detail' => '',
-           'method_cur' => $gate_currency,
-           'withdraw_id' => 'WD'.rand(),
-           'user_id' => Auth::user()->id,
-        ]);
-
-        $new_balance = Auth::user()->balance - $withdraw_charges;
-
-        User::whereId(Auth::user()->id)
-            ->update([
-               'balance' => $new_balance
+            $withdraw = WithdrawTrasection::create([
+               'amount' => $withdraw_amount,
+               'charge' => $withdraw_charges,
+               'method_name' => $gate_name,
+               'processing_time' => $gate_process_day,
+               'detail' => '',
+               'method_cur' => $gate_currency,
+               'withdraw_id' => 'WD'.rand(),
+               'user_id' => Auth::user()->id,
             ]);
 
-        $trans_id = $withdraw->withdraw_id;
-        $to_email = Auth::user()->email;
-            
-        Transaction::create([
-            'user_id' => $withdraw->user_id,
-            'trans_id' => rand(),
-            'time' => Carbon::now(),
-            'description' => 'WITHDRAW'. '#ID'.'-'.$trans_id,
-            'amount' => '-'.$withdraw_amount,
-            'new_balance' => $new_balance,
-            'type' => 3,
-            'charge' => $withdraw_charges,
-        ]);
+            $new_balance = Auth::user()->balance - $withdraw_charges;
 
-        $objWithdraw = new \stdClass();
-        $objWithdraw->first_name = Auth::user()->first_name;
-        $objWithdraw->trans_id = $trans_id;
-        $objWithdraw->amount = $total_amount;
-        $objWithdraw->gateway = $gate_name;
-        $objWithdraw->processing_day = $gate_process_day;
+            User::whereId(Auth::user()->id)
+                ->update([
+                   'balance' => $new_balance
+                ]);
 
-        Mail::to($to_email)->send(new FundsWithdrawEmail($objWithdraw));
+            $trans_id = $withdraw->withdraw_id;
+            $to_email = Auth::user()->email;
+                
+            Transaction::create([
+                'user_id' => $withdraw->user_id,
+                'trans_id' => rand(),
+                'time' => Carbon::now(),
+                'description' => 'WITHDRAW'. '#ID'.'-'.$trans_id,
+                'amount' => '-'.$withdraw_amount,
+                'new_balance' => $new_balance,
+                'type' => 3,
+                'charge' => $withdraw_charges,
+            ]);
 
-        return view('client.finance.withdraw_thanks', compact('trans_id'));
+            $objWithdraw = new \stdClass();
+            $objWithdraw->first_name = Auth::user()->first_name;
+            $objWithdraw->trans_id = $trans_id;
+            $objWithdraw->amount = $total_amount;
+            $objWithdraw->gateway = $gate_name;
+            $objWithdraw->processing_day = $gate_process_day;
 
+            Mail::to($to_email)->send(new FundsWithdrawEmail($objWithdraw));
+
+            return view('client.finance.withdraw_thanks', compact('trans_id'));
+        }    
     }
 
  /*   public function storeWithdraw(Request $request)
