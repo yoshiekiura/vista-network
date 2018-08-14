@@ -8,11 +8,16 @@
 
 	Dear <b>{{ $deposit->first_name }}</b>, <br/>
 	<p>
-		Congratulations! Your payment was processed successfully.<br/><br/>
-		Payment Gateway: <b>{ $deposit->gateway }}</b>
-		Funds Deposit: <b>{{ $deposit->amount }}{{ $deposit->symbol }}</b><br/>
-		Current Balance: <b>{{ $deposit->balance }}</b>
+		You have successfully transfered funds from your {{ $deposit->gateway }} account to Vista Network account.<br/><br/>
 	</p>
+	<p>
+		The following transaction has been debited from your account.<br/>
+		<b>Transaction Details</b><br/><br/>
+		Payment Gateway: <b>{{ $deposit->gateway }}</b><br/>
+		Amount: <b>${{ $deposit->amount }}</b><br/>
+		Transaction ID: <b>{{ $deposit->trans_id }}</b><br/>
+		Date: <b>{{ $deposit->date }}</b>
+	</p>	
 	<p>
 		If you do not initiate this change, please contact your administrator immediately.
 	</p>	

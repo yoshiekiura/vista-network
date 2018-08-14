@@ -77,8 +77,9 @@
               <div class="card-text">
                 
               </div>
-              <form role="form" id="payment-form" method="POST" action="{{ route('ipn.stripe')}}">
+              <form role="form" id="payment-form" method="POST" action="{{ route('ipn.stripe') }}">
               {{csrf_field()}}
+                <input type="hidden" name="track" value="{{ $trx }}">
                 <div class="form-body">
                   <div class="form-group">
                     <label for="timesheetinput1">CARD NUMBER</label>

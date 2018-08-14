@@ -29,6 +29,7 @@ use App\PaymentInstallment;
 use App\Mail\PasswordChangedEmail;
 use App\Mail\ProductPurchaseEmail;
 use App\Mail\ProductPurchaseInstallmentEmail;
+use App\Mail\FundsWithdrawEmail;
 use Mail;
 use Carbon\Carbon;
 use DB;
@@ -369,12 +370,13 @@ class HomeController extends Controller
 
     }
 
+    /*
     public function storeDeposit(Request $request)
     {
-        /* $this->validate($request,[
+         $this->validate($request,[
                 'amount' => 'required',
                 'gateway' => 'required',
-            ]); */
+            ]); 
 
         $gate = Gateway::findOrFail($request->gateway);
 
@@ -432,8 +434,8 @@ class HomeController extends Controller
 
                     return view('client.finance.preview', compact('btc','gate','amount', 'payablebtc'));
 
-                //    $payable_amount = $one + $two;
-                /*    $content = '';
+                    $payable_amount = $one + $two;
+                    $content = '';
                     $content .= '<table cellpadding="5" style="width: 100%">';
                     $content .= '<tr>';
                     $content .= '<td style="width: 50%;">Payment Gateway</td>';
@@ -455,9 +457,9 @@ class HomeController extends Controller
                     $content .= '<td>In BTC</td>';
                     $content .= "<th>{$payablebtc}<input type=\"hidden\" name=\"Track\" value=\"{$sell['trx']}\"></th>";
                     $content .= '</tr>';
-                    $content .= '</table>'; */
+                    $content .= '</table>'; 
 
-                //    return response()->json(['success' => $gate->id, 'html' => $content]);
+                    return response()->json(['success' => $gate->id, 'html' => $content]);
                 
                 }
                 else
@@ -487,7 +489,7 @@ class HomeController extends Controller
 
                     return view('client.finance.preview', compact('usd','gate','amount'));
 
-                /*    $content = '';
+                    $content = '';
                     $content .= '<table style="width: 100%" cellpadding="5">';
                     $content .= '<tr>';
                     $content .= '<td style="width: 50%;">Payment Gateway</td>';
@@ -509,16 +511,124 @@ class HomeController extends Controller
                     $content .= '<td>In USD</td>';
                     $content .= "<th>{$in_usd}<input type=\"hidden\" name=\"Track\" value=\"{$sell['trx']}\"></th>";
                     $content .= '</tr>';
-                    $content .= '</table>'; */
+                    $content .= '</table>'; 
 
-                //    return response()->json(['success' => $gate->id, 'html' => $content]);
+                    return response()->json(['success' => $gate->id, 'html' => $content]);
         
                 }
             }
         }
+    } */
+
+    public function fundWithdrawPreview($id)
+    {
+
+        $gate = Withdraw::find($id);
+
+        if(is_null($gate)){
+             return back()->with('alert', 'Please Select a Payment Gateway');
+        }
+        else{
+            return view('client.finance.withdraw_preview', compact('gate'));
+        }
+    }
+
+    public function getWithdrawData($gateway, $amount)
+    {
+
+        $gate = Withdraw::findOrFail($gateway);
+        $info = "";
+        $charge = $gate->chargefx + (( $amount *  $gate->chargepc )/100);
+        $total =  $amount + $charge;
+
+        $withdr['user_id'] = Auth::user()->id;
+        $withdr['amount'] = $amount;
+        $withdr['charge'] = $charge;
+        $withdr['total'] = number_format($total, 2);
+            
+     //   $in_usd = number_format(($one + $two)/$gate->rate, 2);
+     //   $payable_amount = $one + $two;
+
+    //    return view('client.finance.preview', compact('usd','gate','amount'));
+
+        return response()->json(['status' => 'success', 'data' => $withdr]);
+
+    //     $message ='Welcome! Your Withdraw request is success, Please wait for processing days.Your Withdraw amount : '.$withdraw->amount.$general->symbol.' 
+     //    our current balance is '.$new_balance.$general->symbol.' .';
+
+     //      send_email($user['email'], 'Successfully Withdraw' ,$user['first_name'], $message);
+
+
+
+     //   return redirect('home')->with('message', 'Withdraw Request Success, Wait for processing day');
+     //     return redirect()->back()->with('message', 'Withdraw Request Success, Wait for processing day');
+
     }
 
     public function storeWithdraw(Request $request)
+    {
+
+        $this->validate($request,
+            [
+                'withdraw_amount' => 'required|numeric',
+                'withdraw_charges' => 'required|numeric',
+                'withdraw_total_amount' => 'required|numeric',
+            ]);
+
+        $withdraw_amount = $request->input('withdraw_amount');
+        $withdraw_charges = $request->input('withdraw_charges');
+        $total_amount = $request->input('withdraw_total_amount');
+        
+        $gate_name = Withdraw::where('id', $request->input('withdraw_gateway'))->value('name');
+        $gate_process_day = Withdraw::where('id', $request->input('withdraw_gateway'))->value('processing_day');
+        $gate_currency = Withdraw::where('id', $request->input('withdraw_gateway'))->value('currency');
+
+        $withdraw = WithdrawTrasection::create([
+           'amount' => $withdraw_amount,
+           'charge' => $withdraw_charges,
+           'method_name' => $gate_name,
+           'processing_time' => $gate_process_day,
+           'detail' => '',
+           'method_cur' => $gate_currency,
+           'withdraw_id' => 'WD'.rand(),
+           'user_id' => Auth::user()->id,
+        ]);
+
+        $new_balance = Auth::user()->balance - $withdraw_charges;
+
+        User::whereId(Auth::user()->id)
+            ->update([
+               'balance' => $new_balance
+            ]);
+
+        $trans_id = $withdraw->withdraw_id;
+        $to_email = Auth::user()->email;
+            
+        Transaction::create([
+            'user_id' => $withdraw->user_id,
+            'trans_id' => rand(),
+            'time' => Carbon::now(),
+            'description' => 'WITHDRAW'. '#ID'.'-'.$trans_id,
+            'amount' => '-'.$withdraw_amount,
+            'new_balance' => $new_balance,
+            'type' => 3,
+            'charge' => $withdraw_charges,
+        ]);
+
+        $objWithdraw = new \stdClass();
+        $objWithdraw->first_name = Auth::user()->first_name;
+        $objWithdraw->trans_id = $trans_id;
+        $objWithdraw->amount = $total_amount;
+        $objWithdraw->gateway = $gate_name;
+        $objWithdraw->processing_day = $gate_process_day;
+
+        Mail::to($to_email)->send(new FundsWithdrawEmail($objWithdraw));
+
+        return view('client.finance.withdraw_thanks', compact('trans_id'));
+
+    }
+
+ /*   public function storeWithdraw(Request $request)
     {
         $this->validate($request,[
                 'amount' => 'required',
@@ -572,7 +682,7 @@ class HomeController extends Controller
 
      //   return redirect('home')->with('message', 'Withdraw Request Success, Wait for processing day');
           return redirect()->back()->with('message', 'Withdraw Request Success, Wait for processing day');
-    }
+    } */
 
     public function confirmUserAjax(Request $request)
     {

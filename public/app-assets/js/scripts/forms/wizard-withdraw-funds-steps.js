@@ -8,55 +8,10 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-// Wizard tabs with numbers setup
-$(".number-tab-steps").steps({
-    headerTag: "h6",
-    bodyTag: "fieldset",
-    transitionEffect: "fade",
-    titleTemplate: '<span class="step">#index#</span> #title#',
-    labels: {
-        finish: 'Submit'
-    },
-    onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
-    }
-});
 
-// Wizard tabs with icons setup
-$(".icons-tab-steps").steps({
-    headerTag: "h6",
-    bodyTag: "fieldset",
-    transitionEffect: "fade",
-    titleTemplate: '<span class="step">#index#</span> #title#',
-    labels: {
-        finish: 'Submit'
-    },
-    onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
-    }
-});
+var form = $(".withdraw_preview_validation").show();
 
-// Vertical tabs form wizard setup
-$(".vertical-tab-steps").steps({
-    headerTag: "h6",
-    bodyTag: "fieldset",
-    transitionEffect: "fade",
-    stepsOrientation: "vertical",
-    titleTemplate: '<span class="step">#index#</span> #title#',
-    labels: {
-        finish: 'Submit'
-    },
-    onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
-    }
-});
-
-// Validate steps wizard
-
-// Show form
-var form = $(".steps-validation").show();
-
-$(".steps-validation").steps({
+$(".withdraw_preview_validation").steps({
     headerTag: "h6",
     bodyTag: "fieldset",
     transitionEffect: "fade",
@@ -71,19 +26,15 @@ $(".steps-validation").steps({
         {
             return true;
         }
-        // Forbid next action on "Warning" step if the user is to young
-    /*    if (newIndex === 3 && Number($("#age-2").val()) < 18)
-        {
-            return false;
-        } */
 
         if (currentIndex === 1)
         {
         
-            var amount = $("#inputAmountAdd").val();
-            var gateway = $("#gateway").val();
-            var minamo = $("#minamo").val();
-            var maxamo = $("#maxamo").val();
+            var amount = $("#withdraw_amount").val();
+            var gateway = $("#withdraw_gateway").val();
+            var minamo = $("#min_amo").val();
+            var maxamo = $("#max_amo").val();
+            var info = $("#withdraw_info").val();
 
             if(!Number(amount) || amount == ""){
                 alert('Enter a valid number...!');
@@ -98,7 +49,7 @@ $(".steps-validation").steps({
 
             $.ajax({
                 type: "GET",
-                url: "/fund/deposit/data/"+gateway+"/"+amount,
+                url: "/fund/withdraw/data/"+gateway+"/"+amount,
                 success: function (data) {
                 
                     if(data.status == 'error'){
@@ -107,20 +58,18 @@ $(".steps-validation").steps({
 
                     }
                     else{
-
+                        
                         var result = data;
             
-                        var amount_deposit = '$' + result.data.amount;
-                        var charges = '$' + result.data.trx_charge;
-                        var payable_amount = '$' + result.data.usd_amount;
-                        var bcam = result.data.bcam;
-                        var trx = result.data.trx;
-
-                        $("#amount_deposit_preview").html(amount_deposit);
-                        $("#total_charges_preview").html(charges);
-                        $(".total_payable_preview").html(payable_amount);
-                        $(".in_btc_preview").html(bcam);
-                        $("#trx_preview").val(trx);
+                        var amount_withdraw = '$' + result.data.amount;
+                        var charges = '$' + result.data.charge;
+                        var total_withdraw = '$' + result.data.total;
+                        
+                        $("#amount_withdraw_preview").html(amount_withdraw);
+                        $("#total_withdraw_charges_preview").html(charges);
+                        $(".total_withdraw_preview").html(total_withdraw);
+                        $("#withdraw_charges").val(result.data.charge);
+                        $("#withdraw_total_amount").val(result.data.total);
 
                     }    
                 }
@@ -144,14 +93,14 @@ $(".steps-validation").steps({
     },
     onFinished: function (event, currentIndex)
     {
-
-        $("#form_deposit").submit();
+      
+        $("#withdraw_form_money").submit();
       
     }
 });
 
 // Initialize validation
-$(".steps-validation").validate({
+$(".withdraw_preview_validation").validate({
     ignore: 'input[type=hidden]', // ignore hidden fields
     errorClass: 'danger',
     successClass: 'success',

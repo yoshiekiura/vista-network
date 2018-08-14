@@ -27,7 +27,7 @@
 <section id="radar-chord-charts">
   <div class="row">
      <!-- Non-ribbon Chord Chart -->
-      <div class="col-md-6 col-sm-12">
+      <div class="col-md-12 col-sm-12">
         <div class="card">
           <div class="card-header">
             <h4 class="card-title">My Tree</h4>
@@ -49,52 +49,7 @@
         </div>
       </div>
 
-      <!--
-      <div class="col-md-6 col-sm-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Searchable Tree</h4>
-                </div>
-                <div class="card-body">
-                  <div class="card-body">
-                    <div class="form-group">
-                      <div class="seachbox mb-2">
-                        <input type="text" class="form-control round" placeholder="Search" id="input-search"
-                        name="input-search">
-                      </div>
-                    </div>
-                    <div class="row mb-1">
-                      <div class="col-md-8 col-sm-12">
-                        <div class="form-group">
-                          <label class="mr-1">
-                            <input type="checkbox" id="chk-ignore-case" value="false"> Ignore Case
-                          </label>
-                          <label class="mr-1">
-                            <input type="checkbox" id="chk-exact-match" value="false"> Exact Match
-                          </label>
-                          <label class="mr-1">
-                            <input type="checkbox" id="chk-reveal-results" value="false"> Reveal Results
-                          </label>
-                        </div>
-                      </div>
-                      <div class="col-md-4 col-sm-12">
-                        <button type="button" class="btn btn-primary mr-2 mb-1 float-left" id="btn-search">Search</button>
-                        <button type="button" class="btn btn-primary mb-1 float-left" id="btn-clear-search">Clear</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 col-sm-12">
-                        <div id="searchable-tree"></div>
-                      </div>
-                      <div class="col-md-6 col-sm-12">
-                        <div id="search-output"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          -->
+      
   </div>
 </section>    
 <br/><br/>

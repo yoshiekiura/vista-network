@@ -4,14 +4,15 @@
 
 <div class="content-header row">
   <div class="content-header-left col-md-6 col-12 mb-2">
-    <h3 class="content-header-title">Deposit Funds</h3>
+    <h3 class="content-header-title">Thank you</h3>
     <div class="row breadcrumbs-top">
       <div class="breadcrumb-wrapper col-12">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="javascript:;">Finance</a></li>
-          <li class="breadcrumb-item active">Deposit Funds</li>
+          <li class="breadcrumb-item"><a href="{{ route('request.users_management.index') }}">Funds Withdraw</a></li>
+          <li class="breadcrumb-item active">Thank you</li>
         </ol>
       </div>
     </div>
@@ -60,35 +61,38 @@
 @endif
         
 <div class="content-body">
-
-  <!-- Content types section start -->
-  <section id="shopping-cards">
-    
-    <div class="row match-height">
-      @foreach($gates as $gate)
-      
-      <div class="col-xl-3 col-md-6 col-sm-12">
-        <div class="card">
-          <div class="card-content">
-            <div class="card-body">
-              <h4 class="card-title">{{ $gate->name }}</h4>
-               <img class="img-fluid my-1" src="{{ asset('assets/images/gateway') }}/{{ $gate->gateimg }}" alt="Payment Gateway">
-            </div>
-            <div class="card-footer text-muted">
-              <a href="{{ route('fund.deposit.preview', ['id' => $gate->id]) }}">
-                <button class="btn btn-info btn-min-width btn-glow btn-block mr-1 mb-1" type="button">Select {{ $gate->name }}</button>
-              </a>
-            </div>
+    <!--native-font-stack -->
+    <section id="global-settings" class="card">
+      <div class="card-header">
+        <h4 class="card-title">Funds Withdraw Request Complete</h4>
+        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <div class="heading-elements">
+          <ul class="list-inline mb-0">
+            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+            <li><a data-action="close"><i class="ft-x"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-text">
+            <h3 class="text-success">Thank you for your Funds Withdraw Request ({{ $trans_id }})</h3>
+            <p>We just received a request to withdraw the revenues. Funds will sent to your bank account associated with Vista Network.</p>
+            <p><small>You can continue by clicking one of the links below:</small></p>
+            <ul>
+              <li><a href="{{ route('home') }}">Dashboard</a></li>
+              <li><a href="{{ route('user.shopping.history') }}">View your Orders</a></li>
+              <li><a href="{{ route('hp.user.index') }}">Hash Power Lay Away Program</a></li>
+              <li><a href="{{ route('coins.index') }}">Buy/Sell Coins</a></li>
+            </ul>
           </div>
         </div>
       </div>
-
-      @endforeach
-    </div>
-      
-  </section>
-  <!-- Content types section end -->      
+    </section>
 </div>
+
 <br/><br/>
 @endsection
 

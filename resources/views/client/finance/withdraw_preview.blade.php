@@ -10,14 +10,14 @@
 
 <div class="content-header row">
   <div class="content-header-left col-md-6 col-12 mb-2">
-    <h3 class="content-header-title">Deposit Funds</h3>
+    <h3 class="content-header-title">Withdraw Funds</h3>
     <div class="row breadcrumbs-top">
       <div class="breadcrumb-wrapper col-12">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="javascript:;">Finance</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('add.fund.index') }}">Funds Deposit</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('add.fund.index') }}">Withdraw Deposit</a></li>
           <li class="breadcrumb-item active">{{ $gate->name }}</li>
         </ol>
       </div>
@@ -73,7 +73,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">Deposit Funds via {{ $gate->name }}</h4>
+                  <h4 class="card-title">Withdraw Funds via {{ $gate->name }}</h4>
                   <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                   <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="card-content collapse show">
                   <div class="card-body">
-                    <form action="{{ route('fund.deposit.pay') }}" id="form_deposit" method="post" class="steps-validation wizard-notification">
+                    <form action="{{ route('fund.withdraw.pay') }}" id="withdraw_form_money" method="post" class="withdraw_preview_validation wizard-notification">
                        {{ csrf_field() }}
                       <!-- Step 1 -->
                       <h6>Step 1</h6>
@@ -94,7 +94,7 @@
                         <br/>
                         <div class="row">
                           <div class="col-md-12 text-center">
-                              <h3 style="font-weight: 500">Deposit Funds via {{ $gate->name }}</h3>
+                              <h3 style="font-weight: 500">Withdraw Funds via {{ $gate->name }}</h3>
                               <br/>
                           </div>
                         </div>  
@@ -115,12 +115,16 @@
                                       <td>{{ $gate->chargepc }} %</td>
                                    </tr>
                                    <tr>
-                                      <th>Min Deposit</th>
-                                      <td>{{ $general->symbol }}{{ $gate->minamo }}</td>
+                                      <th>Min Withdraw</th>
+                                      <td>{{ $general->symbol }}{{ $gate->min_amo }}</td>
                                    </tr>
                                    <tr>
-                                      <th>Max Deposit</th>
-                                      <td>{{ $general->symbol }}{{ $gate->maxamo }}</td>
+                                      <th>Max Withdraw</th>
+                                      <td>{{ $general->symbol }}{{ $gate->max_amo }}</td>
+                                   </tr>
+                                   <tr>
+                                      <th>Processing Day</th>
+                                      <td>{{ $gate->processing_day }}</td>
                                    </tr>
                                   </tbody>  
                                </table> 
@@ -133,7 +137,7 @@
                         <br/>
                         <div class="row">
                           <div class="col-md-12 text-center">
-                              <h3 style="font-weight: 500">Deposit Amount</h3>
+                              <h3 style="font-weight: 500">Withdraw Amount</h3>
                               <br/>
                           </div>
                         </div>  
@@ -141,14 +145,14 @@
                             <div class="col-6">
                                
                                 <div class="form-group">
-                                  <label for="firstName3"></label>
-                                  <input type="text" class="form-control required" id="inputAmountAdd" name="amount" placeholder="Amount to deposit to your balance">
-                                  <input type="hidden" name="trx_preview" id="trx_preview" value="">
-                                  <input type="hidden" name="gateway" id="gateway" value="{{ $gate->id }}">
-                                  <input type="hidden" name="minamo" id="minamo" value="{{ $gate->minamo }}">
-                                  <input type="hidden" name="maxamo" id="maxamo" value="{{ $gate->maxamo }}">
-                                  <input type="hidden" name="payment_charges" id="payment_charges" value="">
-                                  <input type="hidden" name="payable_total_amount" id="payable_total_amount" value="">
+                                  <label for="firstName3">
+                      
+                                  </label>
+                                  <input type="text" name="withdraw_amount" id="withdraw_amount" class="form-control" placeholder="Enter amount you want to withdraw" required>
+                                  <input type="hidden" name="withdraw_gateway" id="withdraw_gateway" value="{{ $gate->id }}">
+                                  <input type="hidden" name="withdraw_charges" id="withdraw_charges" value="">
+                                  <input type="hidden" name="withdraw_total_amount" id="withdraw_total_amount" value="">
+
                                 </div>
                             </div>
                         </div>      
@@ -159,7 +163,7 @@
                         <br/>
                         <div class="row">
                           <div class="col-md-12 text-center">
-                              <h3 style="font-weight: 500">Deposit Funds Preview</h3>
+                              <h3 style="font-weight: 500">Withdraw Funds Preview</h3>
                               <br/>
                           </div>
                         </div>  
@@ -174,24 +178,17 @@
                                       </td>
                                    </tr>
                                    <tr>
-                                      <th>Amount Deposit</th>
-                                      <td id="amount_deposit_preview"></td>
+                                      <th>Amount</th>
+                                      <td id="amount_withdraw_preview"></td>
                                    </tr>
                                    <tr>
                                       <th>Charges</th>
-                                      <td id="total_charges_preview"></td>
+                                      <td id="total_withdraw_charges_preview"></td>
                                    </tr>
                                    <tr>
-                                      <th>Total Payable Amount</th>
-                                      <td class="total_payable_preview"></td>
+                                      <th>Total Amount</th>
+                                      <td class="total_withdraw_preview"></td>
                                    </tr>
-                                   @if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8)
-                                   <tr>
-                                      <th>In BTC</th>
-                                      <td class="in_btc_preview"></td>
-                                   </tr>
-                                   @else
-                                   @endif
                                   </tbody>  
                                </table> 
                             </div>
@@ -202,13 +199,13 @@
                         <br/>
                         <div class="row">
                           <div class="col-md-12 text-center">
-                              <h3 style="font-weight: 500">Confirm Payment Details</h3>
+                              <h3 style="font-weight: 500">Confirm Withdraw Details</h3>
                               <br/>
                           </div>
                         </div>  
                         <div class="row justify-content-center">  
                             <div class="col-6">                 
-                  
+                                <input type="hidden" name="trx_preview" id="trx_preview" value="">
                                 <table class="table table-bordered">
                                  <tbody>
                                    <tr>
@@ -222,20 +219,13 @@
                                       <td>{{ Auth::user()->first_name }}&nbsp;{{ Auth::user()->last_name }}</td>
                                    </tr>
                                    <tr>
-                                      <th>Deposit Date</th>
+                                      <th>Withdraw Date</th>
                                       <td>Today</td>
                                    </tr>
                                    <tr>
-                                      <th>Total Payable Amount</th>
-                                      <td class="total_payable_preview"></td>
+                                      <th>Total Amount</th>
+                                      <td class="total_withdraw_preview"></td>
                                    </tr>
-                                   @if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8)
-                                   <tr>
-                                      <th>In BTC</th>
-                                      <td class="in_btc_preview"></td>
-                                   </tr>
-                                   @else
-                                   @endif
                                   </tbody>  
                                </table>
                             </div>
@@ -258,6 +248,6 @@
 <script src="{{ URL::asset('app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"
   type="text/javascript"></script>
 <script src="{{ URL::asset('app-assets/vendors/js/extensions/jquery.steps.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('app-assets/js/scripts/forms/wizard-add-funds-steps.js') }}" type="text/javascript"></script>
+<script src="{{ URL::asset('app-assets/js/scripts/forms/wizard-withdraw-funds-steps.js') }}" type="text/javascript"></script>
 
 @endsection

@@ -4,7 +4,7 @@
   <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}" ></script>
   <script>
 
-      $(document).ready(function() {
+  /*    $(document).ready(function() {
  
           $( '.withdraw_fund' ).on( 'submit', function(e) {
            
@@ -42,7 +42,7 @@
               });
           });
 
-      });
+      });  */
 
   </script>    
 
@@ -123,46 +123,10 @@
               <img class="img-fluid my-1" src="{{ asset('assets/images/withdraw') }}/{{ $gate->image }}" alt="Payment Gateway">
             </div>
             <div class="card-footer text-muted">
-              <button class="btn btn-info btn-min-width btn-glow btn-block mr-1 mb-1" type="button" data-toggle="modal" data-target="#buyModal{{$gate->id}}">Select {{ $gate->name }}</button>
+              <a href="{{ route('fund.withdraw.preview', ['id' => $gate->id]) }}">
+                <button class="btn btn-info btn-min-width btn-glow btn-block mr-1 mb-1" type="button" data-toggle="modal" data-target="#buyModal{{$gate->id}}">Select {{ $gate->name }}</button>
+              </a>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal -->
-      <div class="modal fade text-left" id="buyModal{{$gate->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9"
-      aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header bg-info white">
-              <h4 class="modal-title white" id="myModalLabel9"><i class="la la-tree"></i> Withdraw Funds via {{ $gate->name }}</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <meta name="csrf-token" content="{{ csrf_token() }}" />
-            <form method="POST" class="withdraw_fund">
-            <div class="modal-body">
-              <h5><i class="la la-angle-double-right"></i> <b>Fee:</b> <span class="text-danger">{{ $gate->chargefx }}{{ $general->symbol }} and {{ $gate->chargepc }}%</span></h5>
-              <h5><i class="la la-angle-double-right"></i> <b>Processing Days:</b> {{$gate->processing_day}} days</h5>
-              <h5><i class="la la-angle-double-right"></i> <b>Minimum Amount:</b> 10{{ $general->symbol }}</h5>
-              <p>
-                <input type="hidden" name="gateway" class="gateway" value="{{ $gate->id }}">
-                <fieldset>
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">{{ $general->symbol }}</span>
-                    </div>
-                    <input type="text" name="amount" id="amount" class="form-control amount" placeholder="Enter amount you want to withdraw | Minimum {{$gate->min_amo}} {{$general->currency}}" aria-describedby="basic-addon1" required>
-                  </div>
-                </fieldset>
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" name="submit" class="btn btn-outline-success">Preview Request</button>
-            </div>
-            </form>
           </div>
         </div>
       </div>
@@ -174,31 +138,6 @@
   <!-- Content types section end -->      
 </div>
 <br/><br/>
-<!-- Modal -->
-<div class="modal fade text-left" id="preview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel9"
-aria-hidden="true">
-  <div class="modal-dialog" role="document">
-  <!--  <meta name="csrf-token" content="{{ csrf_token() }}" /> --> 
-    <form action="{{route('confirm.withdraw.store')}}" method="post">
-    {{csrf_field()}}  
-    <div class="modal-content">
-      <div class="modal-header bg-info white">
-        <h4 class="modal-title white" id="myModalLabel9"><i class="la la-tree"></i> Withdraw Preview</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <div id="preview_data">
-          </div>  
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Cancel</button> 
-        <button type="submit" name="submit" class="btn btn-outline-success">Confirm Withdraw</button> 
-      </div>
-    </div>
-    </form> 
-  </div>
-</div>
+
 @endsection
 

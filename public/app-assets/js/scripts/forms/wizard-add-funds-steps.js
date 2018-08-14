@@ -8,48 +8,7 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-// Wizard tabs with numbers setup
-$(".number-tab-steps").steps({
-    headerTag: "h6",
-    bodyTag: "fieldset",
-    transitionEffect: "fade",
-    titleTemplate: '<span class="step">#index#</span> #title#',
-    labels: {
-        finish: 'Submit'
-    },
-    onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
-    }
-});
 
-// Wizard tabs with icons setup
-$(".icons-tab-steps").steps({
-    headerTag: "h6",
-    bodyTag: "fieldset",
-    transitionEffect: "fade",
-    titleTemplate: '<span class="step">#index#</span> #title#',
-    labels: {
-        finish: 'Submit'
-    },
-    onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
-    }
-});
-
-// Vertical tabs form wizard setup
-$(".vertical-tab-steps").steps({
-    headerTag: "h6",
-    bodyTag: "fieldset",
-    transitionEffect: "fade",
-    stepsOrientation: "vertical",
-    titleTemplate: '<span class="step">#index#</span> #title#',
-    labels: {
-        finish: 'Submit'
-    },
-    onFinished: function (event, currentIndex) {
-        alert("Form submitted.");
-    }
-});
 
 // Validate steps wizard
 
@@ -121,6 +80,8 @@ $(".steps-validation").steps({
                         $(".total_payable_preview").html(payable_amount);
                         $(".in_btc_preview").html(bcam);
                         $("#trx_preview").val(trx);
+                        $("#payment_charges").val(result.data.trx_charge);
+                        $("#payable_total_amount").val(result.data.usd_amount);
 
                     }    
                 }
@@ -149,6 +110,7 @@ $(".steps-validation").steps({
       
     }
 });
+
 
 // Initialize validation
 $(".steps-validation").validate({

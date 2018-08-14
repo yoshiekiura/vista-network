@@ -26,7 +26,14 @@ class PaymentController extends Controller
     public function gatewayDataPay(Request $request)
     {
 
-        $trx = $request->trx_preview;
+        $this->validate($request,
+            [
+                'amount' => 'required|numeric',
+                'payment_charges' => 'required|numeric',
+                'payable_total_amount' => 'required|numeric',
+            ]);
+
+        $trx = $request->input('trx_preview');
 
         $data = Deposit::where('trx', $trx)->orderBy('id', 'DESC')->first();
         
@@ -45,7 +52,7 @@ class PaymentController extends Controller
 
             $paypal['amount'] = $amount;
             $paypal['sendto'] = $gatewayData->val1;
-            $paypal['track'] = $track;
+            $paypal['track'] = $trx;
 
           //  return response()->json( 'paypal_success' );
             return view('client.payment.paypal', compact('paypal'));
@@ -59,7 +66,7 @@ class PaymentController extends Controller
             $perfect['amount'] = $amount;
             $perfect['value1'] = $gatewayData->val1;
             $perfect['value2'] = $gatewayData->val2;
-            $perfect['track'] = $track;
+            $perfect['track'] = $trx;
 
             return view('client.payment.perfect', compact('perfect'));
         
@@ -86,7 +93,7 @@ class PaymentController extends Controller
                 $my_xpub = $gatewayData->val2;
                 $my_api_key = $gatewayData->val1;
 
-                $invoice_id = $track;
+                $invoice_id = $trx;
                 $callback_url = $mysite_root . "/ipnbtc?invoice_id=" . $invoice_id . "&secret=" . $secret;
 
 
@@ -124,7 +131,7 @@ class PaymentController extends Controller
         }
         elseif($data->gateway_id == 4)
         {
-            return view('client.payment.stripe');
+            return view('client.payment.stripe', compact('trx'));
         }
         elseif($data->gateway_id == 5)
         {
@@ -255,7 +262,7 @@ class PaymentController extends Controller
         }
     }
 
-    public function buyConfirm()
+/*    public function buyConfirm()
     {
       //  $track = $request->input('Track');
         
@@ -489,12 +496,10 @@ class PaymentController extends Controller
         }
 
 
-    }
+    } */
 
     public function ipnpaypal()
     {
-
-
 
         $raw_post_data = file_get_contents('php://input');
         $raw_post_array = explode('&', $raw_post_data);
@@ -557,6 +562,8 @@ class PaymentController extends Controller
 
             $DepositData = Deposit::where('trx',$track)->orderBy('id', 'DESC')->first();
             $gatewayData = Gateway::find(1);
+            $dt = $DepositData->created_at;
+            $created_format = $dt->toFormattedDateString();
 
             $amount = $DepositData->usd_amount;
             $bdt_amount = $DepositData->amount;
@@ -582,18 +589,27 @@ class PaymentController extends Controller
                 $DepositData['status'] = 1;
                 $DepositData->save();
 
-                     $general = General::first();
+                $general = General::first();
+
+                $objDeposit = new \stdClass();
+                $objDeposit->first_name = $user['first_name'];
+                $objDeposit->amount = $DepositData['amount'];
+                $objDeposit->trans_id = $track;
+                $objDeposit->date = $created_format; 
+                $objDeposit->gateway = 'Paypal';
+
+                Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));
 
         
-         $message ='Welcome! Your payment was processed successfully.</br>   
+        /* $message ='Welcome! Your payment was processed successfully.</br>   
          Successfully Add : '.$DepositData['amount'].$general->symbol.'</br>
           And your current balance is '.$new_balance.$general->symbol.' .';
         send_email($user['email'], 'Add Fund Successfull' ,$user['first_name'], $message);
                 $sms = $message;
-                send_sms($user['mobile'], $sms);
+                send_sms($user['mobile'], $sms); */
 
             //    return redirect()->route('home')->withMsg('Added Successfully!');
-                return redirect()->back()->with('success', 'Added Successfully!');
+                return redirect()->back()->with('success', 'Funds deposit successfully!');
 
             }
         }
@@ -627,6 +643,8 @@ class PaymentController extends Controller
             $track = $_POST['PAYMENT_ID'];
 
             $DepositData = Deposit::where('trx',$track)->orderBy('id', 'DESC')->first();
+            $dt = $DepositData->created_at;
+            $created_format = $dt->toFormattedDateString();
 
             $amount = $DepositData->usd_amount;
             $bdt_amount = $DepositData->amount;
@@ -652,18 +670,27 @@ class PaymentController extends Controller
                 $DepositData['status'] = 1;
                 $DepositData->save();
 
-                     $general = General::first();
+                $general = General::first();
 
-         $message ='Welcome! Your payment was processed successfully.</br>   
+                $objDeposit = new \stdClass();
+                $objDeposit->first_name = $user['first_name'];
+                $objDeposit->amount = $DepositData['amount'];
+                $objDeposit->trans_id = $track;
+                $objDeposit->date = $created_format; 
+                $objDeposit->gateway = 'Perfect Money';
+
+                Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));
+
+    /*     $message ='Welcome! Your payment was processed successfully.</br>   
          Successfully Add : '.$DepositData['amount'].$general->symbol.'</br>
           And your current balance is '.$new_balance.$general->symbol.' .';
         send_email($user['email'], 'Add Fund Successfull' ,$user['first_name'], $message);
 
                 $sms = $message;
-                send_sms($user['mobile'], $sms);
+                send_sms($user['mobile'], $sms); */
 
              //   return redirect()->route('home')->withMsg('Deposit Successfull!');
-                return redirect()->back()->with('success', 'Added Successfully!');
+                return redirect()->back()->with('success', 'Funds deposit successfully!');
 
             }
         }
@@ -684,7 +711,8 @@ class PaymentController extends Controller
         $trx_hash = $_GET['transaction_hash'];
 
         $DepositData = Deposit::where('trx',$track)->orderBy('id', 'DESC')->first();
-
+        $dt = $DepositData->created_at;
+        $created_format = $dt->toFormattedDateString();
 
         if ($DepositData->status == 0) {
 
@@ -709,15 +737,25 @@ class PaymentController extends Controller
 
                 $DepositData->save();
 
-                     $general = General::first();
+                $general = General::first();
 
-         $message ='Welcome! Your payment was processed successfully.</br>   
+                $objDeposit = new \stdClass();
+                $objDeposit->first_name = $user['first_name'];
+                $objDeposit->amount = $DepositData['amount'];
+                $objDeposit->trans_id = $track;
+                $objDeposit->date = $created_format; 
+                $objDeposit->gateway = 'Block Chain';
+
+                Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));
+
+
+        /* $message ='Welcome! Your payment was processed successfully.</br>   
          Successfully Add : '.$DepositData['amount'].$general->symbol.'</br>
           And your current balance is '.$new_balance.$general->symbol.' .';
         send_email($user['email'], 'Add Fund Successfull' ,$user['first_name'], $message);
 
                 $sms = $message;
-                send_sms($user['mobile'], $sms);
+                send_sms($user['mobile'], $sms); */
 
             //    return redirect()->route('home')->withMsg( 'Deposit Successfull!');
                 return redirect()->back()->with('success', 'Added Successfully!');
@@ -730,8 +768,7 @@ class PaymentController extends Controller
 
     public function ipnstripe(Request $request)
     {
-        $track =   Session::get('Track');
-        $data = Deposit::where('trx',$track)->orderBy('id', 'DESC')->first();
+      //  $track =   Session::get('Track')
 
         $this->validate($request,
             [
@@ -740,9 +777,16 @@ class PaymentController extends Controller
                 'cardCVC' => 'required',
             ]);
 
-        $cc = $request->cardNumber;
-        $exp = $request->cardExpiry;
-        $cvc = $request->cardCVC;
+        $track = $request->input('track');
+
+        $data = Deposit::where('trx', $track)->orderBy('id', 'DESC')->first();
+        
+        $dt = $data->created_at;
+        $created_format = $dt->toFormattedDateString();
+
+        $cc = $request->input('cardNumber');
+        $exp = $request->input('cardExpiry');
+        $cvc = $request->input('cardCVC');
 
         $exp = $pieces = explode("/", $_POST['cardExpiry']);
         $emo = trim($exp[0]);
@@ -795,14 +839,14 @@ class PaymentController extends Controller
 
                     $general = General::first();
 
-                    $objStripe = new \stdClass();
-                    $objStripe->first_name = $user['first_name'];
-                    $objStripe->amount = $data['amount'];
-                    $objStripe->symbol = $general->symbol;
-                    $objStripe->balance = $new_balance; 
-                    $objStripe->gateway = 'Stripe';
+                    $objDeposit = new \stdClass();
+                    $objDeposit->first_name = $user['first_name'];
+                    $objDeposit->amount = $data['amount'];
+                    $objDeposit->trans_id = $track;
+                    $objDeposit->date = $created_format; 
+                    $objDeposit->gateway = 'Stripe';
 
-                    Mail::to($user['email'])->send(new DepositFundEmail($objStripe));
+                    Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));
 
                   //  $sms = $message;
                  //   send_sms($user['mobile'], $sms);
@@ -831,6 +875,8 @@ class PaymentController extends Controller
         $currency1 = $request->currency1;
 
         $DepositData = Deposit::where('trx', $track)->first();
+        $dt = $DepositData->created_at;
+        $created_format = $dt->toFormattedDateString();
 
         $all = file_get_contents("https://blockchain.info/ticker");
         $res = json_decode($all);
@@ -862,13 +908,22 @@ class PaymentController extends Controller
 
                 $general = General::first();
 
-         $message ='Welcome! Your payment was processed successfully.</br>   
+    /*     $message ='Welcome! Your payment was processed successfully.</br>   
          Successfully Add : '.$DepositData['amount'].$general->symbol.'</br>
           And your current balance is '.$new_balance.$general->symbol.' .';
         send_email($user['email'], 'Add Fund Successfull' ,$user['first_name'], $message);
 
                 $sms = $message;
-                send_sms($user['mobile'], $sms);
+                send_sms($user['mobile'], $sms); */
+
+                $objDeposit = new \stdClass();
+                $objDeposit->first_name = $user['first_name'];
+                $objDeposit->amount = $amount;
+                $objDeposit->trans_id = $track;
+                $objDeposit->date = $created_format; 
+                $objDeposit->gateway = 'Coin Payment';
+
+                Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));
 
 
             }
@@ -927,6 +982,8 @@ class PaymentController extends Controller
     {
 
         $DepositData = Deposit::where('trx',$request->order_id)->first();
+        $dt = $DepositData->created_at;
+        $created_format = $dt->toFormattedDateString();
 
         $amount = $DepositData->bcam;
 
@@ -950,14 +1007,23 @@ class PaymentController extends Controller
             $DepositData['status'] = 1;
             $DepositData->save();
 
-        $general = General::first();
+            $general = General::first();
 
-         $message ='Welcome! Your payment was processed successfully.</br>   
+            $objDeposit = new \stdClass();
+            $objDeposit->first_name = $user['first_name'];
+            $objDeposit->amount = $amount;
+            $objDeposit->trans_id = $request->order_id;
+            $objDeposit->date = $created_format; 
+            $objDeposit->gateway = 'Coin Gate';
+
+            Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));
+
+    /*     $message ='Welcome! Your payment was processed successfully.</br>   
          Successfully Add : '.$DepositData['amount'].$general->symbol.'</br>
           And your current balance is '.$new_balance.$general->symbol.' .';
         send_email($user['email'], 'Add Fund Successfull' ,$user['first_name'], $message);
             $sms = $message;
-            send_sms($user['mobile'], $sms);
+            send_sms($user['mobile'], $sms); */
 
            // return redirect()->route('home')->with('success', 'Payment Complete via CoinGate');
             return redirect()->back()->with('success', 'Payment Complete via CoinGate');
@@ -977,6 +1043,8 @@ class PaymentController extends Controller
             .$_POST['status'];
 
         $DepositData = Deposit::where('trx',$_POST['transaction_id'])->first();
+        $dt = $DepositData->created_at;
+        $created_format = $dt->toFormattedDateString();
 
         if (strtoupper(md5($concatFields)) == $_POST['md5sig'] && $_POST['status'] == 2 && $_POST['pay_to_email'] == $skrill->val1 && $DepositData->status='0') {
 
@@ -1000,16 +1068,25 @@ class PaymentController extends Controller
             $DepositData['status'] = 1;
             $DepositData->save();
 
-                 $general = General::first();
+            $general = General::first();
+
+            $objDeposit = new \stdClass();
+            $objDeposit->first_name = $user['first_name'];
+            $objDeposit->amount = $DepositData['amount'];
+            $objDeposit->trans_id = $_POST['transaction_id'];
+            $objDeposit->date = $created_format; 
+            $objDeposit->gateway = 'Skrill';
+
+            Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));            
 
 
-                 $message ='Welcome! Your payment was processed successfully.</br>   
+        /*         $message ='Welcome! Your payment was processed successfully.</br>   
          Successfully Add : '.$DepositData['amount'].$general->symbol.'</br>
           And your current balance is '.$new_balance.$general->symbol.' .';
         send_email($user['email'], 'Add Fund Successfull' ,$user['first_name'], $message);
 
             $sms = $message;
-            send_sms($user['mobile'], $sms);
+            send_sms($user['mobile'], $sms); */
         }
     }
 
@@ -1040,6 +1117,8 @@ class PaymentController extends Controller
 
 
         $DepositData = Deposit::where('status', 0)->where('gateway_id', 8)->where('try','<=',100)->get();
+        $dt = $DepositData->created_at;
+        $created_format = $dt->toFormattedDateString();
 
 
         $method = Gateway::find(8);
@@ -1080,16 +1159,25 @@ class PaymentController extends Controller
                 $data['try'] = $data->try+ 1;
                 $data->save();
 
-                     $general = General::first();
+                $general = General::first();
+
+                $objDeposit = new \stdClass();
+                $objDeposit->first_name = $user['first_name'];
+                $objDeposit->amount = $data['amount'];
+                $objDeposit->trans_id = $data['trx'];
+                $objDeposit->date = $created_format; 
+                $objDeposit->gateway = 'Block IO';
+
+                Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));            
 
 
-        $message ='Welcome! Your payment was processed successfully.</br>   
+    /*    $message ='Welcome! Your payment was processed successfully.</br>   
          Successfully Add : '.$data['amount'].$general->symbol.'</br>
           And your current balance is '.$new_balance.$general->symbol.' .';
         send_email($user['email'], 'Add Fund Successfull' ,$user['first_name'], $message);
 
                 $sms = $message;
-                send_sms($user['mobile'], $sms);
+                send_sms($user['mobile'], $sms); */
 
 
             }
