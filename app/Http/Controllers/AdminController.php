@@ -41,6 +41,7 @@ use App\Mail\AdminCoinAddEmail;
 use App\Mail\AdminCoinSubtractEmail;
 use App\Mail\AdminBalanceAddEmail;
 use App\Mail\AdminBalanceSubtractEmail;
+use App\Mail\InstallmentDeductEmail;
 
 class AdminController extends Controller
 {
@@ -296,11 +297,15 @@ class AdminController extends Controller
 
     public function viewInstallmentDetails($order_id)
     {
+
         $user_id = Order::where('order_id', $order_id)->value('user_id');
         $user_first_name = User::where('id', $user_id)->value('first_name');
         $user_last_name = User::where('id', $user_id)->value('last_name');
         $user_balance = User::where('id', $user_id)->value('balance');
         $schedule = SchedulePayment::where('order_id', $order_id)->orderBy('due_date', 'ASC')->get();
+        $paid_amount = SchedulePayment::where('order_id', $order_id)
+                                         ->where('status', 1)
+                                         ->sum('payment_amount');
 
         $installment = DB::select('
                         SELECT
@@ -323,18 +328,29 @@ class AdminController extends Controller
                         GROUP BY schedule_payments.payment_amount,payment_installments.order_id,payment_installments.product_id,payment_installments.duration,payment_installments.advance_payment,payment_installments.installment,payment_installments.status,payment_installments.product_name,payment_installments.product_price,payment_installments.created_at
                         ', [$order_id]);
 
-        return view('admin.orders.pay_installment', compact('user_first_name','user_last_name','installment','schedule','user_balance'));
+        return view('admin.orders.pay_installment', compact('user_first_name','user_last_name','installment','schedule','user_balance','paid_amount'));
     }
 
     public function payInstallment(Request $request, $id) {
 
         $user_id = Order::where('order_id', $request->input('order_id'))->value('user_id');
+        $user_email = User::where('id', $user_id)->value('email');
+        $user_first_name = User::where('id', $user_id)->value('first_name');
         $balance = User::where('id', $user_id)->value('balance');
-        $installment = PaymentInstallment::where('order_id', $request->input('order_id'))->value('installment');
+        $installment_amount = PaymentInstallment::where('order_id', $request->input('order_id'))->value('installment');
+        $paid_amount = SchedulePayment::where('order_id', $order_id)
+                                        ->where('status', 1)
+                                        ->sum('payment_amount');
+
+        $product_price = PaymentInstallment::where('order_id', $request->input('order_id'))->value('product_price');
+        $advance_amount = PaymentInstallment::where('order_id', $request->input('order_id'))->value('advance_payment');
+        $product_name = PaymentInstallment::where('order_id', $request->input('order_id'))->value('product_name');
+
+        $remaining_amount = $product_price - $advance_amount - $paid_amount;
 
         if($balance >= $installment){
 
-            $new_balance = $balance - $installment;
+            $new_balance = $balance - $installment_amount;
 
             SchedulePayment::whereId($id)->update([
                 'status' => 1
@@ -345,15 +361,28 @@ class AdminController extends Controller
                         'balance' => $new_balance
                     ]);
 
-            Transaction::create([
-                'user_id' => $user_id,
-                'trans_id' => rand(),
-                'time' => Carbon::now(),
-                'description' => 'INSTALLMENT'. '#ID'.'-'.'IN'.rand(),
-                'amount' => '-'.$installment,
-                'new_balance' => $new_balance,
-                'type' => 6,
-            ]);
+            $trans = Transaction::create([
+                        'user_id' => $user_id,
+                        'trans_id' => rand(),
+                        'time' => Carbon::now(),
+                        'description' => 'INSTALLMENT'. '#ID'.'-'.'IN'.rand(),
+                        'amount' => '-'.$installment_amount,
+                        'new_balance' => $new_balance,
+                        'type' => 6,
+                    ]);
+
+
+            $intallment_no = SchedulePayment::where('id', $id)->value('payment_no');
+
+            $objInstall = new \stdClass();
+            $objInstall->first_name = $user_first_name;
+            $objInstall->trans_id = $trans->trans_id;
+            $objInstall->install_no = $intallment_no;
+            $objInstall->amount = $installment_amount;
+            $objInstall->product_name = $product_name;
+            $objInstall->remaining_amount = $remaining_amount;
+
+            Mail::to($user_email)->send(new InstallmentDeductEmail($objInstall));
 
             return redirect('admin/orders/installment/pay/' . $request->input('order_id'))->withMsg('Successfully Paid');
 

@@ -83,7 +83,7 @@
                                             <tr>
                                                 <th>Remaining Amount:</th>
                                                 @php
-                                                    $remaining_amount = $data->product_price - $data->advance_payment - $data->paid_amount;
+                                                    $remaining_amount = $data->product_price - $data->advance_payment - $paid_amount;
                                                 @endphp
                                                 <td>
                                                     @if($remaining_amount <= 0)

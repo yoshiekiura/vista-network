@@ -8,7 +8,7 @@
 
 	Dear <b>{{ $deposit->first_name }}</b>, <br/>
 	<p>
-		You have successfully transfered funds from your {{ $deposit->gateway }} account to Vista Network account.<br/><br/>
+		You have successfully transfered funds from your {{ $deposit->gateway }} account to Vista Network account.
 	</p>
 	<p>
 		The following transaction has been debited from your account.<br/>
