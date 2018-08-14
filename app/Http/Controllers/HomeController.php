@@ -30,6 +30,8 @@ use App\Mail\PasswordChangedEmail;
 use App\Mail\ProductPurchaseEmail;
 use App\Mail\ProductPurchaseInstallmentEmail;
 use App\Mail\FundsWithdrawEmail;
+use App\Mail\FundsTransferReceiverEmail;
+use App\Mail\FundsTransferGiverEmail;
 use Mail;
 use Carbon\Carbon;
 use DB;
@@ -245,7 +247,7 @@ class HomeController extends Controller
         // type = 2 => add fund
         // type = 3 => wthdraw fund
         // type = 8 => transfer fund
-        $types = [2, 3, 8];
+        $types = [2, 3, 8, 14];
         $trans = Transaction::where('user_id', Auth::user()->id)
                             ->whereIn('type', $types)
                             ->orderBy('id', 'desc')
@@ -622,64 +624,9 @@ class HomeController extends Controller
             Mail::to($to_email)->send(new FundsWithdrawEmail($objWithdraw));
 
             return view('client.finance.withdraw_thanks', compact('trans_id'));
+
         }    
     }
-
- /*   public function storeWithdraw(Request $request)
-    {
-        $this->validate($request,[
-                'amount' => 'required',
-                'charge' => 'required',
-                'method_name' => 'required',
-                'processing_time' => 'required',
-                'method_cur' => 'required',
-            ]);
-
-
-        $withdraw = WithdrawTrasection::create([
-           'amount' => $request->amount,
-           'charge' => $request->charge,
-           'method_name' => $request->method_name,
-           'processing_time' => $request->processing_time,
-           'detail' => $request->detail,
-           'method_cur' => $request->method_cur,
-           'withdraw_id' => 'WD'.rand(),
-           'user_id' => Auth::user()->id,
-        ]);
-
-        $total =  $request->amount + $request->charge;
-
-        $new_balance = Auth::user()->balance - $total;
-
-        User::whereId(Auth::user()->id)
-            ->update([
-               'balance' => $new_balance
-            ]);
-
-        Transaction::create([
-            'user_id' => $withdraw->user_id,
-            'trans_id' => rand(),
-            'time' => Carbon::now(),
-            'description' => 'WITHDRAW'. '#ID'.'-'.$withdraw->withdraw_id,
-            'amount' => '-'.$withdraw->amount,
-            'new_balance' => $new_balance,
-            'type' => 3,
-            'charge' => $request->charge,
-        ]);
-
-         $general = General::first();
-         $user = User::find(Auth::user()->id);
-
-         $message ='Welcome! Your Withdraw request is success, Please wait for processing days.Your Withdraw amount : '.$withdraw->amount.$general->symbol.' 
-         our current balance is '.$new_balance.$general->symbol.' .';
-
-           send_email($user['email'], 'Successfully Withdraw' ,$user['first_name'], $message);
-
-
-
-     //   return redirect('home')->with('message', 'Withdraw Request Success, Wait for processing day');
-          return redirect()->back()->with('message', 'Withdraw Request Success, Wait for processing day');
-    } */
 
     public function confirmUserAjax(Request $request)
     {
@@ -729,12 +676,12 @@ class HomeController extends Controller
             'username' => 'required',
         ]);
 
-        dd($request->all());
-
         if(Auth::user()->balance < $request->amount)
         {
-            return redirect()->back()->with('alert','Insufficient Balance');
+            return redirect()->back()->with('alert','Transfer funds exceed balance, Funds should be less than your balance');
+
         }else{
+
             $comission = ChargeCommision::first();
             $charge = ($request->amount * $comission->transfer_charge)/100;
 
@@ -748,32 +695,49 @@ class HomeController extends Controller
             $transferer->balance = $transferer->balance - $total;
             $transferer->update();
 
-            Transaction::create([
-                'user_id' => Auth::user()->id,
-                'trans_id' => rand(),
-                'time' => Carbon::now(),
-                'description' => 'BALANCE TRANSFER'. '#ID'.'-'.'BT'.rand(),
-                'amount' => $request->amount,
-                'new_balance' => $transferer->balance,
-                'type' => 8,
-                'charge' => $charge,
-            ]);
+            $giver = Transaction::create([
+                        'user_id' => Auth::user()->id,
+                        'trans_id' => rand(),
+                        'time' => Carbon::now(),
+                        'description' => 'BALANCE TRANSFER'. '#ID'.'-'.'BT'.rand(),
+                        'amount' => '-'.$request->amount,
+                        'new_balance' => $transferer->balance,
+                        'type' => 8,
+                        'charge' => $charge,
+                    ]);
+
+            $receiver = Transaction::create([
+                            'user_id' => $user->id,
+                            'trans_id' => rand(),
+                            'time' => Carbon::now(),
+                            'description' => 'BALANCE RECEIVED'. '#ID'.'-'.'BT'.rand(),
+                            'amount' => $request->amount,
+                            'new_balance' => $user->balance,
+                            'type' => 14,
+                        ]);
 
             $general = General::first();
 
-            $message ='Thank you! Your balance transfer process is complete.Your transfer amount : '.$request->amount.$general->symbol.' .Your transfer charge : '.$charge.$general->symbol.'
-            Your current balance is '.$transferer->balance.'';
+            $objRFunds = new \stdClass();
+            $objRFunds->receiver_first_name = $user->first_name;
+            $objRFunds->giver_username = $transferer->username;
+            $objRFunds->receiver_trans_id = $receiver->trans_id;
+            $objRFunds->receiver_amount = $request->amount;
+            $objRFunds->receiver_new_balance = $user->balance;
 
-            send_email($transferer->email, 'Balance Transfer Complete' ,$transferer->first_name, $message);
+            Mail::to($user->email)->send(new FundsTransferReceiverEmail($objRFunds));
 
+            $objGFunds = new \stdClass();
+            $objGFunds->giver_first_name = $transferer->first_name;
+            $objGFunds->receiver_username = $user->username;
+            $objGFunds->giver_trans_id = $giver->trans_id;
+            $objGFunds->giver_amount = $request->amount;
+            $objGFunds->giver_new_balance = $transferer->balance;
 
+            Mail::to($transferer->email)->send(new FundsTransferGiverEmail($objGFunds));
 
-            $message ='Congratulation! Your balance add process is complete.
-        '.$transferer->first_name.' '.$transferer->last_name.' transfer '.$request->amount.$general->symbol.' to your fund.</p>';
+            return redirect()->back()->with('message', 'Funds Transfer Successfully');
 
-            send_email($user['email'], 'Balance Add Complete' ,$user['first_name'], $message);
-
-            return redirect()->back()->with('message', 'Amount Transfer Success');
         }
         
     }

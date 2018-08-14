@@ -96,11 +96,17 @@
                   @foreach($trans as $key => $data)
                     <tr>
                       <td>{{$key+1}}</td>
-                      <td>{{$data->trans_id}}</td>
+                      <td><b>{{$data->trans_id}}</b></td>
                       <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y') }}</td>
                       <td>{{$data->description}}</td>
-                      <td>{{$data->amount}}</td>
-                      <td>{{$data->charge}}</td>
+                      <td>${{$data->amount}}</td>
+                      <td>
+                          @if($data->charge)
+                            ${{$data->charge}}
+                          @else
+
+                          @endif
+                      </td>
                       <td>
                           @if($data->type == 2)
                               <div class="badge badge-success round">
@@ -113,13 +119,18 @@
                                 <span>Withdraw</span>
                               </div>
                           @elseif($data->type == 8)
-                              <div class="badge badge-warning round">
+                              <div class="badge badge-info round">
                                 <i class="la la-refresh font-medium-2"></i>
                                 <span>Transfer</span>
                               </div>
+                          @elseif($data->type == 14)
+                              <div class="badge badge-primary round">
+                                <i class="la la-money font-medium-2"></i>
+                                <span>Funds Received</span>
+                              </div>
                           @endif
                       </td>
-                      <td>{{$data->new_balance}}</td>
+                      <td>${{$data->new_balance}}</td>
                     </tr>
                   @endforeach
                 @else

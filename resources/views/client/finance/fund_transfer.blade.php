@@ -1,5 +1,20 @@
 @extends('home')
 
+@section('style')
+
+  <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}" ></script>
+  <script>
+
+    $(document).ready(function() {
+
+        $('#result_found_msg').hide();
+
+    });
+
+  </script> 
+  
+@endsection
+
 @section('content')
 
 <div class="content-header row">
@@ -10,7 +25,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-          <li class="breadcrumb-item"><a href="javascript:;">Income</a></li>
+          <li class="breadcrumb-item"><a href="javascript:;">Finance</a></li>
           <li class="breadcrumb-item active">Funds Transfer</li>
         </ol>
       </div>
@@ -90,9 +105,9 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <div class="form-group">
-                                          <label for="timesheetinput2"></label>
-                                            <div id="resu"></div>
+                                        <div class="form-group row" id="result_found_msg">
+                                          <div class="col-md-12" id="result_found" style="font-weight: 800; color: green;">
+                                          </div>  
                                         </div>
                                       
                                         <div class="form-group">
@@ -166,7 +181,7 @@
 @section('script')
     <script>
         $(document).ready(function () {
-            $(document).on('input','#refname',function() {
+            $(document).on('blur','#refname',function() {
                 var search_name = $('#refname').val();
                 var token = "{{csrf_token()}}";
 
@@ -179,7 +194,23 @@
                     },
                     success:function(data){
 //                      console.log(data);
-                        $("#resu").html(data);
+                      //  $("#resu").html(data);
+                       if(data.status == 'warning'){
+                           swal("Warning!", data.msg, "warning");  
+                           $("#result_found").html('');
+                        }
+                        else if(data.status == 'danger'){
+                           swal("Error!", data.msg, "error");  
+                           $("#result_found").html('');
+                        }
+                        else if(data.status == 'success'){
+                           swal("Success!", data.msg, "success");
+                           $('#result_found_msg').show();
+                           $("#result_found").html(data.transferer_id);  
+                        }
+                        else{
+                           swal("Error!", 'Transaction Failed!', "error");
+                        }
                     }
                 });
             });

@@ -710,7 +710,7 @@
                                       <div class="form-group row" id="result_found_msg">
                                         <div class="col-md-3">
                                         </div>
-                                        <div class="col-md-9" id="result_found">
+                                        <div class="col-md-9" id="result_found" style="font-weight: 800; color: green;">
                                         </div>  
                                       </div>  
                                       <div class="form-group row">
@@ -762,7 +762,7 @@
                                       <div class="form-group row" id="result_found_alexa_msg">
                                         <div class="col-md-3">
                                         </div>
-                                        <div class="col-md-9" id="result_found_alexa">
+                                        <div class="col-md-9" id="result_found_alexa" style="font-weight: 800; color: green;">
                                         </div>  
                                       </div>
                                       <div class="form-group row">
@@ -811,7 +811,7 @@
 
     <script>
         $(document).ready(function () {
-            $(document).on('input','#refname',function() {
+            $(document).on('blur','#refname',function() {
                 var search_name = $('#refname').val();
                 var token = "{{csrf_token()}}";
 
@@ -844,7 +844,7 @@
                     }
                 });
             });
-            $(document).on('input','#refname-a',function() {
+            $(document).on('blur','#refname-a',function() {
                 var search_name = $('#refname-a').val();
                 var token = "{{csrf_token()}}";
 
