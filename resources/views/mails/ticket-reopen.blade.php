@@ -15,7 +15,7 @@
 		This support request has <b>Reopen</b> your ticket.
 	</p>
 	<p>
-		You can view the ticket at any time at http://beta.vista.network/support/reply/{{ $ticket->ticket_id }}
+		You can view the ticket at any time for this please login using following url <a href="http://beta.vista.network/login" target="_blank">Login</a>
 	</p>	
 	<br/>
 	Thank You,
