@@ -1,46 +1,5 @@
 @extends('home')
 
-@section('style')
-
-<script>
-
-    function viewDetails(id) 
-    {
-        $.ajax({
-            url: '/coin/transaction/details/'+id,
-            type: 'GET', 
-            success: function( result ) {
-                console.log(result);
-                if(result.success == true){
-
-                  const trans_id = result.trans_id;
-                  const coin_name = result.coin_name;
-                  const coin_num = result.coin_num;
-                  const coin_rate = result.coin_rate;
-                  const coin_amount = result.coin_amount;
-                  const status = result.status;
-
-                  swal({
-                    title: "Coins "+status,
-                    text: coin_name,
-                  });
-
-              //    swal("Success!", "Your have successfully purchased coins!", "success");
-                 
-                }else{
-                  swal("Error!", "Did not find any result!", "error");
-
-                } 
-            },
-            error: function (data) {
-                  swal("Error!", "Transaction Error!", "error");
-            }
-      });
-    }
-</script>
-
-@endsection
-
 @section('content')
 
 <div class="content-header row">
@@ -113,7 +72,6 @@
                           <th>Total</th>
                           <th>Status</th>
                           <th>Date</th>
-                          <th>Details</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -171,7 +129,6 @@
 
                           @endphp
                           <td>{{ $created_format }}</td>
-                          <td><button class="btn btn-icon btn-info btn-sm" onClick="viewDetails({{ $data->id }})"><i class="la la-eye"></i></button></td>
                         </tr>
                         @endforeach
                       </tbody>

@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="BitBank,multipurpose,business,agency,modern,bootstrap,bootstrap template,responsive,html,css,unique,professional,onepage,creative,template,design,web design,crypto,bitcoin,currency">
-    <meta name="author" content="Dreambuzz">
+    <meta name="description" content="Vista Network">
+    <meta name="author" content="Vibetron">
 
     <title>Vista Network - Client Portal</title>
 
@@ -18,8 +18,8 @@
     <link href="{{ URL::asset('front/css/backgrounds.css') }}" rel="stylesheet" type="text/css">
 
     <link href="{{ URL::asset('front/fonts/FontAwesome/stylesheet.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ URL::asset('front/fonts/Ion%20Icons/stylesheet.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ URL::asset('front/fonts/ElegantThemes%20Icons/stylesheet.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('front/fonts/Ion_Icons/stylesheet.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ URL::asset('front/fonts/ElegantThemes_Icons/stylesheet.css') }}" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -231,7 +231,7 @@
                             <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/wallet.jpg') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/wallet.png') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>create your wallet</h4>
                                     <p>
@@ -243,7 +243,7 @@
                             <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/payment.jpeg') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/payment.png') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>make payments</h4>
                                     <p>
@@ -254,7 +254,7 @@
                             <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/buy_coins.jpg') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/buy_coins.png') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>Buy or Sell Coins</h4>
                                     <p>
@@ -265,7 +265,7 @@
                             <div class="col-md-3 col-sm-3">
                                 <div class="work-inner-box">
                                     <div class="icon-box work-icon icon-lg">
-                                        <img src="{{ URL::asset('front/img/icon/buy_products.jpg') }}" alt="" class="img-responsive">
+                                        <img src="{{ URL::asset('front/img/icon/buy_products.png') }}" alt="" class="img-responsive">
                                     </div>
                                     <h4>Buy or Sell Products</h4>
                                     <p>
@@ -990,7 +990,7 @@ making it easier for all of the members to get their questions answers faster..<
                     </div>
                 </div> 
                 
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-2 col-sm-6">
                     <div class="widget news-widget">
                         <h4>Client Resources</h4>
                         
@@ -1019,7 +1019,7 @@ making it easier for all of the members to get their questions answers faster..<
                     </div>
                 </div> -->
                 
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-5 col-sm-6">
                     <div class="widget contact-widget">
                         <h4>Contact Us</h4>
                         

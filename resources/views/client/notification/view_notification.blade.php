@@ -37,20 +37,26 @@
             </div>
             <div class="card-content collapse show">
               <div class="card-body">
-                @foreach($notification as $no)
-                <div class="bs-callout-primary callout-border-left mt-1 p-1">
-                  <strong>{{ $no->subject }}</strong>
-                  <p>{!! $no->message !!}</p>
-                  @php    
-                      $dt = $no->created_at;
-                      $created_format = $dt->toFormattedDateString();
-                  @endphp
-                  <p>
-                      {{ $created_format }}
-                  </p>
-                </div>
-                <br/>
-                @endforeach
+                @if($notification->isEmpty())
+                  <div class="bs-callout-primary callout-border-left mt-1 p-1">
+                    <p>Empty notification section</p>
+                  </div>  
+                @else
+                  @foreach($notification as $no)
+                  <div class="bs-callout-primary callout-border-left mt-1 p-1">
+                    <strong>{{ $no->subject }}</strong>
+                    <p>{!! $no->message !!}</p>
+                    @php    
+                        $dt = $no->created_at;
+                        $created_format = $dt->toFormattedDateString();
+                    @endphp
+                    <p>
+                        {{ $created_format }}
+                    </p>
+                  </div>
+                  <br/>
+                  @endforeach
+                @endif
               </div>
               <div class="card-footer">
                   {{ $notification->links() }}

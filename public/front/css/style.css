@@ -450,7 +450,7 @@ nav.navbar {
     transition: .3s;
 }
 .icon-box:hover {
-    background: #735A55;
+    background: #428bca;
 }
 .service-icon {
     border: 1px solid #ddd;
@@ -2072,7 +2072,7 @@ p {
     background: url(../img/backgrounds/bg1.jpg) 50% 50%;
 }
 .page-wrap.contact{
-    background: url(../img/backgrounds/bg5.jpg) 50% 50%;
+    background: url(../img/backgrounds/contact-banner2.jpg) 50% 50%;
 }
 
 

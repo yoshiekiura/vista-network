@@ -290,9 +290,10 @@ class AdminController extends Controller
                             payment_installments
                         LEFT JOIN schedule_payments ON payment_installments.order_id = schedule_payments.order_id && schedule_payments.status = 1
                         GROUP BY schedule_payments.payment_amount,payment_installments.order_id,payment_installments.product_id,payment_installments.duration,payment_installments.advance_payment,payment_installments.installment,payment_installments.status,payment_installments.product_name,payment_installments.product_price
-                        '); 
+                        ');
 
         return view('admin.orders.view_install', compact('installment'));
+        
     }
 
     public function viewInstallmentDetails($order_id)

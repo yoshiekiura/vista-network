@@ -387,9 +387,7 @@ class FontendController extends Controller
         $usubject = $request->input('subject');
         $umsg = $request->input('message');
 
-     //   $message = 'Thank you! for contacting with us. We will get back to you soon';
-
-     //   send_email('yasir.sherwani@gmail.com', 'Vista Contact Us Form', 'Admin', $message);
+        $general = General::where('id',1)->get();
 
         $objContact = new \stdClass();
         $objContact->name = $uname;
@@ -398,9 +396,9 @@ class FontendController extends Controller
         $objContact->subject = $usubject;
         $objContact->message = $umsg;
 
-        Mail::to('vista@vibetron.com')->send(new ContactFormEmail($objContact));
+        Mail::to('yasir.sherwani@gmail.com')->send(new ContactFormEmail($objContact));
 
-        return redirect()->back();
+        return view('client.contact_thanks', compact('general'));
     
     }
 

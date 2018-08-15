@@ -4,12 +4,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
-  <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+  <meta name="description" content="Vista Network">
+  <meta name="keywords" content="Vista Network">
   <meta name="author" content="PIXINVENT">
-  <title>Error 404 - Modern Admin - Clean Bootstrap 4 Dashboard HTML Template + Bitcoin
-    Dashboard
-  </title>
+  <title>Vista Network - Error 404</title>
   <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
   <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
@@ -40,7 +38,7 @@ data-open="click" data-menu="horizontal-menu" data-col="1-column">
         <ul class="nav navbar-nav flex-row">
           <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
           <li class="nav-item">
-            <a class="navbar-brand" href="{{ route('home') }}">
+            <a class="navbar-brand" href="{{ url('/') }}">
               <img alt="modern admin logo" src="{{ URL::asset('assets/images/fontend_logo/logo.png') }}" style="width: 120px; height: 45px; margin-top: -8px;">
           <!--    <h3 class="brand-text">Modern Admin</h3> -->
             </a>
@@ -77,15 +75,6 @@ data-open="click" data-menu="horizontal-menu" data-col="1-column">
               </div>
             </div>
             <div class="card-content px-2">
-              <fieldset class="row py-1">
-                <div class="input-group col-12">
-                  <input type="text" class="form-control border-grey border-lighten-1" placeholder="Search..."
-                  aria-describedby="button-addon2">
-                  <span class="input-group-append" id="button-addon2">
-                    <button class="btn btn-lg btn-secondary border-grey border-lighten-1" type="button"><i class="la la-search"></i></button>
-                  </span>
-                </div>
-              </fieldset>
               <div class="row py-2">
                 <div class="col-12">
                   <a href="{{ route('home') }}" class="btn btn-primary btn-block btn-lg"><i class="la la-home"></i> Back to Home</a>
@@ -117,8 +106,8 @@ data-open="click" data-menu="horizontal-menu" data-col="1-column">
   <footer class="footer navbar-fixed-bottom footer-dark navbar-shadow">
     <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
       <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018 <a class="text-bold-800 grey darken-2" href="https://themeforest.net/user/pixinvent/portfolio?ref=pixinvent"
-        target="_blank">PIXINVENT </a>, All rights reserved. </span>
-      <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Hand-crafted & Made with <i class="ft-heart pink"></i></span>
+        target="_blank">Vista Network </a>, All rights reserved. </span>
+      <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block"><a href="http://www.vibetron.com/" target="_blank">Vibetron Pvt Ltd</a></span>
     </p>
   </footer>
   <!-- BEGIN VENDOR JS-->
