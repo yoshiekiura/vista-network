@@ -9,7 +9,7 @@
           <div class="card-title text-center">
             <div class="">
                 <br/>
-                <img src="{{ URL::asset('assets/images/fontend_logo/logo.png') }}" alt="Vista Logo" style="width: 150px; height: 50px;">
+                <a href="{{ url('/') }}"><img src="{{ URL::asset('assets/images/fontend_logo/logo.png') }}" alt="Vista Logo" style="width: 150px; height: 50px;"></a>
             </div>    
           </div>
           <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">

@@ -99,7 +99,13 @@
                       <td><b>{{$data->trans_id}}</b></td>
                       <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y') }}</td>
                       <td>{{$data->description}}</td>
-                      <td>${{$data->amount}}</td>
+                      <td>
+                          @if($data->amount < 0)
+                            <span class="danger">-${{ abs($data->amount) }}</span>
+                          @else
+                            <span class="success">${{ $data->amount }}</span>
+                          @endif
+                      </td>
                       <td>
                           @if($data->charge)
                             ${{$data->charge}}
@@ -130,7 +136,7 @@
                               </div>
                           @endif
                       </td>
-                      <td>${{$data->new_balance}}</td>
+                      <td>${{ number_format((float)$data->new_balance, 2, '.', '') }}</td>
                     </tr>
                   @endforeach
                 @else
