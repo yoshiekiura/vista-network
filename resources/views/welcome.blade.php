@@ -100,9 +100,12 @@
         <div class="hero-container container">
             <div class="hero-content">
                 <div class="col-sm-12 m-auto text-center white fadeHero">
-                    <h6 class="subheading" style="font-size: 16px;">Welcome to</h6>
-                    <h2 class="h1-lg mb10 text-uppercase" style="font-weight: 600;">VISTA NETWORK</h2>
-                    <h5 class="lead h5-md mt30 mb20">Vista strives to build the strongest, fastest-growing, cryptocurrency network <br/> in the world backed by state-of-the-art hardware and software systems <br/> developed to provide speed, security, and reliability.</h5>
+                    <h6 class="subheading" style="font-size: 18px;">Dear VISTA Affiliates Worldwide</h6>
+                    <h2 class="h1-lg mb10 text-uppercase" style="font-weight: 600; font-size: 56px;">WELCOME to Vista 3.0!</h2>
+                    <h5 class="lead h5-md mt30 mb20"><!-- Vista strives to build the strongest, fastest-growing, cryptocurrency network <br/> in the world backed by state-of-the-art hardware and software systems <br/> developed to provide speed, security, and reliability. -->
+                    If you are experiencing difficulty in accessing your account, please be patient and know that we are working around the clock to satisfy all our members.
+    
+                    </h5>
                     <a href="{{ route('register') }}" class="btn btn-default">Join Now</a>
                 </div>
             </div>
@@ -132,7 +135,7 @@
                         <div class="service-inner">
                             <h4>Vista <span>Coin</span></h4>
                             <p>Buy Sell Transfer Vista Coins.</p>
-                            <a href="#" class="read-more">Read More</a>
+                         <!--   <a href="#" class="read-more">Read More</a> -->
                         </div>
                     </div>
                 </div>
@@ -144,7 +147,7 @@
                         <div class="service-inner">
                             <h4>Alexa <span>Coin</span></h4>
                             <p>Buy Sell Transfer Alexa Coins.</p>
-                            <a href="#" class="read-more">Read More</a>
+                         <!--   <a href="#" class="read-more">Read More</a>  -->
                         </div>
                     </div>
                 </div>
@@ -156,7 +159,7 @@
                         <div class="service-inner ">
                             <h4>Hash <span>Power</span></h4>
                             <p>Hash Power Lay Away Program.</p>
-                            <a href="#" class="read-more">Read More</a>
+                         <!--   <a href="#" class="read-more">Read More</a>  -->
                         </div>
                     </div>
                 </div>
@@ -168,7 +171,7 @@
                         <div class="service-inner ">
                             <h4>Mini <span>Miner</span></h4>
                             <p>Mini Miner Machine.</p>
-                            <a href="#" class="read-more">Read More</a>
+                        <!--    <a href="#" class="read-more">Read More</a> -->
                         </div>
                     </div>
                 </div>

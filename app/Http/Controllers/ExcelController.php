@@ -83,7 +83,22 @@ class ExcelController extends Controller
 
     public function usersImport(Request $request)
     {
-        if($request->hasFile('import_file')){
+      /*  $validator = Validator::make(
+          [
+              'file'      => $request->file('import_file'),
+              'extension' => strtolower($request->file('import_file')->getClientOriginalExtension()),
+          ],
+          [
+              'file'          => 'required',
+              'extension'      => 'required|in:csv,xlsx,xls',
+          ]
+        );
+
+        $extensions = array("xls","xlsx","csv");
+        $result = array($request->file('import_file')->getClientOriginalExtension()); */
+
+
+    /*    if($request->hasFile('import_file')){
             $path = $request->file('import_file')->getRealPath();
             $data = \Excel::load($path)->get();
             if($data->count()){
@@ -121,9 +136,11 @@ class ExcelController extends Controller
             }
         }else{
             \Session::flash('warning', 'There is no file to import');
-        }
+        } */
       //  return Redirect::back();
+        
         return redirect('home')->with('message', 'Profile Successfully Updated ');
+    
     }
 
 }

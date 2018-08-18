@@ -2,9 +2,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
-  <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
-  <meta name="author" content="PIXINVENT">
+  <meta name="description" content="Vista Network, Alexa Coin, Vista Coin, Mini Miner, Hash Power">
+  <meta name="keywords" content="Vista Network, Alexa Coin, Vista Coin, Mini Miner, Hash Power">
+  <meta name="author" content="Vibetron">
   <title>Vista Network Dashboard</title>
   <link rel="apple-touch-icon" href="{{ URL::asset('app-assets/images/ico/apple-icon-120.png') }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('front/img/assets/favicon2.png') }}">
