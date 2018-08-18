@@ -101,7 +101,7 @@
             <div class="hero-content">
                 <div class="col-sm-12 m-auto text-center white fadeHero">
                     <h6 class="subheading" style="font-size: 18px;">Dear VISTA Affiliates Worldwide</h6>
-                    <h2 class="h1-lg mb10 text-uppercase" style="font-weight: 600; font-size: 56px;">WELCOME to Vista 3.0!</h2>
+                    <h2 class="h1-lg mb10 text-uppercase" style="font-weight: 600; font-size: 56px;">WELCOME to VISTA 3.0!</h2>
                     <h5 class="lead h5-md mt30 mb20"><!-- Vista strives to build the strongest, fastest-growing, cryptocurrency network <br/> in the world backed by state-of-the-art hardware and software systems <br/> developed to provide speed, security, and reliability. -->
                     If you are experiencing difficulty in accessing your account, please be patient and know that we are working around the clock to satisfy all our members.
     
@@ -195,7 +195,7 @@
                         <p>Bitcoin mining is the process by which transactions are verified and added to the public ledger, known as the block chain, and also the means through which new bitcoin are released.</p>
                         <ul class="about-info-list">
                             <li><i class="icon ion-checkmark"></i> Trusted worldwide.</li>
-                            <li><i class="icon ion-checkmark"></i> Growth Potencial.</li>
+                            <li><i class="icon ion-checkmark"></i> Growth Potential.</li>
                             <li><i class="icon ion-checkmark"></i> Digital Diversification.</li>
                             <li><i class="icon ion-checkmark"></i> Reliability.</li>
                             <li><i class="icon ion-checkmark"></i> Starting Price: $1495</li>
@@ -219,7 +219,7 @@
                         <div class="heading m-auto text-center ">
                             <h2 class="f-xbold" style="color: #ffffff;">How it Works</h2>
                             <hr class="seperator">
-                            <p>With a belief that culture drives commerce, we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action. Our specialty of connecting brand, culture, and commerce has earned us a big reputation.</p>
+                        <!--    <p>With a belief that culture drives commerce, we leverage shared values and ideals to inform strategy and design, creating experiences that inspire life and inspire action. Our specialty of connecting brand, culture, and commerce has earned us a big reputation.</p>  -->
                         </div>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                                     </div>
                                     <h4>Buy or Sell Coins</h4>
                                     <p>
-                                        Vista offer two coins Alexa and Visa, you can buy, sale and transfer coins through our system.
+                                        Vista offer two coins Alexa and Vista, you can buy, sale and transfer coins through our system.
                                     </p>
                                 </div>
                             </div>
@@ -272,7 +272,7 @@
                                     </div>
                                     <h4>Buy or Sell Products</h4>
                                     <p>
-                                        Vista offer different products that includes Mini Miner machine and many more.
+                                        Vista offers different products that includes Mini Miner machine and many more.
                                     </p>
                                 </div>
                             </div>
@@ -303,7 +303,7 @@
                         </div>
                         <div class="feature-inner">
                             <h4>Safe and Secure</h4>
-                            <p>Vista Network provides safe and secure system for sale and purchase of our products.</p>
+                            <p>Vista Network provides a safe and secure system for sale and purchase of our products.</p>
                         </div>
                     </div>
                 </div>
@@ -337,8 +337,8 @@
                             <img src="{{ URL::asset('front/img/service/higher-avail.png') }}" alt="" class="img-responsive">
                         </div>
                         <div class="feature-inner">
-                            <h4>Higher Availibilty</h4>
-                            <p>Vista Network provides system of higher availibility.</p>
+                            <h4>Higher Availabilty</h4>
+                            <p>Vista Network provides system of higher availability.</p>
                         </div>
                     </div>
                 </div>
@@ -484,7 +484,7 @@
                     <h1>+1 {{ $mobile }}</h1>
 
                     <p>Vista is centralizing all of the customer care into one big customer support department. And therefore
-making it easier for all of the members to get their questions answers faster..</p>
+making it easier for all of the members to get their questions answered faster..</p>
 
                     <ul class="social-icons fadeIn">
                         <li><a href="https://www.facebook.com/vistanetworklive"><i class="fa fa-facebook white"></i></a></li>
@@ -492,7 +492,7 @@ making it easier for all of the members to get their questions answers faster..<
                         <li><a href="https://www.instagram.com/vistanetworkus/"><i class="fa fa-instagram white"></i></a></li>
                         <li><a href="https://www.youtube.com/channel/UCXyM4uK1xfwrFf_X6jneFCQ"><i class="fa fa-youtube white"></i></a></li>
                     </ul>
-                    <h6>we don't <span class="highlight">enclose</span> your information with anyone.</h6>
+                    <h6>we don't <span class="highlight">disclose</span> your information with anyone.</h6>
                 </div>
             </div>
         </div>
@@ -850,7 +850,7 @@ making it easier for all of the members to get their questions answers faster..<
            <div class="row">
                  <div class="col-md-12">
                      <div class="heading m-auto text-center ">
-                        <h5 class="subheading">Have any Question on Mind ?</h5>
+                        <h5 class="subheading">Have a question on your mind ?</h5>
                         <h2 class="f-xbold">Frequently Asked Questions</h2>
                         <hr class="seperator">
                     </div>
@@ -886,7 +886,7 @@ making it easier for all of the members to get their questions answers faster..<
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                 <div class="panel-body">
-                                    <p>After successfull registration and after your account approval. You will have the access to your wallet to add and withdraw funds. </p>
+                                    <p>After successfull registration and after your account approval. You will have access to your wallet to add and withdraw funds. </p>
                                 </div>
                             </div>
                         </div>
@@ -901,7 +901,7 @@ making it easier for all of the members to get their questions answers faster..<
                             </div>
                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                 <div class="panel-body">
-                                    <p>After your account approved, you will have the full access to purchase all the Vista products with our user friendly system to keep log on all activities. </p>
+                                    <p>After your account is approved, you will have full access to purchase any Vista products with our user friendly system and you will have a log of all your activities. </p>
                                 </div>
                             </div>
                         </div>

@@ -7,11 +7,30 @@
         <div class="col-md-4 col-10 box-shadow-2 p-0">
 
         @if (Session::has('message'))
-          <div class="alert alert-success">{{ Session::get('message') }}</div>
+          <div class="alert bg-success alert-dismissible mb-2" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Well done!</strong> {{ Session::get('message') }}
+          </div>
         @endif
 
         @if (Session::has('alert'))
-          <div class="alert alert-danger">{{ Session::get('alert') }}</div>
+          <div class="alert bg-danger alert-dismissible mb-2" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Oh Snap!</strong> {{ Session::get('alert') }}
+          </div>
+        @endif
+
+        @if (Session::has('success'))
+          <div class="alert bg-success alert-dismissible mb-2" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Well done!</strong> {{ Session::get('success') }}
+          </div>
         @endif
 
         @if (count($errors) > 0)
@@ -32,7 +51,9 @@
             <div class="card-header border-0">
               <div class="card-title text-center">
                 <div class="p-1">
-                  <img src="{{ URL::asset('assets/images/fontend_logo/logo.png') }}" alt="Vista Logo" style="width: 150px; height: 50px;">
+                  <a href="{{ url('/') }}">
+                    <img src="{{ URL::asset('assets/images/fontend_logo/logo.png') }}" alt="Vista Logo" style="width: 150px; height: 50px;">
+                  </a>  
                 </div>
               </div>
               

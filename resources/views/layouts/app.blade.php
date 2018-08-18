@@ -32,6 +32,19 @@
   <!-- BEGIN Custom CSS-->
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/style.css') }}">
   <!-- END Custom CSS-->
+  <style>
+
+    body{
+
+       background: url(../app-assets/images/backgrounds/login-background.png) center center; 
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: auto 100%;
+
+    }
+
+  </style>
 </head>
 <body class="horizontal-layout horizontal-menu horizontal-menu-padding 1-column   menu-expanded blank-page blank-page" data-open="click" data-menu="horizontal-menu" data-col="1-column">
   <!-- ////////////////////////////////////////////////////////////////////////////-->
