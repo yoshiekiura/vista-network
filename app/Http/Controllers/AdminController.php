@@ -612,7 +612,9 @@ class AdminController extends Controller
             'emailv' => $emailv,
             'smsv' => $smsv,
         ]);
+
         return redirect()->back()->withMsg('Successfully Updated');
+    
     }
 
     public function indexUserBalance($id)

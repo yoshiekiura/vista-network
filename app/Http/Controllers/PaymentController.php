@@ -273,6 +273,37 @@ class PaymentController extends Controller
             }
             elseif($data->gateway_id == 9){
 
+                $secret_key = $gatewayData->val1;
+                $password = $gatewayData->val2; 
+                $password = md5($password);
+
+                $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
+                $user_first_name = User::where('id', $DepositData->user_id)->value('first_name');
+                $user_last_name = User::where('id', $DepositData->user_id)->value('last_name');
+                $payerEmail = User::where('id', $DepositData->user_id)->value('email');
+
+                $payerName = $user_first_name . "&nbsp;" . $user_last_name;
+
+                $final = [
+                    'name' => 'Vista Network Shop',
+                    'secret_key' => $secret_key,
+                    'password' => $password,
+                    'type' => 'bitcoin',
+                    'amount' => $DepositData->bcam,
+                    'order_id' => $trx,
+                    'currency' => 'USD',
+                    'description' => 'Funds deposits at Vista Network',
+                    'options' => array(
+                        'notificationURL' => 'https://www.vista.network/notification',
+                        'redirectURL' => 'https://www.vista.network/success',
+                        'payerName' => $payerName,
+                        'payerEmail' => $payerEmail
+                    ) 
+                ];
+
+                $final_json = json_encode($final);
+                dd($final_json);
+
             }
         }    
     }

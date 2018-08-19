@@ -292,20 +292,27 @@ class HomeController extends Controller
                 if($all){
 
                     $res = json_decode($all);
+                    // bitcoin rate
                     $btcrate = $res->USD->last;
-                //    $btcrate = 0.12344;
-
+                    // number of bitcoins
                     $btcamount = $amount/$btcrate;
                     $btc = round($btcamount, 8);
 
                     $one = $amount + $gate->chargefx;
                     $two = ($amount * $gate->chargepc)/100;
 
-                    $charge = $gate->chargefx + (( $amount *  $gate->chargepc )/100);
+                    // charges
+                    $charge = $gate->chargefx + (( $amount * $gate->chargepc )/100);
+                    // total amount with charges
                     $totalbase = $amount+$charge;
-                    $totalusd = $totalbase/$gate->rate;
-                    $payablebtc = round($totalusd/$btcrate, 8); // user will pay this amount of BTC
-                    $payable_amount = $one + $two;
+                //    $totalusd = $totalbase/$gate->rate;
+                    
+                    // user will pay this amount of BTC that includes amount plus charges
+                    $payablebtc = round($totalbase/$btcrate, 8); // user will pay this amount of BTC
+                //    $payable_amount = $one + $two;
+
+                    // user will pay this amount of USD
+                    $payable_amount = $charge + $amount;
 
                     $sell['user_id'] = Auth::user()->id;
                     $sell['gateway_id'] = $gate->id;
@@ -329,8 +336,43 @@ class HomeController extends Controller
                     
                 }
             }
-            else
-            {
+            elseif($gate->id == 9){
+
+                $all = file_get_contents("https://www.alfacoins.com/api/rates");
+                $res = json_decode($all);
+                if($all){
+                  //  $btcrate = $res->USD->last;
+                    $btcrate = $res->BTC[149]->rate;
+                    $btcamount = $amount/$btcrate;
+                    $btc = round($btcamount, 8);
+
+                    $one = $amount + $gate->chargefx;
+                    $two = ($amount * $gate->chargepc)/100;
+
+                    $charge = $gate->chargefx + (( $amount * $gate->chargepc )/100);
+                    $totalbase = $amount+$charge;
+                
+                    $payablebtc = round($totalbase/$btcrate, 8); // user will pay this amount of BTC
+                //    $payable_amount = $one + $two;
+                    $payable_amount = $charge + $amount;
+
+                    $sell['user_id'] = Auth::user()->id;
+                    $sell['gateway_id'] = $gate->id;
+                    $sell['amount'] = $amount;
+                    $sell['status'] = 0;
+                    $sell['usd_amount'] = $payable_amount;
+                    $sell['bcam'] = $payablebtc;
+                    $sell['trx_charge'] = $charge;
+                    $sell['trx'] = 'DP'.rand();
+                    
+                    Deposit::create($sell);
+
+                    return response()->json(['status' => 'success', 'data' => $sell]);
+
+                }
+            
+            }
+            else{
             //    $amount = $request->amount;
             //    $usd = $request->amount;
 

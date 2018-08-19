@@ -149,6 +149,7 @@
                                   <input type="hidden" name="maxamo" id="maxamo" value="{{ $gate->maxamo }}">
                                   <input type="hidden" name="payment_charges" id="payment_charges" value="">
                                   <input type="hidden" name="payable_total_amount" id="payable_total_amount" value="">
+                                  <input type="hidden" name="payable_in_btc" id="payable_in_btc" value="">
                                 </div>
                             </div>
                         </div>      
@@ -185,7 +186,7 @@
                                       <th>Total Payable Amount</th>
                                       <td class="total_payable_preview"></td>
                                    </tr>
-                                   @if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8)
+                                   @if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8 || $gate->id == 9)
                                    <tr>
                                       <th>In BTC</th>
                                       <td class="in_btc_preview"></td>
@@ -229,7 +230,7 @@
                                       <th>Total Payable Amount</th>
                                       <td class="total_payable_preview"></td>
                                    </tr>
-                                   @if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8)
+                                   @if ($gate->id == 3 || $gate->id == 6 || $gate->id == 7 || $gate->id == 8 || $gate->id == 9)
                                    <tr>
                                       <th>In BTC</th>
                                       <td class="in_btc_preview"></td>

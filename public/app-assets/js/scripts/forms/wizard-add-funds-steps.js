@@ -82,7 +82,7 @@ $(".steps-validation").steps({
                         $("#trx_preview").val(trx);
                         $("#payment_charges").val(result.data.trx_charge);
                         $("#payable_total_amount").val(result.data.usd_amount);
-
+                        $("#payable_in_btc").val(result.data.bcam);
                     }    
                 }
             });

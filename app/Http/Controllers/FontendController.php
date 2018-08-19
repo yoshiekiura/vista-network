@@ -396,7 +396,7 @@ class FontendController extends Controller
         $objContact->subject = $usubject;
         $objContact->message = $umsg;
 
-        Mail::to('yasir.sherwani@gmail.com')->send(new ContactFormEmail($objContact));
+        Mail::to('contact@vista.network')->send(new ContactFormEmail($objContact));
 
         return view('client.contact_thanks', compact('general'));
     
