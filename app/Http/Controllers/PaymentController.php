@@ -276,6 +276,7 @@ class PaymentController extends Controller
                 $secret_key = $gatewayData->val1;
                 $password = $gatewayData->val2; 
                 $password = md5($password);
+                $password = strtoupper($password);
 
                 $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
                 $user_first_name = User::where('id', $DepositData->user_id)->value('first_name');
@@ -285,7 +286,7 @@ class PaymentController extends Controller
                 $payerName = $user_first_name . "&nbsp;" . $user_last_name;
 
                 $final = [
-                    'name' => 'Vista Network Shop',
+                    'name' => 'Vista Network',
                     'secret_key' => $secret_key,
                     'password' => $password,
                     'type' => 'bitcoin',
@@ -294,15 +295,29 @@ class PaymentController extends Controller
                     'currency' => 'USD',
                     'description' => 'Funds deposits at Vista Network',
                     'options' => array(
-                        'notificationURL' => 'https://www.vista.network/notification',
-                        'redirectURL' => 'https://www.vista.network/success',
+                        'notificationURL' => 'https://www.vista.network/notification.php',
+                        'redirectURL' => 'https://www.vista.network/funds/deposit/success',
                         'payerName' => $payerName,
-                        'payerEmail' => $payerEmail
+                        'payerEmail' => $payerEmail,
+                        "test": 1,
+                        "status": "completed"
                     ) 
                 ];
 
                 $final_json = json_encode($final);
-                dd($final_json);
+                
+                $url = 'https://www.alfacoins.com/api/create';
+                $ch = curl_init($url);
+
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                 
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $final_json);                        
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',                                   
+                    'Content-Length: ' . strlen($final_json))                                                                       
+                );                                                                                                                   
+                                                                                                                     
+                $result = curl_exec($ch);
 
             }
         }    

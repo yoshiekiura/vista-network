@@ -295,12 +295,14 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/fund/deposit/preview/{id}', 'HomeController@fundDepositPreview')->name('fund.deposit.preview');
     Route::get('/fund/deposit/data/{gateway}/{amount}', 'HomeController@getGatewayData');
     Route::post('/fund/deposit/pay', 'PaymentController@gatewayDataPay')->name('fund.deposit.pay');
+    Route::get('/funds/deposit/success', 'HomeController@fundsSuccess');
 //	Route::post('/deposit/store', 'HomeController@storeDeposit')->name('deposit.preview');
 //  Route::get('/deposit/confirm', 'PaymentController@buyConfirm')->name('buy.confirm');
     Route::get('/fund/withdraw/preview/{id}', 'HomeController@fundWithdrawPreview')->name('fund.withdraw.preview');
     Route::get('/fund/withdraw/data/{gateway}/{amount}', 'HomeController@getWithdrawData');
 	Route::post('/fund/withdraw/pay', 'HomeController@storeWithdraw')->name('fund.withdraw.pay');
     Route::get('/withdraw', 'HomeController@withdrawIndex')->name('request.users_management.index');
+    Route::get('/notification.php', 'HomeController@notificationURL');
 //	Route::post('/withdraw/preview', 'HomeController@withdrawPreview')->name('withdraw.preview.user');
 //	Route::post('/withdraw/confirm', 'HomeController@storeWithdraw')->name('confirm.withdraw.store');
 	Route::get('/wallet', 'HomeController@wallet')->name('wallet');

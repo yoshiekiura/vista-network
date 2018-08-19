@@ -933,18 +933,38 @@ making it easier for all of the members to get their questions answered faster..
                     <div class="text-center">
                         <div class="form-group">
                             <input class="form-control" type="text" name="name" id="name" size="30" placeholder="Your Name *" required>
+                            @if ($errors->has('name'))
+                                <small class="text-danger">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </small>
+                            @endif
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="email" name="email" id="email" size="30" placeholder="Your Email *" required>
+                            @if ($errors->has('email'))
+                                <small class="text-danger">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </small>
+                            @endif
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="tel" name="phone" id="phone" size="30" placeholder="Your Phone">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="text" name="subject" id="subject" size="30" placeholder="Subject">
+                            <input class="form-control" type="text" name="subject" id="subject" size="30" placeholder="Subject *" required>
+                            @if ($errors->has('subject'))
+                                <small class="text-danger">
+                                    <strong>{{ $errors->first('subject') }}</strong>
+                                </small>
+                            @endif
                         </div>
                         <div class="form-group">
                             <textarea class="form-control" name="message" id="message" cols="40" rows="6" placeholder="Your Message... *" required></textarea>
+                            @if ($errors->has('message'))
+                                <small class="text-danger">
+                                    <strong>{{ $errors->first('message') }}</strong>
+                                </small>
+                            @endif
                         </div>
                         <!-- Google reCAPTCHA -->
 

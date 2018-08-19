@@ -337,7 +337,7 @@ class FontendController extends Controller
                 'token' => 'required',
                 'password' => 'required',
                 'password_confirmation' => 'required',
-            ]);
+        ]);
 
         $reset = DB::table('password_resets')->where('token', $request->token)->orderBy('created_at', 'desc')->first();
 
@@ -380,6 +380,13 @@ class FontendController extends Controller
 
     public function contactUs(Request $request)
     {
+
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
     
         $uname = $request->input('name');
         $uemail = $request->input('email');
