@@ -299,13 +299,13 @@ class PaymentController extends Controller
                         'redirectURL' => 'http://www.vista.network/funds/deposit/success',
                         'payerName' => $payerName,
                         'payerEmail' => $payerEmail,
-                        "test": 1,
-                        "status": "completed"
+                        'test' => 1,
+                        'status' => "completed"
                     ) 
                 ];
 
                 $final_json = json_encode($final);
-                
+
                 $url = 'https://www.alfacoins.com/api/create';
                 $ch = curl_init($url);
 
@@ -315,8 +315,7 @@ class PaymentController extends Controller
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',                                   
                     'Content-Length: ' . strlen($final_json))                                                                       
-                );                                                                                                                   
-                                                                                                                     
+                );                                                                                                                                                                           
                 $result = curl_exec($ch);
 
             }
