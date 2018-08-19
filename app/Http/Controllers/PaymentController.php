@@ -318,6 +318,14 @@ class PaymentController extends Controller
                 );                                                                                                                                                                           
                 $result = curl_exec($ch);
 
+                dd($result);
+                
+                if($result){
+
+                    dd($result);
+
+                }
+
             }
         }    
     }
