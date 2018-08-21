@@ -23,8 +23,10 @@
                                <p class="bold">Joined {{\Carbon\Carbon::parse($user->join_date)->diffInDays()}} Days Ago</p>
                            </div>
                            <div class="col-md-4">
-                               <h3 class="bold">ALXA COINS : {{ $available_alxa_coins }} </h3>
-                               <h3 class="bold">VISTA COINS : {{ $available_vista_coins }} </h3>
+                                @if(isset($available_alxa_coins) && isset($available_vista_coins))
+                                <h3 class="bold">ALXA COINS : {{ $available_alxa_coins }} </h3>
+                                <h3 class="bold">VISTA COINS : {{ $available_vista_coins }} </h3>
+                                @endif
                            </div>
                        </div>
 

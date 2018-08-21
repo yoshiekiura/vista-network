@@ -96,10 +96,6 @@ class RegisterController extends Controller
         $objReg->username = $data['username'];
         $objReg->password = $data['password'];
 
-    /*    Mail::send('mails.registration', $data, function($message) {
-            $message->to($to, 'Vista Network')->subject('Vista Account Created Successfully');
-            $message->from('vista@vibetron.com', 'Vista Network');
-        }); */ 
 
         Mail::to($email_to)->send(new RegisterEmail($objReg));
     

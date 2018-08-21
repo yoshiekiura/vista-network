@@ -90,19 +90,19 @@
                     <div class="col-md-12">
                         <p class="pull-right">
                             <a href="{{ URL('/admin/downloadUsersList') }}" class="btn btn-default" target="_blank"><i class="fas fa-cloud-download-alt"></i> Export CSV</a>
-                            <a href="#" class="btn btn-info" target="_blank" data-toggle="modal" data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i> Import CSV</a>
+                        <!--    <a href="#" class="btn btn-info" target="_blank" data-toggle="modal" data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i> Import CSV</a> -->
                             
                         </p>    
                     </div>    
                         
                     <div class="col-md-12">
 
-                        <div class="portlet box dark">
+                        <div class="portlet light bordered">
                             <div class="portlet-title">
                                 <div class="caption uppercase bold"><i class="fa fa-user"></i> User List</div>
                             </div>
-                            <div class="portlet-body table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
+                            <div class="portlet-body">
+                                <table class="table table-striped table-bordered table-hover" id="sample_1">
                                     <thead>
                                     <tr>
                                         <th> Sl</th>
@@ -115,16 +115,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($user as $key => $data)
-                                        <tr>
+                                    @foreach($users as $key => $data)
+                                        <tr class="@if($data->paid_status == 1) success @elseif($data->paid_status == 0) info @else danger @endif">
                                             <td>{{$key+1}}</td>
                                             <td>{{$data->first_name}} {{$data->last_name}}
                                                 @if($data->paid_status == 1)
                                                     <span class="badge badge-success">Paid User</span>
-                                                @elseif($data->status != 1)
-                                                    <span class="badge badge-danger">Deactivated</span>
-                                                @else
+                                                @elseif($data->paid_status == 0)
                                                     <span class="badge badge-warning">Free User</span>
+                                                @else
+                                                    <span class="badge badge-danger">Deactivated</span>
                                                 @endif
                                             </td>
                                             <td><b>{{$data->email}}</b></td>
@@ -141,7 +141,7 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                    <div class="col-md-12 text-center">{{$user->links()}}</div>
+                                    <div class="col-md-12 text-center">{{$users->links()}}</div>
                                 </div>
                             </div>
                         </div>

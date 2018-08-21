@@ -78,20 +78,23 @@ class CoinsController extends Controller
         
         if(Auth::user()->balance >= $request->total){
 
+            $coin_rate = Coin::where('id', $request->coin_id)->value('rate');
+            $coin_amount = $request->coins * $coin_rate;
+
             $coin = CoinTransaction::create([
                'coin_id' => $request->coin_id,
                'number_of_coins' => $request->coins,
-               'rate' => $request->rate,
-               'amount' => $request->total,
+               'rate' => $coin_rate,
+               'amount' => $coin_amount,
                'status' => 1,
                'transaction_id' => 'CN'.rand(),
                'user_id' => Auth::user()->id,
             ]);
 
-            $total =  $request->total;
+        //    $total =  $request->total;
             $coin_name = Coin::where('id', $request->coin_id)->value('name');
 
-            $new_balance = Auth::user()->balance - $total;
+            $new_balance = Auth::user()->balance - $coin_amount;
 
             $new_coins_balance = CoinTransaction::where('user_id', Auth::user()->id)
                                             ->where('coin_id', $request->coin_id)
@@ -107,7 +110,7 @@ class CoinsController extends Controller
                 'trans_id' => rand(),
                 'time' => Carbon::now(),
                 'description' => 'COIN'. '#ID'.'-'.$coin->transaction_id,
-                'amount' => '-'.$coin->amount,
+                'amount' => '-'.$coin_amount,
                 'new_balance' => $new_balance,
                 'type' => 4,
             ]);
@@ -120,7 +123,7 @@ class CoinsController extends Controller
             $objCoin->trans_id = $coin->transaction_id;
             $objCoin->coin_name = $coin_name;
             $objCoin->coin_number = $request->coins;
-            $objCoin->coin_rate = $request->rate;
+            $objCoin->coin_rate = $coin_rate;
             $objCoin->coin_balance = $new_coins_balance;
 
             Mail::to($user->email)->send(new CoinPurchaseEmail($objCoin));
