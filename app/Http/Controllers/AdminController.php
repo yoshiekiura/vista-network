@@ -85,7 +85,7 @@ class AdminController extends Controller
 
     public function usersIndex()
     {
-        $users = User::orderBy('id', 'desc')->paginate(15);
+        $users = User::orderBy('id', 'desc')->paginate(100);
         return view('admin.user_mmanagement.index', compact('users'));
     }
 

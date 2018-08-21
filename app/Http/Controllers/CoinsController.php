@@ -75,11 +75,10 @@ class CoinsController extends Controller
 
     public function coinsPurchase(Request $request)
     {
-        
-        if(Auth::user()->balance >= $request->total){
+        $coin_rate = Coin::where('id', $request->coin_id)->value('rate');
+        $coin_amount = $request->coins * $coin_rate;
 
-            $coin_rate = Coin::where('id', $request->coin_id)->value('rate');
-            $coin_amount = $request->coins * $coin_rate;
+        if(Auth::user()->balance > $coin_amount){
 
             $coin = CoinTransaction::create([
                'coin_id' => $request->coin_id,
@@ -129,39 +128,40 @@ class CoinsController extends Controller
             Mail::to($user->email)->send(new CoinPurchaseEmail($objCoin));
 
           //  return redirect('home')->with('message', 'Coins Purchase Request Success.');
-            return response()->json(['success' => true, 'balance' => $new_balance, 'coin_balance' => $new_coins_balance]);
+            return response()->json(['status' => true, 'balance' => $new_balance, 'coin_balance' => $new_coins_balance]);
         }else{
-            return response()->json(['success' => false ]);
+            return response()->json(['status' => false ]);
         }
 
     }
 
     public function coinsWithdraw(Request $request)
     {
-        
+
         $coin_balance = CoinTransaction::where('user_id', Auth::user()->id)
                                         ->where('coin_id', $request->coin_id)
                                         ->sum('number_of_coins');
 
-        if($coin_balance >= $request->coins) {                                
+        if($coin_balance > $request->coins) {                                
+
+            $coin_rate = Coin::where('id', $request->coin_id)->value('rate');
+            $coin_amount = $request->coins * $coin_rate;
 
             $coins_num = '-' . $request->coins;
-            $total_amount = $request->total;
 
             $coin = CoinTransaction::create([
                'coin_id' => $request->coin_id,
                'number_of_coins' => $coins_num,
-               'rate' => $request->rate,
-               'amount' => '-'.$total_amount,
+               'rate' => $coin_rate,
+               'amount' => '-'.$coin_amount,
                'status' => 0,
                'transaction_id' => 'CN'.rand(),
                'user_id' => Auth::user()->id,
             ]);
 
-            $total =  $request->total;
             $coin_name = Coin::where('id', $request->coin_id)->value('name');
 
-            $new_balance = Auth::user()->balance + $total;
+            $new_balance = Auth::user()->balance + $coin_amount;
 
             $new_coins_balance = CoinTransaction::where('user_id', Auth::user()->id)
                                             ->where('coin_id', $request->coin_id)
@@ -177,7 +177,7 @@ class CoinsController extends Controller
                 'trans_id' => rand(),
                 'time' => Carbon::now(),
                 'description' => 'COIN'. '#ID'.'-'.$coin->transaction_id,
-                'amount' => $total_amount,
+                'amount' => $coin_amount,
                 'new_balance' => $new_balance,
                 'type' => 5,
             ]);
@@ -196,9 +196,9 @@ class CoinsController extends Controller
             Mail::to($user->email)->send(new CoinSellEmail($objCoin));
 
         //    return redirect('home')->with('message', 'Coins Withdraw Request Success.');
-            return response()->json(['success' => true, 'balance' => $new_balance, 'coin_balance' => $new_coins_balance]);
+            return response()->json(['status' => true, 'balance' => $new_balance, 'coin_balance' => $new_coins_balance]);
         }else{
-            return response()->json(['success' => false]);
+            return response()->json(['status' => false]);
         }
 
     }

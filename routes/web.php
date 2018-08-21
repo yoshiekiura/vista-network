@@ -146,7 +146,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/reply/{ticket}', 'TicketController@adminReply')->name('store.admin.reply')->middleware('admin');
 
     Route::get('users', 'AdminController@usersIndex')->name('user.manage')->middleware('admin');
-    Route::get('/downloadUsersList', 'ExcelController@downloadUsersList')->middleware('admin');
+    Route::get('/downloadUsersList', 'ExcelController@downloadUsersList')->name('export.users.list')->middleware('admin');
     Route::post('/users-import', 'ExcelController@usersImport')->name('import.users.list')->middleware('admin');
 
   //  Route::get('footer', 'FooterController@footerIndex')->name('footer.content')->middleware('admin');    

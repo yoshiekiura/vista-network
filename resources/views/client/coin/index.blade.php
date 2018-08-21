@@ -50,7 +50,7 @@
                       dataType: 'json',
                       data: form.serialize(), 
                       success: function( result ) {
-                          if(result.success == true){
+                          if(result.status == true){
                             swal("Success!", "Your have successfully purchased coins!", "success");
                             $('#vista_coins').val('');
                             $("#vista_total_price").val('');
@@ -67,12 +67,12 @@
                           } 
                       },
                       error: function (data) {
-                            swal("Error!", "Purchase not complete!", "error");
+                            swal("Error!", "Coins purchase technical error!", "error");
                       }
                 });
 
                 } else {
-                    swal("Cancelled", "Your order is cancelled :)", "error");
+                    swal("Cancelled", "You have cancelled the order :)", "error");
                     exit();
                 }
             });
@@ -119,7 +119,7 @@
                       dataType: 'json',
                       data: form.serialize(), 
                       success: function( result ) {
-                          if(result.success == true){
+                          if(result.status == true){
                             swal("Success!", "Your have successfully sold coins!", "success");
                             $('#vista_sell_coins').val('');
                             $("#vista_sell_total_price").val('');
@@ -136,12 +136,12 @@
                           } 
                       },
                       error: function (data) {
-                            swal("Error!", "Purchase not complete!", "error");
+                            swal("Error!", "Coins withdraw technical error!", "error");
                       }
                 });
 
                 } else {
-                    swal("Cancelled", "Your order is cancelled :)", "error");
+                    swal("Cancelled", "You have cancelled the order :)", "error");
                     exit();
                 }
             });

@@ -89,8 +89,8 @@
 
                     <div class="col-md-12">
                         <p class="pull-right">
-                            <a href="{{ URL('/admin/downloadUsersList') }}" class="btn btn-default" target="_blank"><i class="fas fa-cloud-download-alt"></i> Export CSV</a>
-                        <!--    <a href="#" class="btn btn-info" target="_blank" data-toggle="modal" data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i> Import CSV</a> -->
+                        <!--    <a href="{{ route('export.users.list') }}" class="btn btn-default" target="_self"><i class="fas fa-cloud-download-alt"></i> Export CSV</a>
+                            <a href="#" class="btn btn-info" target="_blank" data-toggle="modal" data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i> Import CSV</a> -->
                             
                         </p>    
                     </div>    
@@ -101,8 +101,8 @@
                             <div class="portlet-title">
                                 <div class="caption uppercase bold"><i class="fa fa-user"></i> User List</div>
                             </div>
-                            <div class="portlet-body">
-                                <table class="table table-striped table-bordered table-hover" id="sample_1">
+                            <div class="portlet-body table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
                                         <th> Sl</th>
@@ -116,20 +116,20 @@
                                     </thead>
                                     <tbody>
                                     @foreach($users as $key => $data)
-                                        <tr class="@if($data->paid_status == 1) success @elseif($data->paid_status == 0) info @else danger @endif">
+                                        <tr>
                                             <td>{{$key+1}}</td>
                                             <td>{{$data->first_name}} {{$data->last_name}}
                                                 @if($data->paid_status == 1)
                                                     <span class="badge badge-success">Paid User</span>
-                                                @elseif($data->paid_status == 0)
-                                                    <span class="badge badge-warning">Free User</span>
-                                                @else
+                                                @elseif($data->status == 0)
                                                     <span class="badge badge-danger">Deactivated</span>
+                                                @else
+                                                    <span class="badge badge-warning">Free User</span>
                                                 @endif
                                             </td>
                                             <td><b>{{$data->email}}</b></td>
-                                            <td>{{ $data->mobile}}</td>
-                                            <td>{{$general->symbol}} {{ $data->balance }}</td>
+                                            <td>{{$data->mobile}}</td>
+                                            <td>{{$general->symbol}} {{$data->balance}}</td>
                                             <td>
                                                 <a class="btn purple" href="{{route('user.view', $data->id)}}" title="view details"><i class="fas fa-desktop"></i></a>
                                             </td>
@@ -141,7 +141,9 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                    <div class="col-md-12 text-center">{{$users->links()}}</div>
+                                    <div class="col-md-12 text-center">
+                                        {{$users->links()}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

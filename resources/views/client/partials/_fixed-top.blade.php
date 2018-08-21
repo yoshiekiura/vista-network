@@ -159,12 +159,12 @@
                   <span class="user-name text-bold-700">{{ Auth::user()->first_name }}&nbsp;{{ Auth::user()->last_name }}</span>
                 </span>
                 <span class="avatar avatar-online">
-                  @if(Auth::user()->image == "")
-                  <img src="{{ URL::asset('app-assets/images/portrait/small/avatar-s-19.png') }}" alt="avatar"><i></i>
-                  @else
                   @php
                     $image = Auth::user()->image;
                   @endphp
+                  @if($image == "" || $image == NULL)
+                  <img src="{{ URL::asset('app-assets/images/portrait/small/avatar-s-19.png') }}" alt="user profile pic"><i></i>
+                  @else
                   <img src="{{ URL::asset('assets/images/user_profile_pic/'.$image) }}" alt="avatar"><i></i>
                   @endif
                 </span>

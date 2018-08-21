@@ -6,59 +6,116 @@ use Illuminate\Http\Request;
 use App\Exports\UsersExport;
 use App\User;
 use Excel;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExcelController extends Controller
 {
     
     public function downloadUsersList(){
 
-        $headings = array('User Number', 'Username', 'Referrer ID', 'Position', 'Customer No', 'First Name', 'Last Name', 'Tax ID', 'SSN', 'Balance', 'Join Date', 'Paid Status', 'Date of Birth', 'Email', 'Mobile', 'Street Address', 'City', 'Country', 'Post Code');
+        $headings = array('User ID', 'Referrer ID', 'Username', 'Position', 'Pos ID', 'First Name', 'Last Name', 'SSN', 'Balance', 'HP Balance', 'Coin Balance', 'Join Date', 'Paid Status', 'Ver Status', 'Ver Code', 'Forget Code', 'Date of Birth', 'Email', 'Mobile', 'Street Address', 'City', 'Country', 'Post Code', 'created_at', 'updated_at');
 
+         $users = User::select('id','referrer_id','username','position','posid','first_name','last_name','ssn','balance','hp_balance','coin_balance','join_date','paid_status','ver_status','ver_code','forget_code','birth_day','email','mobile','street_address','city','country','post_code','created_at','updated_at');
+
+    //    Route::get('export.users.list', function(){
+        
+        $response = new StreamedResponse(function(){
+            // Open output stream
+            $handle = fopen('php://output', 'w');
+
+            // Add CSV headers
+            fputcsv($handle, [
+                'User ID', 'Referrer ID', 'Username', 'Position', 'Pos ID', 'First Name', 'Last Name', 'SSN', 'Balance', 'HP Balance', 'Coin Balance', 'Join Date', 'Paid Status', 'Ver Status', 'Ver Code', 'Forget Code', 'Date of Birth', 'Email', 'Mobile', 'Street Address', 'City', 'Country', 'Post Code', 'created_at', 'updated_at'
+            ]);
+
+            \User::chunk(500, function($users) use($handle) {
+                // Get all users
+                foreach (User::all() as $user) {
+                    // Add a new row with data
+                    fputcsv($handle, [
+                        $user->id, $user->referrer_id, $user->username, $user->position, $user->posid, $user->first_name, $user->last_name, $user->ssn, $user->balance, $user->hp_balance, $user->coin_balance, $user->join_date, $user->paid_status, $user->ver_status, $user->ver_code, $user->forget_code, $user->birth_day, $user->email, $user->mobile, $user->street_address, $user->city, $user->country, $user->post_code, $user->created_at, $user->updated_at
+                    ]);
+                }
+            });    
+
+            // Close the output stream
+            fclose($handle);
+        }, 200, [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="export.csv"',
+            ]);
+
+        return $response;
+  //  });
  
-        return Excel::create('user_list', function($excel) use ($headings) {
+     /*   return Excel::create('user_list', function($excel) use ($headings) {
             $excel->sheet('user_list', function($sheet) use ($headings)
             { 
-                $users = User::all();
+                $users = User::select('id','referrer_id','username','position','posid','first_name','last_name','ssn','balance','hp_balance','coin_balance','join_date','paid_status','ver_status','ver_code','forget_code','birth_day','email','mobile','street_address','city','country','post_code','created_at','updated_at')->get();
+
                 foreach($users as $u){
 
                     if($u->paid_status == 1){
                         $paid_status = "Paid User";
                     }
-                    else if($u->paid_status != 1){
-                        $paid_status = "Deactivated";
+                    else if($u->paid_status == 0){
+                        $paid_status = "Free User";
                     }
                     else{
-                        $paid_status = "Free User";   
+                        $paid_status = "Deactivated";   
                     }
 
                     $data[] = array(
                         $u->id,
-                        $u->username,
                         $u->referrer_id,
+                        $u->username,
                         $u->position,
-                        $u->customer_no,
+                        $u->posid,
                         $u->first_name,
                         $u->last_name,
-                        $u->tax_id,
                         $u->ssn,
                         $u->balance,
+                        $u->hp_balance,
+                        $u->coin_balance,
                         $u->join_date,
                         $paid_status,
+                        $u->ver_status,
+                        $u->ver_code,
+                        $u->forget_code,
                         $u->birth_day,
                         $u->email,
                         $u->mobile,
                         $u->street_address,
                         $u->city,
                         $u->country,
-                        $u->post_code
+                        $u->post_code,
+                        $u->created_at,
+                        $u->updated_at,
                     );
                 } 
                    
                 $sheet->fromArray($data, null, 'A1', false, false);  
                 $sheet->prependRow(1, $headings); 
             });
-        })->download('xlsx'); 
- 
+        })->download('xlsx');  
+
+        Excel::create('Report', function($excel) use ($users) {
+        $excel->sheet('report', function($sheet) use($users) {
+            
+            $sheet->appendRow(array('User ID', 'Referrer ID', 'Username', 'Position', 'Pos ID', 'First Name', 'Last Name', 'SSN', 'Balance', 'HP Balance', 'Coin Balance', 'Join Date', 'Paid Status', 'Ver Status', 'Ver Code', 'Forget Code', 'Date of Birth', 'Email', 'Mobile', 'Street Address', 'City', 'Country', 'Post Code', 'created_at', 'updated_at'));
+
+            $users->chunk(100, function($rows) use ($sheet)
+                {
+                    foreach ($rows as $row)
+                    {
+                        $sheet->appendRow(array(
+                            $row->id, $row->referrer_id, $row->username, $row->position, $row->posid, $row->first_name, $row->last_name, $row->ssn, $row->balance, $row->hp_balance, $row->coin_balance, $row->join_date, $row->paid_status, $row->ver_status, $row->ver_code, $row->forget_code, $row->birth_day, $row->email, $row->mobile, $row->street_address, $row->city, $row->country, $row->post_code, $row->created_at, $row->updated_at  
+                        ));
+                    }
+                });
+            });
+        })->download('xlsx'); */
+  
     }
 
   /*  public function importUsersList(Request $request)
