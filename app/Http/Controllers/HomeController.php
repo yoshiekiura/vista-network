@@ -1334,5 +1334,20 @@ class HomeController extends Controller
         return view('client.finance.alfa_success');
     }
 
+    public function queryRun()
+    {
+        $users = User::all();
+     //   dd($users);
+        foreach($users as $usr)
+        {
+            User::where('id', $usr->id)
+                    ->update([
+                       'posid' => $usr->referrer_id
+                    ]);
+        }
+
+        return redirect()->route('home');
+    }
+
 }
 
