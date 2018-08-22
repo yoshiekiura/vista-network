@@ -574,14 +574,15 @@ class AdminController extends Controller
 
     public function userUpdate(Request $request ,$id)
     {
+
         $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
-            'mobile' => 'required',
-            'birth_day' => 'required',
-            'city' => 'required',
-            'country' => 'required',
-        ]);
+          //  'mobile' => 'required',
+          //  'birth_day' => 'required',
+          //  'city' => 'required',
+          //  'country' => 'required',
+        ]); 
 
         if ($request->status == 'on'){
             $status = 1;
