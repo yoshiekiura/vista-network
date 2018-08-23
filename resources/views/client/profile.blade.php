@@ -117,7 +117,7 @@
                             <div class="form-group">
                               <label for="userinput3">Username</label>
                               <input type="text" class="form-control border-primary" placeholder="Username"
-                              name="username" value="{{ Auth::user()->username }}">
+                              name="username" readonly value="{{ Auth::user()->username }}">
                             </div>
                             @if ($errors->has('username'))
                                 <span class="help-block">
@@ -342,7 +342,7 @@
                         <h4 class="form-section"><i class="ft-mail"></i> Contact Info & Bio</h4>
                         <div class="form-group">
                           <label for="userinput5">Email</label>
-                          <input class="form-control border-primary" type="email" id="userinput5" value="{{ Auth::user()->email }}" name="email" placeholder="Your Email">
+                          <input class="form-control border-primary" type="email" id="userinput5" value="{{ Auth::user()->email }}" name="email" readonly placeholder="Your Email">
                           @if ($errors->has('email'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('email') }}</strong>
