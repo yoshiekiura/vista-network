@@ -217,17 +217,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/register', 'AdminAuth\RegisterController@showRegistrationForm')->name('register');
     Route::post('/register', 'AdminAuth\RegisterController@register');
 
-    //Payment IPN
-    Route::post('/ipnpaypal', 'PaymentController@ipnpaypal')->name('ipn.paypal');
-    Route::post('/ipnperfect', 'PaymentController@ipnperfect')->name('ipn.perfect');
-    Route::get('/ipnbtc', 'PaymentController@ipnbtc')->name('ipn.btc');
-    Route::post('/ipnstripe', 'PaymentController@ipnstripe')->name('ipn.stripe');
-    Route::post('/ipncoin', 'PaymentController@ipncoin')->name('ipn.coinPay');
-    Route::post('/ipncoin-gate', 'PaymentController@coinGateIPN')->name('ipn.coinGate');
-    Route::get('/coin-gate', 'PaymentController@coingatePayment')->name('coinGate');
-    Route::post('/ipnskrill', 'PaymentController@skrillIPN')->name('ipn.skrill');
-    Route::get('/ipnblock', 'PaymentController@blockIpn')->name('ipn.block');
-
     Route::get('/cron', 'PaymentController@cron');
     //Gateway
     Route::resource('gateway', 'GatewayController', ['except' => [
@@ -308,14 +297,14 @@ Route::group(['middleware' => 'web'], function() {
 	Route::get('/wallet', 'HomeController@wallet')->name('wallet');
 
 	//Payment IPN
-    Route::post('/ipnpaypal', 'PaymentController@ipnpaypal')->name('ipn.paypal');
-    Route::post('/ipnperfect', 'PaymentController@ipnperfect')->name('ipn.perfect');
+    Route::post('ipnpaypal', 'PaymentController@ipnpaypal')->name('ipn.paypal');
+    Route::post('ipnperfect', 'PaymentController@ipnperfect')->name('ipn.perfect');
     Route::get('/ipnbtc', 'PaymentController@ipnbtc')->name('ipn.btc');
-    Route::post('/ipnstripe', 'PaymentController@ipnstripe')->name('ipn.stripe');
-    Route::post('/ipncoin', 'PaymentController@ipncoin')->name('ipn.coinPay');
-    Route::post('/ipncoin-gate', 'PaymentController@coinGateIPN')->name('ipn.coinGate');
+    Route::post('ipnstripe', 'PaymentController@ipnstripe')->name('ipn.stripe');
+    Route::post('ipncoin', 'PaymentController@ipncoin')->name('ipn.coinPay');
+    Route::post('ipncoin-gate', 'PaymentController@coinGateIPN')->name('ipn.coinGate');
     Route::get('/coin-gate/{trx}', 'PaymentController@coingatePayment')->name('coinGate');
-    Route::post('/ipnskrill', 'PaymentController@skrillIPN')->name('ipn.skrill');
+    Route::post('ipnskrill', 'PaymentController@skrillIPN')->name('ipn.skrill');
     Route::get('/ipnblock', 'PaymentController@blockIpn')->name('ipn.block');
 
     Route::get('/security/two/step', 'HomeController@twoFactorIndex')->name('two.factor.index');

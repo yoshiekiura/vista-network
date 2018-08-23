@@ -23,6 +23,11 @@ use Mail;
 class PaymentController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['auth','ckstatus']);
+    }
+
     public function gatewayDataPay(Request $request)
     {
 
@@ -314,7 +319,7 @@ class PaymentController extends Controller
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',                                   
-                    'Content-Length: ' . strlen($final_json))                                                                       
+                    'Content-Length: ' . strlen($final_json))                                                
                 );                                                                                                                                                                           
                 $result = curl_exec($ch);
 
@@ -602,12 +607,11 @@ class PaymentController extends Controller
     {
       //  $track =   Session::get('Track')
 
-        $this->validate($request,
-            [
-                'cardNumber' => 'required',
-                'cardExpiry' => 'required',
-                'cardCVC' => 'required',
-            ]);
+        $this->validate($request, [
+            'cardNumber' => 'required',
+            'cardExpiry' => 'required',
+            'cardCVC' => 'required'
+        ]); 
 
         $track = $request->input('track');
 
@@ -631,6 +635,7 @@ class PaymentController extends Controller
         Stripe::setApiKey($gatewayData->val1);
 
         try{
+            
             $token = Token::create(array(
                 "card" => array(
                     "number" => "$cc",

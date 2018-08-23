@@ -865,6 +865,8 @@ class HomeController extends Controller
         $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
+            'username' => 'required',
+            'join_date' => 'required',
             'month' => 'required',
             'day' => 'required',
             'year' => 'required',
@@ -886,7 +888,6 @@ class HomeController extends Controller
                 'city' => $request->city,
                 'post_code' => $request->post_code,
                 'country' => $request->country,
-                'email' => $request->email,
                 'birth_day' => $request->year.'-'.$request->month.'-'.$request->day,
             ]);
 

@@ -62,7 +62,7 @@
 
 <div class="content-body">
   <section id="shopping-cards">
-    <div class="row match-height">  
+    <div class="row justify-content-md-center">  
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">
@@ -77,8 +77,8 @@
               <div class="card-text">
                 
               </div>
-              <form role="form" id="payment-form" method="POST" action="{{ route('ipn.stripe') }}">
-              {{csrf_field()}}
+              <form role="form" method="post" action="{{ URL::route('ipn.stripe') }}" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <input type="hidden" name="track" value="{{ $trx }}">
                 <div class="form-body">
                   <div class="form-group">
@@ -90,7 +90,8 @@
                         name="cardNumber"
                         placeholder="Valid Card Number"
                         autocomplete="off"
-                        required autofocus
+                        autofocus
+                        required
                       />
                       <div class="form-control-position">
                         <i class="ft-user"></i>
