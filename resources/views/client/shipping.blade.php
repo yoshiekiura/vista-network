@@ -112,13 +112,68 @@
                           </div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6 {{ $errors->has('company') ? ' has-error' : '' }}">
+                          <div class="col-md-12 {{ $errors->has('company') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput3">Company (optional)</label>
                               <input type="text" class="form-control border-primary" placeholder="Company Name" name="company" value="{{ $sh->company }}">
                               @if ($errors->has('company'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('company') }}</strong>
+                                </span>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12 {{ $errors->has('street_address') ? ' has-error' : '' }}">
+                            <div class="form-group">
+                              <label for="userinput3">Address</label>
+                              <input type="text" class="form-control border-primary" placeholder="Street Address"
+                              name="street_address" value="{{ $sh->street_address }}" required>
+                              @if ($errors->has('street_address'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('street_address') }}</strong>
+                                </span>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 {{ $errors->has('city') ? ' has-error' : '' }}">
+                            <div class="form-group">
+                              <label for="userinput3">City</label>
+                              <input type="text" class="form-control border-primary" value="{{ $sh->city }}" name="city" placeholder="City" required>
+                              @if ($errors->has('city'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('city') }}</strong>
+                                </span>
+                              @endif
+                            </div>
+                          </div>
+                          <div class="col-md-6 {{ $errors->has('post_code') ? ' has-error' : '' }}">
+                            <div class="form-group">
+                              <label for="userinput4">Post Code</label>
+                              <input type="text" class="form-control border-primary" value="{{ $sh->post_code }}" name="post_code" placeholder="Postal Code" required>
+                              <input type="hidden" name="ship_id" value="{{ $sh->id }}">
+                              @if ($errors->has('post_code'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('post_code') }}</strong>
+                                </span>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 {{ $errors->has('state') ? ' has-error' : '' }}">
+                            <div class="form-group">
+                              <label for="userinput4">State/Province</label>
+                              <input type="text" class="form-control border-primary" value="{{ $sh->state }}" name="state" placeholder="State/Province" required>
+                              @if ($errors->has('state'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('state') }}</strong>
                                 </span>
                               @endif
                             </div>
@@ -372,47 +427,6 @@
                                   <span class="help-block">
                                       <strong>{{ $errors->first('country') }}</strong>
                                   </span>
-                              @endif
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-12 {{ $errors->has('street_address') ? ' has-error' : '' }}">
-                            <div class="form-group">
-                              <label for="userinput3">Address</label>
-                              <input type="text" class="form-control border-primary" placeholder="Address"
-                              name="street_address" value="{{ $sh->street_address }}" required>
-                              @if ($errors->has('street_address'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('street_address') }}</strong>
-                                </span>
-                              @endif
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-6 {{ $errors->has('city') ? ' has-error' : '' }}">
-                            <div class="form-group">
-                              <label for="userinput3">City</label>
-                              <input type="text" class="form-control border-primary" value="{{ $sh->city }}" name="city" placeholder="City/State" required>
-                              @if ($errors->has('city'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('city') }}</strong>
-                                </span>
-                              @endif
-                            </div>
-                          </div>
-                          <div class="col-md-6 {{ $errors->has('post_code') ? ' has-error' : '' }}">
-                            <div class="form-group">
-                              <label for="userinput4">Post Code</label>
-                              <input type="text" class="form-control border-primary" value="{{ $sh->post_code }}" name="post_code" placeholder="Postal Code" required>
-                              <input type="hidden" name="ship_id" value="{{ $sh->id }}">
-                              @if ($errors->has('post_code'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('post_code') }}</strong>
-                                </span>
                               @endif
                             </div>
                           </div>

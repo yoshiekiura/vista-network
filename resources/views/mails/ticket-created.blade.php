@@ -14,7 +14,7 @@
 		Status: <b>{{ $ticket->status }}</b>
 	</p>
 	<p>
-		You can view the ticket at any time for this please login using following url <a href="http://beta.vista.network/login" target="_blank">Login</a>
+		You can view the ticket at any time for this please login using following url <a href="https://vista.network/login" target="_blank">Login</a>
 	</p>	
 	<br/>
 	Thank You,

@@ -139,10 +139,59 @@
                         </div>
                         <div class="row">
                           <div class="col-md-4 {{ $errors->has('month') ? ' has-error' : '' }}">
+                            @php
+                                $birthdate = explode('-', Auth::user()->birth_day);
+                                $year = $birthdate[0];
+                                $month  = $birthdate[1];
+                                $day  = $birthdate[2];
+                            @endphp
                             <div class="form-group">
                               <label for="userinput3">Birth Month</label>
                               <select class="form-control border-primary" name="month">
-                                  <option disabled>--Select Month--</option>
+                                  <option value="{{ $month }}">
+                                    @php
+                                        switch ($month) {
+                                            case "01":
+                                                echo "January";
+                                                break;
+                                            case "02":
+                                                echo "February";
+                                                break;
+                                            case "03":
+                                                echo "March";
+                                                break;
+                                            case "04":
+                                                echo "April";
+                                                break;
+                                            case "05":
+                                                echo "May";
+                                                break;
+                                            case "06":
+                                                echo "June";
+                                                break;
+                                            case "07":
+                                                echo "July";
+                                                break;
+                                            case "08":
+                                                echo "August";
+                                                break;
+                                            case "09":
+                                                echo "September";
+                                                break;        
+                                            case "10":
+                                                echo "October";
+                                                break;
+                                            case "11":
+                                                echo "November";
+                                                break;
+                                            case "12":
+                                                echo "December";
+                                                break;                                        
+                                            default:
+                                                echo "Select Month";
+                                        }
+                                    @endphp
+                                  </option>
                                   <option value='1'>Janaury</option>
                                   <option value='2'>February</option>
                                   <option value='3'>March</option>
@@ -167,7 +216,7 @@
                             <div class="form-group">
                               <label for="userinput4">Birth Day</label>
                               <select class="form-control border-primary" name="day">
-                                <option value="{{ substr(Auth::user()->birth_day,8) }}">{{ substr(Auth::user()->birth_day,8) }}</option>
+                                <option value="{{ $day }}">{{ $day }}</option>
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
                                 <option value='3'>3</option>
@@ -211,7 +260,7 @@
                             <div class="form-group">
                               <label for="userinput4">Birth Year</label>
                               <select name="year" class="form-control border-primary">
-                                  <option value="{{ round(Auth::user()->birth_day,4) }}" >{{ round(Auth::user()->birth_day,4) }}</option>
+                                  <option value="{{ $year }}" >{{ $year }}</option>
                                   <option value="2018">2018</option>
                                   <option value="2017">2017</option>
                                   <option value="2016">2016</option>

@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
+use App\Testextra;
 
 class HomeController extends Controller
 {
@@ -911,7 +912,8 @@ class HomeController extends Controller
             'country' => 'required',
             'street_address' => 'required',
             'city' => 'required',
-            'post_code' => 'required'
+            'post_code' => 'required',
+            'state' => 'required'
         ]); 
 
         ShippingAddress::find($request->ship_id)
@@ -922,7 +924,8 @@ class HomeController extends Controller
                 'country' => $request->country,
                 'street_address' => $request->street_address,
                 'city' => $request->city,
-                'post_code' => $request->post_code
+                'post_code' => $request->post_code,
+                'state' => $request->state
             ]);
 
         return redirect('shipping')->with('message', 'Shipping Address Successfully Updated ');
@@ -1332,21 +1335,6 @@ class HomeController extends Controller
     public function fundsSuccess()
     {
         return view('client.finance.alfa_success');
-    }
-
-    public function queryRun()
-    {
-        $users = User::all();
-     //   dd($users);
-        foreach($users as $usr)
-        {
-            User::where('id', $usr->id)
-                    ->update([
-                       'posid' => $usr->referrer_id
-                    ]);
-        }
-
-        return redirect()->route('home');
     }
 
 }

@@ -329,6 +329,5 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/comment/reopen/{ticket}', 'TicketController@ticketReopen')->name('ticket.reopen');
     Route::get('/support/reply/{ticket}', 'TicketController@ticketReply')->name('ticket.customer.reply');
     Route::post('/support/store/{ticket}', 'TicketController@ticketReplyStore')->name('store.customer.reply');
-    Route::get('/queryRun', 'HomeController@queryRun');
 
 });
