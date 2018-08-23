@@ -214,6 +214,15 @@
                                                                         <strong class="col-md-12" for="val2">API PIN</strong>
                                                                         <input type="text" value="{{$gateway->val2}}" class="form-control" id="val2" name="val2" >
                                                                     </div>
+                                                                @elseif($gateway->id==9)
+                                                                    <div class="form-group">
+                                                                        <strong class="col-md-12" for="val1">API Secret Key</strong>
+                                                                        <input type="text" value="{{$gateway->val1}}" class="form-control" id="val1" name="val1" >
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <strong class="col-md-12" for="val2">Password</strong>
+                                                                        <input type="text" value="{{$gateway->val2}}" class="form-control" id="val2" name="val2" >
+                                                                    </div>
                                                                 @else
                                                                     <div class="form-group">
                                                                         <strong class="col-md-12" for="val1">Payment Details</strong>
