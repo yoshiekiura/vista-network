@@ -304,8 +304,8 @@ class PaymentController extends Controller
                     'currency' => 'USD',
                     'description' => 'Funds deposits at Vista Network',
                     'options' => array(
-                        'notificationURL' => 'http://www.vista.network/notification.php',
-                        'redirectURL' => 'http://www.vista.network/funds/deposit/success',
+                        'notificationURL' => 'https://www.vista.network/notification.php',
+                        'redirectURL' => 'https://www.vista.network/funds/deposit/success',
                         'payerName' => $payerName,
                         'payerEmail' => $payerEmail
                     ) 

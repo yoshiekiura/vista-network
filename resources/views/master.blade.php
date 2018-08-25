@@ -22,13 +22,13 @@
     </div>
 </div>
 <!--preloader end-->
-<div class="page-header navbar navbar-fixed-top">
+<div class="page-header navbar navbar-fixed-top" style="height: 60px;">
     <div class="page-header-inner ">
 
         <div class="page-logo">
 
             <a href="">
-                <img class="logo" style="max-height: 50px; max-width: 80px; margin-top: 10px;" src="{{asset('assets/images/fontend_logo/logo.png')}}">
+                <img class="logo" style="height: 40px; width: 80px; margin-top: 7px; margin-bottom: 5px;" src="{{asset('assets/images/fontend_logo/logo.png')}}"> 
             </a>
             <div class="menu-toggler sidebar-toggler"></div>
         </div>
