@@ -270,26 +270,26 @@
             @php echo "active",(request()->path() != 'admin/hash-power/purchase/list')?:"";@endphp
             @php echo "active",(request()->path() != 'admin/hash-power/users/balance')?:"";@endphp">
                 <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="fab fa-bitcoin"></i>
+                    <i class="fas fa-hashtag"></i>
                     <span class="title">Hash Power Management</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  @if( request()->path() == 'admin/hash-power' ) active open @endif">
                         <a href="{{route('hashpower.index')}}" class="nav-link ">
-                            <i class="fas fa-th"></i>
+                            <i class="fab fa-500px"></i>
                             <span class="title">Hash Power Products </span>
                         </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == 'admin/hash-power/purchase/list' ) active open @endif">
                         <a href="{{route('hashpower.purchase.list')}}" class="nav-link ">
-                            <i class="fas fa-th"></i>
+                            <i class="fas fa-table"></i>
                             <span class="title">HP Transactions  </span>
                         </a>
                     </li>
                     <li class="nav-item  @if( request()->path() == 'admin/hash-power/users/balance' ) active open @endif">
                         <a href="{{route('hashpower.users.balance')}}" class="nav-link ">
-                            <i class="fas fa-th"></i>
+                            <i class="fas fa-balance-scale"></i>
                             <span class="title">HP Balances  </span>
                         </a>
                     </li>
@@ -307,28 +307,28 @@
             @php echo "active",(request()->path() != 'admin/orders/list/installments')?:"";@endphp
             @php echo "active",(request()->path() != 'admin/orders/commissions')?:"";@endphp">
                 <a href="javascript:;" class="nav-link nav-toggle">
-                    <i class="fab fa-bitcoin"></i>
+                    <i class="fas fa-shopping-cart"></i>
                     <span class="title">Order Management <span class="badge badge-danger">{{ $installments != 0 ? $installments : '' }}</span></span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item  @if( request()->path() == 'admin/orders/list' ) active open @endif">
                         <a href="{{route('orders.list')}}" class="nav-link ">
-                            <i class="fas fa-th"></i>
+                            <i class="fas fa-chart-line"></i>
                             <span class="title">View Orders </span>
                         </a>
                     </li>
 
                     <li class="nav-item  @if( request()->path() == 'admin/orders/list/installments' ) active open @endif">
                         <a href="{{route('orders.installment')}}" class="nav-link ">
-                            <i class="fas fa-check-circle"></i>
+                            <i class="fas fa-calendar-check"></i>
                             <span class="title">Installements <span class="badge badge-danger">{{ $installments != 0 ? $installments : '' }}</span></span>
                         </a>
                     </li>
 
                     <li class="nav-item  @if( request()->path() == 'admin/orders/commissions' ) active open @endif">
                         <a href="{{route('commission')}}" class="nav-link ">
-                            <i class="fas fa-check-circle"></i>
+                            <i class="fab fa-gg"></i>
                             <span class="title">Commissions</span>
                         </a>
                     </li>

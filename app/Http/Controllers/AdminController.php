@@ -659,7 +659,7 @@ class AdminController extends Controller
                     'user_id' => $id,
                     'trans_id' => rand(),
                     'time' => Carbon::now(),
-                    'description' => 'ADMIN'. '#ID'.'-'.'ADD'.rand(),
+                    'description' => 'ADMIN'. '#ID'.'-'.'ADD '.rand(),
                     'amount' => $request->amount,
                     'new_balance' => $new_balance,
                     'type' => 10,

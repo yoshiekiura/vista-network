@@ -214,7 +214,6 @@ class PaymentController extends Controller
     // Create an instance of the class
                 $CP = new coinPayments();
 
-
     // Set the merchant ID and secret key (can be found in account settings on CoinPayments.net)
                 $CP->setMerchantId($method->val1);
                 $CP->setSecretKey($method->val2);
@@ -282,11 +281,16 @@ class PaymentController extends Controller
                 $password = $gatewayData->val2; 
                 $password = md5($password);
                 $password = strtoupper($password);
+                $gateway_name = $gatewayData->name;
 
                 $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
                 $user_first_name = User::where('id', $DepositData->user_id)->value('first_name');
                 $user_last_name = User::where('id', $DepositData->user_id)->value('last_name');
                 $payerEmail = User::where('id', $DepositData->user_id)->value('email');
+                $bcam_amount = $DepositData->bcam;
+                $usd_amount = $DepositData->usd_amount;
+                $dt = $DepositData->created_at;
+                $date = $dt->toFormattedDateString();
 
                 $payerName = $user_first_name . "&nbsp;" . $user_last_name;
 
@@ -303,9 +307,7 @@ class PaymentController extends Controller
                         'notificationURL' => 'http://www.vista.network/notification.php',
                         'redirectURL' => 'http://www.vista.network/funds/deposit/success',
                         'payerName' => $payerName,
-                        'payerEmail' => $payerEmail,
-                        'test' => 1,
-                        'status' => "completed"
+                        'payerEmail' => $payerEmail
                     ) 
                 ];
 
@@ -320,15 +322,41 @@ class PaymentController extends Controller
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',                                   
                     'Content-Length: ' . strlen($final_json))                                                
-                );                                                                                                                                                                           
+                );                                                                                      
                 $result = curl_exec($ch);
 
-                dd($result);
-                
                 if($result){
 
-                    dd($result);
+                    $user = User::find($DepositData->user_id);
+                    $new_balance = $user['balance'] = $user['balance'] + $DepositData->amount;
 
+                    Transaction::create([
+                        'user_id' => $DepositData->user_id,
+                        'trans_id' => rand(),
+                        'time' => Carbon::now(),
+                        'description' => 'ADD FUND'. '#ID'.'-'.'DP'.rand(),
+                        'amount' => $DepositData->amount,
+                        'new_balance' => $new_balance,
+                        'type' => 2,
+                    ]);
+
+                    $user->save();
+
+                    $DepositData['status'] = 1;
+                    $DepositData->save();
+
+                    $objDeposit = new \stdClass();
+                    $objDeposit->first_name = $user_first_name;
+                    $objDeposit->amount = $usd_amount;
+                    $objDeposit->trans_id = $trx;
+                    $objDeposit->date = $date; 
+                    $objDeposit->gateway = 'Alfacoins';
+
+                    Mail::to($payerEmail)->send(new DepositFundEmail($objDeposit));
+
+                    return view('client.payment.thanks', compact('gateway_name','trx','usd_amount','date'));
+                }else{
+                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');
                 }
 
             }
@@ -613,12 +641,14 @@ class PaymentController extends Controller
             'cardCVC' => 'required'
         ]); 
 
-        $track = $request->input('track');
+        $trx = $request->input('track');
 
-        $data = Deposit::where('trx', $track)->orderBy('id', 'DESC')->first();
-        
+        $data = Deposit::where('trx', $trx)->orderBy('id', 'DESC')->first();
+         
         $dt = $data->created_at;
-        $created_format = $dt->toFormattedDateString();
+        $date = $dt->toFormattedDateString();
+        $gateway_name = 'Stripe';
+        $usd_amount = $data->usd_amount;
 
         $cc = $request->input('cardNumber');
         $exp = $request->input('cardExpiry');
@@ -628,7 +658,6 @@ class PaymentController extends Controller
         $emo = trim($exp[0]);
         $eyr = trim($exp[1]);
         $cnts = $data->usd_amount*100;
-
 
         $gatewayData = Gateway::find(4);
 
@@ -679,8 +708,8 @@ class PaymentController extends Controller
                     $objDeposit = new \stdClass();
                     $objDeposit->first_name = $user['first_name'];
                     $objDeposit->amount = $data['amount'];
-                    $objDeposit->trans_id = $track;
-                    $objDeposit->date = $created_format; 
+                    $objDeposit->trans_id = $trx;
+                    $objDeposit->date = $date; 
                     $objDeposit->gateway = 'Stripe';
 
                     Mail::to($user['email'])->send(new DepositFundEmail($objDeposit));
@@ -689,7 +718,8 @@ class PaymentController extends Controller
                  //   send_sms($user['mobile'], $sms);
                 
             //    return redirect()->route('home')->with('success', 'Added Successfully!');
-                  return redirect()->back()->with('success', 'Funds Deposit Successfully!');  
+              //    return redirect()->back()->with('success', 'Funds Deposit Successfully!');  
+                    return view('client.payment.thanks', compact('gateway_name','trx','usd_amount','date'));
 
                 }
 
