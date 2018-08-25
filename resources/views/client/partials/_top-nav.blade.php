@@ -44,10 +44,13 @@
               <a class="dropdown-item" href="{{ route('ref.commision.index') }}" data-toggle="dropdown"><i class="la la-gift"></i>Referral Commission</a>
             </li>
             <li data-menu="">
+              <a class="dropdown-item" href="{{ route('product.commision.index') }}" data-toggle="dropdown"><i class="la la-gift"></i>Product Commission</a>
+            </li>
+            <li data-menu="">
               <a class="dropdown-item" href="{{ route('hp.commision.index') }}" data-toggle="dropdown"><i class="la la-gift"></i>HP Commission</a>
             </li>
-            <li data-menu=""><a class="dropdown-item" href="{{ route('bin.commision.index') }}" data-toggle="dropdown"><i class="la la-gift"></i>Binary Commission</a>
-            </li>
+          <!--  <li data-menu=""><a class="dropdown-item" href="{{ route('bin.commision.index') }}" data-toggle="dropdown"><i class="la la-gift"></i>Binary Commission</a>
+            </li> -->
           </ul>
         </li>
         <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="la la-bank"></i><span>Finance</span></a>

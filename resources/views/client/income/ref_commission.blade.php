@@ -17,6 +17,7 @@
     </div>
   </div>
 </div>
+
         
 <div class="content-body">
 
@@ -34,28 +35,24 @@
                         <tr>
                           <th>#</th>
                           <th>Amount</th>
-                          <th>Vista Coins</th>
-                          <th>Alexa Coins</th>
                           <th>Description</th>
                           <th>Date</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($ref_commission as $key => $data)
-                          <tr>
-                              <td>{{$key+1}}</td>
-                              <td>{{$general->symbol}}{{$data->money_comm}}</td>
-                              <td>{{$data->alxa_coin_comm . ' alexa coins'}}</td>
-                              <td>{{$data->vista_coin_comm . ' vista coins'}}</td>
-                              <td>{{$data->description}}</td>
-                              @php    
+                        @foreach($ref_income as $key => $data)
+                            <tr>
+                                <td>{{$key+1}}</td>
+                                <td>{{$general->symbol}}{{$data->amount}}</td>
+                                <td>{{$data->description}}</td>
+                                @php    
 
-                                  $dt = $data->created_at;
-                                  $created_format = $dt->toFormattedDateString();
+                                    $dt = $data->created_at;
+                                    $created_format = $dt->toFormattedDateString();
 
-                              @endphp
-                              <td>{{ $created_format }}</td>
-                          </tr>
+                                @endphp
+                                <td>{{ $created_format }}</td>
+                            </tr>
                         @endforeach
                       </tbody>
                     </table>

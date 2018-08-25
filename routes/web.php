@@ -266,9 +266,10 @@ Route::group(['middleware' => 'web'], function() {
 	Route::post('/hash-power/deposit', 'HashpowerController@buyProduct')->name('buy.hplp.product');
 	Route::get('/hash-power/transactions', 'HashpowerController@hpHistory')->name('hp.history');
 
-	Route::get('/referral/commission', 'HomeController@referraCommsisionlIndex')->name('ref.commision.index');
+	Route::get('/product/commission', 'HomeController@productCommsisionIndex')->name('product.commision.index');
 	Route::get('/binary/commission', 'HomeController@binaryCommsisionlIndex')->name('bin.commision.index');
 	Route::get('/hp/commission', 'HomeController@hpCommsisionlIndex')->name('hp.commision.index');
+    Route::get('/referral/commission', 'HomeController@refCommsisionIndex')->name('ref.commision.index');
 
 	Route::get('/tree', 'HomeController@treeIndex')->name('tree.index');
 	Route::get('/tree/search', 'HomeController@searchTreeIndex')->name('tree.username.search');
@@ -295,6 +296,7 @@ Route::group(['middleware' => 'web'], function() {
 //	Route::post('/withdraw/preview', 'HomeController@withdrawPreview')->name('withdraw.preview.user');
 //	Route::post('/withdraw/confirm', 'HomeController@storeWithdraw')->name('confirm.withdraw.store');
 	Route::get('/wallet', 'HomeController@wallet')->name('wallet');
+    Route::get('/upgrade/premium/account', 'HomeController@updatePremium')->name('upgrade.premium');
 
 	//Payment IPN
     Route::post('ipnpaypal', 'PaymentController@ipnpaypal')->name('ipn.paypal');

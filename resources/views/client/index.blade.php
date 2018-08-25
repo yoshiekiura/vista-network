@@ -940,14 +940,14 @@
                 </p>  
                 <h2 class="text-center text-danger">You are Eligible for Commission</h2>
                 <br/>
-                <p class="text-justify font-medium-2">
+                <p class="text-center font-medium-2">
+
                    You will get <span class="text-success">$10</span> when any of your Referral Upgrade to Premium Account.
-                  You will get <span class="text-success">$2</span> when any of your below Tree Member upgrade to Premium Account.
+                 <!--  You will get <span class="text-success">$2</span> when any of your below Tree Member upgrade to Premium Account.  -->
                 </p>
-                <p>
-                  Thank you, <br/>
+                <p class="text-center">
                   <i>Vista Network</i>
-                </p>  
+                </p>   
               </div>
               
             </div>
@@ -970,14 +970,19 @@
                 <h2 class="text-center text-danger">VISTA Compensation Plan</h2>
                 <br/>
                 <p class="text-justify font-medium-1">
-                  If you’re ready to achieve your dream of financial independence and security, our generous, industry-leading, straight forward and easy to understand Compensation Plan will help you get there.
+                  If you’re ready to achieve your dream of financial independence and security, our generous, industry-leading, straight forward and easy to understand Compensation Plan will help you get there. It’s all about caring for our Affiliates and another example of our commitment you.
                 </p>
+                
+                <h4 class="text-center text-warning">Premium Account Upgradation Fee is $50</h4>
                 <p class="text-justify font-medium-1">  
-                  It’s all about caring for our Affiliates and another example of our commitment you. Through our simplified approach to our compensation structure; we’ve developed an efficient system to help you build your business with earnings that reward you as you and your team grow. The Compensation Plan structure encourages transparency and team participation, as well.
+                    <ul>
+                      <li>You will get $10 when any of your Referral Upgrade To Premium Account.</li>
+                    <!--  <li>You will get $2 when any of your below Tree Member Upgrade To Premium Account.</li>  -->
+                    </ul>  
                 </p>
-                <p>
-                  <a href="{{ route('add.fund.index') }}">
-                    <button class="btn btn-success btn-min-width btn-glow mr-1 mb-1" type="button">Upgrade Now</button>
+                <p class="text-center">
+                  <a href="{{ route('upgrade.premium') }}">
+                    <button class="btn btn-info btn-min-width btn-glow mr-1 mb-1" type="button">Upgrade Now</button>
                   </a>  
                 </p>  
               </div>

@@ -85,7 +85,7 @@ function updatePaid($id){
                 break;
             $position=getPositionParent($id);
 
-            $currentCount = MemberExtra::where('user_id',$posid )->first();
+            $currentCount = MemberExtra::where('user_id',$posid)->first();
 
             $new_lpaid = $currentCount->left_paid;
             $new_rpaid = $currentCount->right_paid;
@@ -115,11 +115,6 @@ function updatePaid($id){
     }
     return 0;
 }
-
-
-
-
-
 
 function treeeee($id='', $uid=''){
     while($id!=""||$id!="0") {
@@ -329,7 +324,7 @@ function Replace($data) {
     return str_replace("_", "-", $data);
 }
 
-function referralCommission($referrer_id, $user_id, $order_id) {
+function productCommission($referrer_id, $user_id, $order_id) {
 
     static $counter = 0;
     ++$counter;
@@ -429,8 +424,4 @@ function commission($referrer_id, $user_id, $order_id, $comm, $no_of_coins_alxa,
 
 }
 
-function chartsDate() {
-
-    
-}
 

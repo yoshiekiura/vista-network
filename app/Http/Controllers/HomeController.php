@@ -137,22 +137,26 @@ class HomeController extends Controller
         return view('client.marketing.my_referral', compact('ref','total'));
     }
 
-    public function referraCommsisionlIndex()
+    public function productCommsisionIndex()
     {
        /* $ref_income = Income::where('user_id', Auth::user()->id)
             ->where('type', 'R')
             ->orderBy('id', 'desc')->get(); */
         $ref_commission = Commission::where('referrer_id', Auth::user()->id)
                                     ->orderBy('id', 'desc')->get();
-        return view('client.income.referral_commission', compact('ref_commission'));
+        return view('client.income.product_commission', compact('ref_commission'));
     }
 
     public function binaryCommsisionlIndex()
     {
+
         $b_income = Income::where('user_id', Auth::user()->id)
-            ->where('type', 'B')
-            ->orderBy('id', 'desc')->get();
+                           ->where('type', 'B')
+                           ->orderBy('id', 'desc')
+                           ->get();
+
         return view('client.income.binary_commission', compact('b_income'));
+    
     }
 
     public function hpCommsisionlIndex()
@@ -160,6 +164,15 @@ class HomeController extends Controller
         $hp_income = HpCommission::where('user_id', Auth::user()->id)
                                 ->orderBy('id', 'desc')->get();
         return view('client.income.hp_commission', compact('hp_income'));
+    }
+
+    public function refCommsisionIndex()
+    {
+        $ref_income = Income::where('user_id', Auth::user()->id)
+                            ->where('type', 'R')
+                            ->orderBy('id', 'desc')
+                            ->get();
+        return view('client.income.ref_commission', compact('ref_income'));
     }
 
     public function fundIndex()
@@ -1086,51 +1099,71 @@ class HomeController extends Controller
 
     public function updatePremium()
     {
-       $comission = ChargeCommision::first();
-        $user = User::find(Auth::id());
-        $ref_id = $user->referrer_id;
-        $ref_user = User::find($ref_id);
-        $new = $ref_user['balance']  = $ref_user['balance'] + $comission->update_commision_sponsor;
-        $ref_user->save();
 
-        Transaction::create([
-            'user_id' => $ref_user->id,
-            'trans_id' => rand(),
-            'time' => Carbon::now(),
-            'description' => 'REFERRAL COMMISSION'. '#ID'.'-'.'REF'.rand(),
-            'amount' => $comission->update_commision_sponsor,
-            'new_balance' => $new,
-            'type' => 1,
-            'charge' => 0,
-        ]);
+        $comission = ChargeCommision::first();
+        $user = User::find(Auth::user()->id);
+        
+        if($user->balance > 50){
 
-        Income::create([
-            'user_id' => $ref_user->id,
-            'amount' => $comission->update_commision_sponsor,
-            'description' => 'Deposit Commision From'.' ' . $user->username,
-            'type' => 'R'
-        ]);
+            $ref_id = $user->referrer_id;
+            $ref_user = User::find($ref_id);
+            if($ref_id != NULL && $ref_user->paid_status == 1){
+                
+                $ref_new_balance = $ref_user->balance + $comission->update_commision_sponsor;
+                $ref_user->balance = $ref_new_balance;
+                //   $new = $ref_user['balance']  = $ref_user['balance'] + $comission->update_commision_sponsor;
+                $ref_user->save();
 
-        $new_balance = $user['balance'] =  $user['balance'] - $comission['update_charge'];
-        $user['paid_status'] = 1;
-        $user->save();
+                Transaction::create([
+                    'user_id' => $ref_user->id,
+                    'trans_id' => rand(),
+                    'time' => Carbon::now(),
+                    'description' => 'REFERRAL COMMISSION'. '#ID'.'-'.'REF'.rand(),
+                    'amount' => $comission->update_commision_sponsor,
+                    'new_balance' => $ref_new_balance,
+                    'type' => 15,
+                    'charge' => 0,
+                ]);
 
-        // Taka to sponsor
-        updatePaid($user->id);
-        // UPDATE BV
-        updateDepositBV($user->id,'1');
-        Transaction::create([
-            'user_id' => $user->id,
-            'trans_id' => rand(),
-            'time' => Carbon::now(),
-            'description' => 'UPGRADE TO PREMIUM'. '#ID'.'-'.'UPDATE'.rand(),
-            'amount' => '-'.$comission['update_charge'],
-            'new_balance' => $new_balance,
-            'type' => 2,
-            'charge' => 0,
-        ]);
+                Income::create([
+                    'user_id' => $ref_user->id,
+                    'amount' => $comission->update_commision_sponsor,
+                    'description' => 'Premium Account Upgradation Commision From'.' ' . $user->username,
+                    'type' => 'R'
+                ]);
 
-        return redirect()->back()->with('message','Congratulations, You are successfully upgrade your account' );
+            }
+
+            $new_balance = $user->balance - $comission->update_charge;
+            $user->balance = $new_balance;
+            $user->paid_status = 1; 
+        //    $new_balance = $user['balance'] =  $user['balance'] - $comission['update_charge'];
+        //    $user['paid_status'] = 1;
+            $user->save();
+
+            // Taka to sponsor
+            updatePaid($user->id);
+            // UPDATE BV
+            updateDepositBV($user->id,'1');
+            Transaction::create([
+                'user_id' => $user->id,
+                'trans_id' => rand(),
+                'time' => Carbon::now(),
+                'description' => 'UPGRADE TO PREMIUM'. '#ID'.'-'.'UPDATE'.rand(),
+                'amount' => '-'.$comission['update_charge'],
+                'new_balance' => $new_balance,
+                'type' => 16,
+                'charge' => $comission['update_charge'],
+            ]);
+
+            return view('client.income.upgrade_premium');
+        
+        }else{
+
+            return view('client.income.premium_fail');
+
+        }
+       
     }
 
     public function shoopingIndex()
@@ -1194,8 +1227,8 @@ class HomeController extends Controller
             
             if($request->payment_type == 'pay_full'){
 
-                // recursively calling function for referral commission
-                referralCommission($user->referrer_id, $user->id, $order->order_id);
+                // recursively calling function for product commission
+                productCommission($user->referrer_id, $user->id, $order->order_id);
 
                 PaymentFull::create([
                     'order_id' => $order->order_id,

@@ -325,7 +325,7 @@
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        <span data-counter="counterup" data-value="{{abs(\App\Transaction::where('type', 2)->sum('amount'))}}">0</span> {{$general->symbol}}
+                                        <span data-counter="counterup" data-value="{{\App\Transaction::where('type', 16)->sum('charge')}}">0</span> {{$general->symbol}}
                                     </div>
                                     <div class="desc">Total Upgrade Charge</div>
                                 </div>
