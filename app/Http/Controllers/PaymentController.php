@@ -334,10 +334,11 @@ class PaymentController extends Controller
                         'user_id' => $DepositData->user_id,
                         'trans_id' => rand(),
                         'time' => Carbon::now(),
-                        'description' => 'ADD FUND'. '#ID'.'-'.'DP'.rand(),
+                        'description' => 'ADD FUND'. '#ID'.'-'.$trx,
                         'amount' => $DepositData->amount,
                         'new_balance' => $new_balance,
                         'type' => 2,
+                        'charge' => $DepositData->trx_charge
                     ]);
 
                     $user->save();
@@ -692,10 +693,11 @@ class PaymentController extends Controller
                         'user_id' => $data['user_id'],
                         'trans_id' => rand(),
                         'time' => Carbon::now(),
-                        'description' => 'ADD FUND'. '#ID'.'-'.'DP'.rand(),
+                        'description' => 'ADD FUND'. '#ID'.'-'.$trx,
                         'amount' => $data['amount'],
                         'new_balance' => $new_balance,
                         'type' => 2,
+                        'charge' => $data['trx_charge']
                     ]);
 
                     $user->save();

@@ -260,12 +260,22 @@ class HomeController extends Controller
     {
         // type = 2 => add fund
         // type = 3 => wthdraw fund
-        // type = 8 => transfer fund
+        // type = 8 => transfer fund giver
+        // type = 14 => transfer fund receiver
         $types = [2, 3, 8, 14];
         $trans = Transaction::where('user_id', Auth::user()->id)
                             ->whereIn('type', $types)
                             ->orderBy('id', 'desc')
                             ->paginate(10);
+
+    /*    $data = Transaction::select('transactions.user_id','transactions.trans_id','transactions.time','transactions.description','transactions.amount','transactions.new_balance','deposits.trx_charge')
+                            ->join('deposits', 'transactions.user_id', '=', 'deposits.user_id')
+                            ->where('deposits.status', 1)
+                            ->where('transactions.type', 2)
+                            ->where('transactions.user_id', Auth::user()->id)
+                            ->get(); */
+
+        dd($data); 
 
         return view('client.finance.transaction-history', compact('trans'));
     }

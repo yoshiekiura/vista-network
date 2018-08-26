@@ -107,7 +107,7 @@
                           @endif
                       </td>
                       <td>
-                          @if($data->charge)
+                          @if(isset($data->charge))
                             ${{$data->charge}}
                           @else
 
