@@ -372,7 +372,7 @@ function productCommission($referrer_id, $user_id, $order_id) {
 
         commission($referrer->id, $user_id, $order_id, $comm, $no_of_coins_alxa, $no_of_coins_vista);
  
-        return referralCommission($referrer->referrer_id, $user_id, $order_id);
+        return productCommission($referrer->referrer_id, $user_id, $order_id);
     } 
 }
 
