@@ -93,8 +93,10 @@ class HomeController extends Controller
         $hashpower = HpTransaction::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(5);
 
         $hp_commission = ChargeCommision::where('id', 1)->value('hp_commission');
+        $update_charge = ChargeCommision::where('id', 1)->value('update_charge');
+        $update_commision_sponsor = ChargeCommision::where('id', 1)->value('update_commision_sponsor');
 
-        return view('client.index',compact('available_alxa_coins','available_vista_coins','alxa_rate','vista_rate','btcc_usd_euro','btcc_gbp','ethh_usd_euro','ethh_gbp','xrpp_usd_euro','xrpp_gbp','alexa_trade', 'vista_trade', 'hashpower', 'hp_commission'));
+        return view('client.index',compact('available_alxa_coins','available_vista_coins','alxa_rate','vista_rate','btcc_usd_euro','btcc_gbp','ethh_usd_euro','ethh_gbp','xrpp_usd_euro','xrpp_gbp','alexa_trade', 'vista_trade', 'hashpower', 'hp_commission', 'update_charge', 'update_commision_sponsor'));
 
     //    return view('client.index',compact('available_alxa_coins','available_vista_coins','alxa_rate','vista_rate','alexa_trade','vista_trade','hashpower'));
     }
@@ -1110,6 +1112,8 @@ class HomeController extends Controller
 
         $comission = ChargeCommision::first();
         $user = User::find(Auth::user()->id);
+        $referral_commission = $comission->update_commision_sponsor;
+        $club_fee = $comission->update_charge;
         
         if($user->balance > 50){
 
@@ -1164,7 +1168,7 @@ class HomeController extends Controller
                 'charge' => $comission['update_charge'],
             ]);
 
-            return view('client.income.upgrade_premium');
+            return view('client.income.upgrade_premium', compact('referral_commission','club_fee'));
         
         }else{
 

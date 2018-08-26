@@ -4,14 +4,14 @@
 
 <div class="content-header row">
   <div class="content-header-left col-md-6 col-12 mb-2">
-    <h3 class="content-header-title">Premium Account Upgradation</h3>
+    <h3 class="content-header-title">Vista Club Membership</h3>
     <div class="row breadcrumbs-top">
       <div class="breadcrumb-wrapper col-12">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
           <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="javascript:;">Income</a></li>
-          <li class="breadcrumb-item active">Premium Account</li>
+          <li class="breadcrumb-item active">Vista Club Membership</li>
         </ol>
       </div>
     </div>
@@ -63,7 +63,7 @@
     <!--native-font-stack -->
     <section id="global-settings" class="card">
       <div class="card-header">
-        <h4 class="card-title">Premium Account</h4>
+        <h4 class="card-title">Vista Club Membership</h4>
         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
         <div class="heading-elements">
           <ul class="list-inline mb-0">
@@ -77,11 +77,11 @@
       <div class="card-content">
         <div class="card-body">
           <div class="card-text">
-            <h3 class="text-success">Premium Account Upgradation</h3>
-            <p>Congratulations! Your account is successfully upgrade to Premium Account. $50 is charged and deduct from your balance.</p>
+            <h3 class="text-success">Vista Club Membership</h3>
+            <p>Congratulations! You have successfully joined Vista Club Membership. ${{$club_fee}} is charged and deduct from your balance.</p>
               <p>
                 <b>Benefits</b><br/><br/>
-                You will get $10 when any of your Referral Upgrade To Premium Account.
+                You will get ${{$referral_commission}} when any of your Referral Upgrade To Premium Account.
               </p>
             <p><small>You can continue by clicking one of the links below:</small></p>
             <ul>

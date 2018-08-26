@@ -5,9 +5,46 @@
   <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}" ></script>
   <script src="{{ asset('app-assets/js/scripts/custom/coins.js') }}" ></script>
   <script>
+
       $(window).on('load',function(){
         $('#default-popup').modal('show');
       });
+
+      function upgradeClub()
+      {
+          swal({
+                title: "Are you sure?",
+                text: "You are going to join Vista Club!",
+                icon: "warning",
+                showCancelButton: true,
+                buttons: {
+                    cancel: {
+                        text: "No, Cancel plz!",
+                        value: null,
+                        visible: true,
+                        className: "btn-danger",
+                        closeModal: false,
+                    },
+                    confirm: {
+                        text: "Yes, I Confirm!",
+                        value: true,
+                        visible: true,
+                        className: "btn-success",
+                        closeModal: false
+                    }
+                }
+            }).then(isConfirm => {
+              //  $('#confirmation').trigger('click');
+                if (isConfirm) {
+                  document.location.href="{!! route('upgrade.premium') !!}";
+                }
+                else {
+                  swal("Cancelled", "Better luck next time :)", "error");
+                  $('#default-popup').modal('hide');
+                }
+            });
+      }
+
   </script>  
 @endsection
 
@@ -942,7 +979,7 @@
                 <br/>
                 <p class="text-center font-medium-2">
 
-                   You will get <span class="text-success">$10</span> when any of your Referral Upgrade to Premium Account.
+                   You will get <span class="text-success">${{$update_commision_sponsor}}</span> when any of your Referral join Vista Club.
                  <!--  You will get <span class="text-success">$2</span> when any of your below Tree Member upgrade to Premium Account.  -->
                 </p>
                 <p class="text-center">
@@ -967,23 +1004,23 @@
                 <p class="text-center">
                   <img src="{{ URL::asset('app-assets/images/pages/dollars.jpg') }}" style="width: 70px; height: 70px;">
                 </p>  
-                <h2 class="text-center text-danger">VISTA Compensation Plan</h2>
+                <h2 class="text-center text-danger">VISTA Club</h2>
                 <br/>
                 <p class="text-justify font-medium-1">
                   If you’re ready to achieve your dream of financial independence and security, our generous, industry-leading, straight forward and easy to understand Compensation Plan will help you get there. It’s all about caring for our Affiliates and another example of our commitment you.
                 </p>
                 
-                <h4 class="text-center text-warning">Premium Account Upgradation Fee is $50</h4>
+                <h4 class="text-center text-warning">Vista Club Membership Fee is ${{$update_charge}}</h4>
                 <p class="text-justify font-medium-1">  
                     <ul>
-                      <li>You will get $10 when any of your Referral Upgrade To Premium Account.</li>
+                      <li>You will get ${{$update_commision_sponsor}} when any of your Referral join Vista Club.</li>
                     <!--  <li>You will get $2 when any of your below Tree Member Upgrade To Premium Account.</li>  -->
                     </ul>  
                 </p>
                 <p class="text-center">
-                  <a href="{{ route('upgrade.premium') }}">
-                    <button class="btn btn-info btn-min-width btn-glow mr-1 mb-1" type="button">Upgrade Now</button>
-                  </a>  
+                
+                    <button class="btn btn-info btn-min-width btn-glow mr-1 mb-1" id="confirmation" type="button" onClick="upgradeClub()">Upgrade Now</button>
+                  
                 </p>  
               </div>
               

@@ -44,7 +44,7 @@
                 }
             }).then(isConfirm => {
                 if (isConfirm) {
-                      $.ajax({
+                  $.ajax({
                       url: '/coins/buy',
                       type: 'POST',
                       dataType: 'json',
@@ -69,7 +69,7 @@
                       error: function (data) {
                             swal("Error!", "Coins purchase technical error!", "error");
                       }
-                });
+                  });
 
                 } else {
                     swal("Cancelled", "You have cancelled the order :)", "error");
