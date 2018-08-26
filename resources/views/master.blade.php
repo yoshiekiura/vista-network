@@ -22,7 +22,7 @@
     </div>
 </div>
 <!--preloader end-->
-<div class="page-header navbar navbar-fixed-top" style="background-color: #190000;">
+<div class="page-header navbar navbar-fixed-top" style="background-color: #F77B07;">
     <div class="page-header-inner ">
 
         <div class="page-logo">

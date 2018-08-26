@@ -19,7 +19,7 @@
 		Date: <b>{{ $deposit->date }}</b>
 	</p>	
 	<p>
-		If you do not initiate this change, please contact your administrator immediately.
+		If you do not initiate this transaction, please contact your administrator immediately.
 	</p>	
 	<br/>
 	Thank You,

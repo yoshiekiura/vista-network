@@ -87,7 +87,7 @@
                                     <div class="number">
                                         <span data-counter="counterup" data-value="{{\App\User::where('paid_status', 1)->count()}}">0</span>
                                     </div>
-                                    <div class="desc">Total Paid User</div>
+                                    <div class="desc">Total Premium User</div>
                                 </div>
                                 <a class="more" href="{{route('paid.user.index')}}"> View more
                                     <i class="m-icon-swapright m-icon-white"></i>
@@ -346,7 +346,7 @@
                                     </div>
                                     <div class="desc">Add Fund Charge</div>
                                 </div>
-                                <a class="more" href="{{url('admin/add/fund/user')}}"> View more
+                                <a class="more" href="{{route('index.deposit.user')}}"> View more
                                     <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </div>

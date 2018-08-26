@@ -108,9 +108,9 @@
                                             <td>{{$key+1}}</td>
                                             <td>{{$data->first_name}} {{$data->last_name}}
                                                 @if($data->paid_status == 1)
-                                                    <span class="badge badge-success">Paid User</span>
+                                                    <span class="badge badge-primary">Premium User</span>
                                                 @else
-                                                    <span class="badge badge-warning">Free User</span>
+                                                    <span class="badge badge-success">Free User</span>
                                                 @endif
                                             </td>
                                             <td><b>{{$data->email}}</b></td>

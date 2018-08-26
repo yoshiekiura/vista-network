@@ -83,7 +83,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('add/fund/view/{id}', 'AdminController@depositView')->name('user.total.deposit')->middleware('admin');
     Route::get('transaction/view/{id}', 'AdminController@transView')->name('user.total.trans')->middleware('admin');
     Route::get('transfer/balance', 'AdminController@transBalanceLog')->name('index.transfer.user')->middleware('admin');
-    Route::get('add/fund/user', 'AdminController@depositLog')->name('index.deposit.user')->middleware('admin');
+    Route::get('deposit/funds/user', 'AdminController@depositLog')->name('index.deposit.user')->middleware('admin');
     Route::get('deactive/user', 'AdminController@deactiveUser')->name('index.deactive.user')->middleware('admin');
     Route::get('paid/user', 'AdminController@paidUser')->name('paid.user.index')->middleware('admin');
     Route::get('free/user', 'AdminController@freeUser')->name('free.user.index')->middleware('admin');
