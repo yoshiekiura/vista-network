@@ -11,7 +11,7 @@
 		You have successfully transfered funds from your {{ $deposit->gateway }} account to Vista Network account.
 	</p>
 	<p>
-		The following transaction has been debited from your account.<br/>
+		The following transaction has been debited from your account.<br/><br/>
 		<b>Transaction Details</b><br/><br/>
 		Payment Gateway: <b>{{ $deposit->gateway }}</b><br/>
 		Amount: <b>${{ $deposit->amount }}</b><br/>

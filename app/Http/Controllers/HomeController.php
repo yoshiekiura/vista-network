@@ -275,8 +275,6 @@ class HomeController extends Controller
                             ->where('transactions.user_id', Auth::user()->id)
                             ->get(); */
 
-        dd($data); 
-
         return view('client.finance.transaction-history', compact('trans'));
     }
 

@@ -11,8 +11,8 @@
 		You have received funds from <b>({{ $rfunds->giver_username }})</b>. Funds are successfully added to your account.
 	</p>
 	<p>
-		The following are the transaction details.<br/>
-		<b>Transaction Details</b><br/>
+		The following are the transaction details.<br/><br/>
+		<b>Transaction Details</b><br/><br/>
 
 		Transaction ID: <b>{{ $rfunds->receiver_trans_id }}</b><br/>
 		Amount: <b>${{ $rfunds->receiver_amount }}</b><br/>

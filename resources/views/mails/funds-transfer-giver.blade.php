@@ -11,9 +11,8 @@
 		You have successfully transfered funds from your account to <b>({{ $gfunds->receiver_username }})</b> account.
 	</p>
 	<p>
-		The following transaction has been debited from your account.<br/>
-		<b>Transaction Details</b><br/>
-
+		The following transaction has been debited from your account.<br/><br/>
+		<b>Transaction Details</b><br/><br/>
 		Transaction ID: <b>{{ $gfunds->giver_trans_id }}</b><br/>
 		Amount: <b>${{ $gfunds->giver_amount }}</b><br/>
 		New Balance: <b>{{ $gfunds->giver_new_balance }}</b>
