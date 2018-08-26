@@ -722,13 +722,13 @@ class AdminController extends Controller
             $user = User::find($id);
 
             $coin = CoinTransaction::create([
+               'transaction_id' => 'CN'.rand(),
                'coin_id' => $request->coin,
+               'user_id' => $id,
                'number_of_coins' => $request->amount,
                'rate' => 0,
                'amount' => 0,
-               'status' => 4,
-               'transaction_id' => 'CN'.rand(),
-               'user_id' => $id,
+               'status' => 4
             ]);
 
             Transaction::create([
@@ -769,13 +769,13 @@ class AdminController extends Controller
                 $coins_num = '-' . $request->amount;
 
                 $coin = CoinTransaction::create([
+                   'transaction_id' => 'CN'.rand(),
                    'coin_id' => $request->coin,
+                   'user_id' => $id,
                    'number_of_coins' => $coins_num,
                    'rate' => 0,
                    'amount' => 0,
-                   'status' => 5,
-                   'transaction_id' => 'CN'.rand(),
-                   'user_id' => $id,
+                   'status' => 5
                 ]);
 
                 Transaction::create([

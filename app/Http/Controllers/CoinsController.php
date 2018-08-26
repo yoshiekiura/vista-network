@@ -237,13 +237,13 @@ class CoinsController extends Controller
             $receiver = User::find($request->username);
 
             $coin = CoinTransaction::create([
+                'transaction_id' => 'CN'.rand(),
                 'coin_id' => $request->coin_id,
+                'user_id' => $receiver->id,
                 'number_of_coins' => $request->coins,
                 'rate' => $coin_rate,
                 'amount' => $coin_rate*$request->coins,
-                'status' => 3,
-                'transaction_id' => 'CN'.rand(),
-                'user_id' => $receiver->id
+                'status' => 3
             ]);
 
             $giver = User::findOrFail(Auth::user()->id);
@@ -251,13 +251,13 @@ class CoinsController extends Controller
             $giver->update();
             
             CoinTransaction::create([
+                'transaction_id' => 'CN'.rand(),
                 'coin_id' => $request->coin_id,
+                'user_id' => $giver->id,
                 'number_of_coins' => '-'.$request->coins,
                 'rate' => $coin_rate,
                 'amount' => '-'.$coin_rate*$request->coins,
-                'status' => 2,
-                'transaction_id' => 'CN'.rand(),
-                'user_id' => $giver->id
+                'status' => 2
             ]);           
 
             $giver_coins_balance = CoinTransaction::where('user_id', Auth::user()->id)

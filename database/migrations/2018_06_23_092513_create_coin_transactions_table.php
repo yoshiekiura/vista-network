@@ -21,7 +21,7 @@ class CreateCoinTransactionsTable extends Migration
             $table->integer('number_of_coins');
             $table->float('rate', 8,2);
             $table->float('amount', 8,2);
-            $table->boolean('status')->default(1);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

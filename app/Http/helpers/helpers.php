@@ -379,13 +379,13 @@ function productCommission($referrer_id, $user_id, $order_id) {
 function alxaCoin($no_of_coins_alxa, $alxa_coin_rate, $total_alxa, $referrer_id) {
 
     CoinTransaction::create([
+            'transaction_id' => 'CN'.rand(),
             'coin_id' => 1,
+            'user_id' => $referrer_id,
             'number_of_coins' => $no_of_coins_alxa,
             'rate' => $alxa_coin_rate,
             'amount' => $total_alxa,
-            'status' => 1,
-            'transaction_id' => 'CN'.rand(),
-            'user_id' => $referrer_id,
+            'status' => 6
         ]);
 
     return true;
@@ -395,13 +395,13 @@ function alxaCoin($no_of_coins_alxa, $alxa_coin_rate, $total_alxa, $referrer_id)
 function vistaCoin($no_of_coins_vista, $vista_coin_rate, $total_vista, $referrer_id) {
 
     CoinTransaction::create([
+            'transaction_id' => 'CN'.rand(),
             'coin_id' => 2,
+            'user_id' => $referrer_id,
             'number_of_coins' => $no_of_coins_vista,
             'rate' => $vista_coin_rate,
             'amount' => $total_vista,
-            'status' => 1,
-            'transaction_id' => 'CN'.rand(),
-            'user_id' => $referrer_id,
+            'status' => 6
         ]);
 
     return true;

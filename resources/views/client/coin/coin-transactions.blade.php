@@ -120,6 +120,11 @@
                                     <i class="la la-remove font-medium-2"></i>
                                     <span>Admin Deduct</span>
                                   </div>
+                              @elseif($data->status == 6)
+                                  <div class="badge badge-primary round">
+                                    <i class="la la-anchor font-medium-2"></i>
+                                    <span>Product Commission</span>
+                                  </div>
                               @endif
                           </td>
                           @php    
