@@ -59,7 +59,7 @@
                 <div class="card-body pb-0">
                   <div class="row">
                     <div class="col-2">
-                      <h1><i class="cc BTC info lighten-1 font-large-1" title="ETH"></i></h1>
+                      <h1><!--<i class="cc BTC info lighten-1 font-large-1" title="ETH"></i>--><img src="{{ URL::asset('app-assets/images/icons/VistaCoin-icon.png') }}" style="width: 30px; height: 30px;" title="VISTA"></h1>
                     </div>
                     <div class="col-5 pl-2">
                       <h4>VISTA</h4>
@@ -85,7 +85,9 @@
                 <div class="card-body pb-0">
                   <div class="row">
                     <div class="col-2">
-                      <h1><i class="cc BTC warning font-large-1" title="BTC"></i></h1>
+                      <h1><!--<i class="cc BTC warning font-large-1" title="BTC"></i>-->
+                        <img src="{{ URL::asset('app-assets/images/icons/AlexaCoin-icon.png') }}" style="width: 30px; height: 30px;" title="ALEXA">
+                      </h1>
                     </div>
                     <div class="col-5 pl-2">
                       <h4>ALEXA</h4>
