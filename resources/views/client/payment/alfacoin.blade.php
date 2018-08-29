@@ -63,10 +63,10 @@
 <div class="content-body">
     <section id="horizontal-form-layouts">
         <div class="row justify-content-md-center">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title" id="horz-layout-card-center">Confirm Buy {{$general->cur}}</h4>
+                  <h4 class="card-title" id="horz-layout-card-center">Deposit Funds {{$general->cur}}</h4>
                   <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                   <div class="heading-elements">
                     
@@ -76,64 +76,11 @@
                   <div class="card-body">
                     <div class="card-text">
                       
-                      <h3>Deposit Funds <span style="color:red">{{ $result_final->id }} </span> </h3>
+                      <h3>Deposit Funds <span style="color:red">({{ $result_final->id }}) </span> </h3>
 
-                      <form action="https://www.alfacoins.com/invoice/5b87081822a2d" method="post">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="id" value="{{ $result_final->id }}">
-                        <input type="hidden" name="payerName" value="{{ $payerName }}">
-                        <input type="hidden" name="payerEmail" value="{{ $payerEmail }}">
-                        <div class="row">
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label for="projectinput1">Send this exact amount of:</label>
-                                <input type="text" id="coin_amount" class="form-control" value="{{ $result_final->coin_amount }}" name="coin_amount" readonly>
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label for="projectinput2">to Bitcoin Address</label>
-                                <input type="text" id="address" class="form-control" value="{{  $result_final->address }}" name="address" readonly>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-9">
-                              <table style="width: 100%;" cellpadding="5">
-                                <tr>
-                                    <th>Order ID:</th>
-                                    <td>{{ $result_final->id }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Description:</th>
-                                    <td>Deposit Funds</td>
-                                </tr>
-                                <tr>
-                                    <th>Amount:</th>
-                                    <td>{{ $result_final->coin_amount }} BTC</td>
-                                </tr>
-                                <tr>
-                                    <th>Merchant name:</th>
-                                    <td>Vista.Network</td>
-                                </tr>
-                                <tr>
-                                    <th>Site:</th>
-                                    <td>vista.network</td>
-                                </tr>  
-                              </table>  
-                           </div> 
-                           <div class="col-md-3">
-                              <iframe src="{{ $result_final->iframe }}">
-                                <p>Your browser does not support iframes.</p>
-                              </iframe>
-                           </div>
-                        </div>
-                        <div class="form-actions">
-                          <button type="submit" class="btn btn-primary">
-                            <i class="la la-check-square-o"></i> Submit
-                          </button>
-                        </div>  
-                      </form>
+                      <iframe src="{{ $result_final->iframe }}">
+                         <p>Your browser does not support iframes.</p>
+                      </iframe>
 
                     </div>
                   </div>
