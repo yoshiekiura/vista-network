@@ -78,7 +78,7 @@
                       
                       <h3>Deposit Funds <span style="color:red">({{ $result_final->id }}) </span> </h3>
 
-                      <iframe src="{{ $result_final->iframe }}">
+                      <iframe src="{{ $result_final->iframe }}" style="width: 100%; height: 1000px;">
                          <p>Your browser does not support iframes.</p>
                       </iframe>
 
