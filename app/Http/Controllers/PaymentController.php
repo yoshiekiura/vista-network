@@ -326,7 +326,7 @@ class PaymentController extends Controller
                 $result = curl_exec($ch);
                 $result_final = json_decode($result);
                 
-                dd($result_final);
+                dd($result_final->error);
 
                 if($result->error)
                 if($result){
