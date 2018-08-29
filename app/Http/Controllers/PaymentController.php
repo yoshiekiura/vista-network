@@ -324,8 +324,11 @@ class PaymentController extends Controller
                     'Content-Length: ' . strlen($final_json))                                                
                 );                                                                                      
                 $result = curl_exec($ch);
-                dd($result);
+                $result_final = json_decode($result);
+                
+                dd($result_final);
 
+                if($result->error)
                 if($result){
 
                     $user = User::find($DepositData->user_id);
