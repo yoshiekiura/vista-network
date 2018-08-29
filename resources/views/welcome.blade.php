@@ -20,7 +20,6 @@
     <link href="{{ URL::asset('front/fonts/FontAwesome/stylesheet.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('front/fonts/Ion_Icons/stylesheet.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ URL::asset('front/fonts/ElegantThemes_Icons/stylesheet.css') }}" rel="stylesheet" type="text/css">
-
 </head>
 
 <body>
