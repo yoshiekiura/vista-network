@@ -278,9 +278,10 @@ class PaymentController extends Controller
             elseif($data->gateway_id == 9){
 
                 $secret_key = $gatewayData->val1;
-                $password = $gatewayData->val2; 
-                $password = md5($password);
-                $password = strtoupper($password);
+            //    $password = $gatewayData->val2; 
+            //    $password = md5($password);
+            //    $password = strtoupper($password);
+                $password = '035EEAEEA95899CD8FAE20BB06F98513';
                 $gateway_name = $gatewayData->name;
 
                 $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
@@ -295,7 +296,7 @@ class PaymentController extends Controller
                 $payerName = $user_first_name . "&nbsp;" . $user_last_name;
 
                 $final = [
-                    'name' => 'Vista Network',
+                    'name' => 'VistaLive',
                     'secret_key' => $secret_key,
                     'password' => $password,
                     'type' => 'bitcoin',
@@ -326,10 +327,11 @@ class PaymentController extends Controller
                 $result = curl_exec($ch);
                 $result_final = json_decode($result);
                 
-                dd($result_final->error);
+                if($result_final->error == "Authorization failed"){
 
-                if($result->error)
-                if($result){
+                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING AUTHORIZATION ISSUE. PLEASE TRY LATER');
+
+                }elseif($result_final->id) {
 
                     $user = User::find($DepositData->user_id);
                     $new_balance = $user['balance'] = $user['balance'] + $DepositData->amount;
@@ -359,9 +361,10 @@ class PaymentController extends Controller
 
                     Mail::to($payerEmail)->send(new DepositFundEmail($objDeposit));
 
-                    return view('client.payment.thanks', compact('gateway_name','trx','usd_amount','date'));
+                    return view('client.payment.thanks', compact('gateway_name','trx','usd_amount','date'));    
                 }else{
-                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');
+                  
+                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');  
                 }
 
             }
