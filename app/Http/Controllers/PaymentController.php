@@ -324,6 +324,7 @@ class PaymentController extends Controller
                     'Content-Length: ' . strlen($final_json))                                                
                 );                                                                                      
                 $result = curl_exec($ch);
+                dd($result);
 
                 if($result){
 
