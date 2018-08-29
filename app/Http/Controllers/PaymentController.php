@@ -300,7 +300,7 @@ class PaymentController extends Controller
                     'secret_key' => $secret_key,
                     'password' => $password,
                     'type' => 'bitcoin',
-                    'amount' => $DepositData->bcam,
+                    'amount' => $usd_amount,
                     'order_id' => $trx,
                     'currency' => 'USD',
                     'description' => 'Funds deposits at Vista Network' 
