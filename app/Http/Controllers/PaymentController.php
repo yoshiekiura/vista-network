@@ -320,8 +320,6 @@ class PaymentController extends Controller
                 );                                                                                      
                 $result = curl_exec($ch);
                 $result_final = json_decode($result);
-
-                dd($result_final);
                 
                 if($result_final->error){
 
@@ -357,7 +355,7 @@ class PaymentController extends Controller
 
                     Mail::to($payerEmail)->send(new DepositFundEmail($objDeposit)); */
 
-                    return view('client.payment.thanks', compact('result_final'));    
+                    return view('client.payment.alfacoin', compact('result_final','payerName','payerEmail'));    
                 }/* else{
                   
                     return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');  
