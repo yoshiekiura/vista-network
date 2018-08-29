@@ -326,8 +326,10 @@ class PaymentController extends Controller
                 );                                                                                      
                 $result = curl_exec($ch);
                 $result_final = json_decode($result);
+
+                dd($result_final);
                 
-                if($result_final->error == "Authorization failed"){
+                if($result_final->error){
 
                     return redirect()->back()->with('alert', 'ALFA COIN API HAVING AUTHORIZATION ISSUE. PLEASE TRY LATER');
 
