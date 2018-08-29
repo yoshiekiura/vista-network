@@ -1373,15 +1373,6 @@ class HomeController extends Controller
         return view('client.notification.view_notification', compact('notification'));
     }
 
-    public function notificationURL()
-    {
-        return view('client.finance.notification');
-    }
-
-    public function fundsSuccess()
-    {
-        return view('client.finance.alfa_success');
-    }
 
 }
 

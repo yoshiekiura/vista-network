@@ -278,10 +278,10 @@ class PaymentController extends Controller
             elseif($data->gateway_id == 9){
 
                 $secret_key = $gatewayData->val1;
-            //    $password = $gatewayData->val2; 
-            //    $password = md5($password);
-            //    $password = strtoupper($password);
-                $password = '035EEAEEA95899CD8FAE20BB06F98513';
+                $password = $gatewayData->val2; 
+                $password = md5($password);
+                $password = strtoupper($password);
+            //    $password = '035EEAEEA95899CD8FAE20BB06F98513';
                 $gateway_name = $gatewayData->name;
 
                 $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
@@ -296,7 +296,7 @@ class PaymentController extends Controller
                 $payerName = $user_first_name . "&nbsp;" . $user_last_name;
 
                 $final = [
-                    'name' => 'VistaLive',
+                    'name' => 'Vista.Network',
                     'secret_key' => $secret_key,
                     'password' => $password,
                     'type' => 'bitcoin',
@@ -313,9 +313,7 @@ class PaymentController extends Controller
                 ];
 
                 $final_json = json_encode($final);
-
-            //    dd($final_json);
-                
+        
                 $url = 'https://www.alfacoins.com/api/create';
                 $ch = curl_init($url);
 
@@ -329,7 +327,7 @@ class PaymentController extends Controller
                 $result = curl_exec($ch);
                 $result_final = json_decode($result);
 
-            //    dd($result_final);
+                dd($result_final);
                 
                 if($result_final->error){
 

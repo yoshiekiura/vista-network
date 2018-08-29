@@ -414,4 +414,14 @@ class FontendController extends Controller
         return view('ALFAcoins_59a55d76cf07d59a55d76cf0b559a55d76cf0eb.txt');
     }
 
+    public function notificationURL()
+    {
+        return view('client.finance.notification');
+    }
+
+    public function fundsSuccess()
+    {
+        return view('client.finance.alfa_success');
+    }
+
 }
