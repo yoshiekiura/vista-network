@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Vista Network">
     <meta name="author" content="Vibetron">
-
+    <meta name="alfacoins-site-verification" content="5b86fde11d9915b86fde11d9c75b86fde11d9fd_ALFAcoins">
     <title>Vista Network - Client Portal</title>
 
     <link href="{{ URL::asset('front/img/assets/favicon2.png') }}" rel="icon" type="image/ico">

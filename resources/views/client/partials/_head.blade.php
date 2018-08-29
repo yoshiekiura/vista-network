@@ -5,6 +5,7 @@
   <meta name="description" content="Vista Network, Alexa Coin, Vista Coin, Mini Miner, Hash Power">
   <meta name="keywords" content="Vista Network, Alexa Coin, Vista Coin, Mini Miner, Hash Power">
   <meta name="author" content="Vibetron">
+  <meta name="alfacoins-site-verification" content="5b86fde11d9915b86fde11d9c75b86fde11d9fd_ALFAcoins">
   <title>Vista Network Dashboard</title>
   <link rel="apple-touch-icon" href="{{ URL::asset('app-assets/images/ico/apple-icon-120.png') }}">
   <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('front/img/assets/favicon2.png') }}">
