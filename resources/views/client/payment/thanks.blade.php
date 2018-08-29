@@ -81,7 +81,7 @@
             <h3 class="text-success">Funds Deposit ({{ $trx }})</h3>
             <p>You have successfully transfered funds from your {{ $gateway_name }} account to Vista Network account.</p>
               <p>
-                The following transaction has been debited from your account.<br/>
+                The following transaction has been debited from your account.<br/><br/>
                 <b>Transaction Details</b><br/><br/>
                 Payment Gateway: <b>{{ $gateway_name }}</b><br/>
                 Amount: <b>${{ $usd_amount }}</b><br/>

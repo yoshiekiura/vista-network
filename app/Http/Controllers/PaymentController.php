@@ -314,6 +314,8 @@ class PaymentController extends Controller
 
                 $final_json = json_encode($final);
 
+            //    dd($final_json);
+                
                 $url = 'https://www.alfacoins.com/api/create';
                 $ch = curl_init($url);
 
@@ -327,15 +329,15 @@ class PaymentController extends Controller
                 $result = curl_exec($ch);
                 $result_final = json_decode($result);
 
-                dd($result_final);
+            //    dd($result_final);
                 
                 if($result_final->error){
 
-                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING AUTHORIZATION ISSUE. PLEASE TRY LATER');
+                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');
 
-                }elseif($result_final->id) {
+                }else {
 
-                    $user = User::find($DepositData->user_id);
+                /*    $user = User::find($DepositData->user_id);
                     $new_balance = $user['balance'] = $user['balance'] + $DepositData->amount;
 
                     Transaction::create([
@@ -361,13 +363,13 @@ class PaymentController extends Controller
                     $objDeposit->date = $date; 
                     $objDeposit->gateway = 'Alfacoins';
 
-                    Mail::to($payerEmail)->send(new DepositFundEmail($objDeposit));
+                    Mail::to($payerEmail)->send(new DepositFundEmail($objDeposit)); */
 
-                    return view('client.payment.thanks', compact('gateway_name','trx','usd_amount','date'));    
-                }else{
+                    return view('client.payment.thanks', compact('result_final'));    
+                }/* else{
                   
                     return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');  
-                }
+                } */
 
             }
         }    

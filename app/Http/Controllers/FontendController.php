@@ -409,4 +409,9 @@ class FontendController extends Controller
     
     }
 
+    public function alfaCoinCheck()
+    {
+        return view('ALFAcoins_59a55d76cf07d59a55d76cf0b559a55d76cf0eb.txt');
+    }
+
 }
