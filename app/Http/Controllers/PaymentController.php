@@ -321,11 +321,13 @@ class PaymentController extends Controller
                 $result = curl_exec($ch);
                 $result_final = json_decode($result);
                 
-                if($result_final->error){
+                if($result_final->id){
 
-                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');
+                    return view('client.payment.alfacoin', compact('result_final','payerName','payerEmail'));
 
                 }else {
+
+                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');
 
                 /*    $user = User::find($DepositData->user_id);
                     $new_balance = $user['balance'] = $user['balance'] + $DepositData->amount;
@@ -355,7 +357,7 @@ class PaymentController extends Controller
 
                     Mail::to($payerEmail)->send(new DepositFundEmail($objDeposit)); */
 
-                    return view('client.payment.alfacoin', compact('result_final','payerName','payerEmail'));    
+                        
                 }/* else{
                   
                     return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');  
