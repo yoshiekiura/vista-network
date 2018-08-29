@@ -12,7 +12,7 @@
           <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="javascript:;">Income</a></li>
           <li class="breadcrumb-item"><a href="{{ route('add.fund.index') }}">Deposit Funds</a></li>
-          <li class="breadcrumb-item active">AlfaCoin Payment</li>
+          <li class="breadcrumb-item active">Alfacoin Payment</li>
         </ol>
       </div>
     </div>
@@ -78,7 +78,7 @@
                       
                       <h3>Deposit Funds <span style="color:red">({{ $result_final->id }}) </span> </h3>
 
-                      <iframe src="{{ $result_final->iframe }}" style="width: 100%; height: 1000px;">
+                      <iframe src="{{ $result_final->iframe }}" style="width: 100%; height: 500px;">
                          <p>Your browser does not support iframes.</p>
                       </iframe>
 
