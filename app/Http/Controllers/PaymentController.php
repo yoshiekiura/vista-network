@@ -612,12 +612,12 @@ class PaymentController extends Controller
     {
       //  $track =   Session::get('Track')
 
-        $this->validate($request, [
+    /*    $this->validate($request, [
             'cardNumber' => 'required|numeric|max:16',
             'cardExpiryMonth' => 'required',
             'cardExpiryYear' => 'required',
             'cardCVC' => 'required|numeric'
-        ]);  
+        ]); */  
 
         $cc = $request->input('cardNumber');
         $expM = $request->input('cardExpiryMonth');
