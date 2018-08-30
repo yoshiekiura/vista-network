@@ -613,10 +613,14 @@ class PaymentController extends Controller
       //  $track =   Session::get('Track')
 
         $this->validate($request, [
-            'cardNumber' => 'required',
+            'cardNumber' => 'required|numeric|max:16',
             'cardExpiry' => 'required',
-            'cardCVC' => 'required'
-        ]); 
+            'cardCVC' => 'required|numeric'
+        ]);  
+
+        $cc = $request->input('cardNumber');
+        $exp = $request->input('cardExpiry');
+        $cvc = $request->input('cardCVC');
 
         $trx = $request->input('track');
 
@@ -626,10 +630,6 @@ class PaymentController extends Controller
         $date = $dt->toFormattedDateString();
         $gateway_name = 'Stripe';
         $usd_amount = $data->usd_amount;
-
-        $cc = $request->input('cardNumber');
-        $exp = $request->input('cardExpiry');
-        $cvc = $request->input('cardCVC');
 
         $exp = $pieces = explode("/", $_POST['cardExpiry']);
         $emo = trim($exp[0]);
@@ -703,11 +703,13 @@ class PaymentController extends Controller
 
             }
             catch (Exception $e){
-                return redirect()->route('home')->with('alert', $e->getMessage());
+              //  return redirect()->route('home')->with('alert', $e->getMessage());
+                return view('client.payment.stripe')->with('alert', $e->getMessage());
             }
 
         }catch (Exception $e){
-            return redirect()->route('home')->with('alert', $e->getMessage());
+            // return redirect()->route('home')->with('alert', $e->getMessage());
+            return view('client.payment.stripe')->with('alert', $e->getMessage());
         }
 
     }

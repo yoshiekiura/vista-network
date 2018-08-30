@@ -393,6 +393,10 @@ class HomeController extends Controller
 
                     return response()->json(['status' => 'success', 'data' => $sell]);
 
+                }else{
+
+                    return response()->json(['status' => 'error', 'msg' => 'Technical Error, Please try later.']);    
+                    
                 }
             
             }
@@ -403,7 +407,7 @@ class HomeController extends Controller
                 $one = $amount + $gate->chargefx;
                 $two = ($amount * $gate->chargepc)/100;
 
-                $charge = $gate->chargefx + ( $amount *  $gate->chargepc )/100;
+                $charge = $gate->chargefx + ( $amount * $gate->chargepc )/100;
                 $payable_amount = $charge + $amount;
 
                 $sell['user_id'] = Auth::id();

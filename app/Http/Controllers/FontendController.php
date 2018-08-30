@@ -416,6 +416,7 @@ class FontendController extends Controller
 
     public function notificationURL($data)
     {
+
         dd($data);
         $data_final = json_decode($data);
 

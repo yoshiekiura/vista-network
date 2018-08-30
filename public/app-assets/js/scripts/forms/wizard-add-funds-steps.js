@@ -62,7 +62,10 @@ $(".steps-validation").steps({
                 
                     if(data.status == 'error'){
 
-                        swal("Error!", data.msg, "error");
+                        swal("Error!", 'Funds deposit technical error, try again later!', "error");
+                        window.setTimeout(function() {
+                            window.location.href = '/fund/deposit/'+gateway+'/preview';
+                        }, 3000);
 
                     }
                     else{
