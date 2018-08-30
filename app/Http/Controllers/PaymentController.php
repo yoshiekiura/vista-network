@@ -303,12 +303,7 @@ class PaymentController extends Controller
                     'amount' => $usd_amount,
                     'order_id' => $trx,
                     'currency' => 'USD',
-                    'description' => 'Funds deposits at Vista Network',
-                    'options' => array(
-                        'notificationURL' => 'https://www.vista.network/notification.php',
-                        'payerName' => $payerName,
-                        'payerEmail' => $payerEmail
-                    ) 
+                    'description' => 'Funds deposits at Vista Network'
                 ];
 
                 $final_json = json_encode($final);
@@ -316,25 +311,28 @@ class PaymentController extends Controller
                 $url = 'https://www.alfacoins.com/api/create';
                 $ch = curl_init($url);
 
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                 
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $final_json);                        
+                curl_setopt($ch, CURLOPT_HEADER, false);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',                                   
-                    'Content-Length: ' . strlen($final_json))                                                
-                );                                                                                      
+                    'Content-Length: ' . strlen($final_json))                              
+                );      
+                curl_setopt($ch, CURLOPT_POST, true);
+             //   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                 
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $final_json);                        
+                                                                                            
                 $result = curl_exec($ch);
-                $result_final = json_decode($result);
                 
-                dd($result_final);
+                $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-                if($result_final->id){
+                if($status != 200){
 
-                    return view('client.payment.alfacoin', compact('result_final','payerName','payerEmail','trx'));
+                    return redirect()->back()->with('alert', 'Call to URL {$url} failed with status {$status}, response {$result}, curl_error ' . curl_error($ch) . ', curl_errno ' . curl_errno($ch));
 
                 }else {
 
-                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');
+                    $result_final = json_decode($result);
+                    return view('client.payment.alfacoin', compact('result_final','payerName','payerEmail','trx'));
         
                 }
 
