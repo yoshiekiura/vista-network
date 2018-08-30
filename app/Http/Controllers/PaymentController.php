@@ -326,6 +326,8 @@ class PaymentController extends Controller
                 $result = curl_exec($ch);
                 $result_final = json_decode($result);
                 
+                dd($result_final);
+
                 if($result_final->id){
 
                     return view('client.payment.alfacoin', compact('result_final','payerName','payerEmail','trx'));
