@@ -614,12 +614,14 @@ class PaymentController extends Controller
 
         $this->validate($request, [
             'cardNumber' => 'required|numeric|max:16',
-            'cardExpiry' => 'required',
+            'cardExpiryMonth' => 'required',
+            'cardExpiryYear' => 'required',
             'cardCVC' => 'required|numeric'
         ]);  
 
         $cc = $request->input('cardNumber');
-        $exp = $request->input('cardExpiry');
+        $expM = $request->input('cardExpiryMonth');
+        $expY = $request->input('cardExpiryYear');
         $cvc = $request->input('cardCVC');
 
         $trx = $request->input('track');
@@ -631,9 +633,9 @@ class PaymentController extends Controller
         $gateway_name = 'Stripe';
         $usd_amount = $data->usd_amount;
 
-        $exp = $pieces = explode("/", $_POST['cardExpiry']);
-        $emo = trim($exp[0]);
-        $eyr = trim($exp[1]);
+    //    $exp = $pieces = explode("/", $_POST['cardExpiry']);
+    //    $emo = trim($exp[0]);
+    //    $eyr = trim($exp[1]);
         $cnts = $data->usd_amount*100;
 
         $gatewayData = Gateway::find(4);
@@ -645,8 +647,8 @@ class PaymentController extends Controller
             $token = Token::create(array(
                 "card" => array(
                     "number" => "$cc",
-                    "exp_month" => $emo,
-                    "exp_year" => $eyr,
+                    "exp_month" => $expM,
+                    "exp_year" => $expY,
                     "cvc" => "$cvc"
                 )
             ));
