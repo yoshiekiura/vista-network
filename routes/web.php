@@ -293,6 +293,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::get('/fund/withdraw/preview/{id}', 'HomeController@fundWithdrawPreview')->name('fund.withdraw.preview');
     Route::get('/fund/withdraw/data/{gateway}/{amount}', 'HomeController@getWithdrawData');
 	Route::post('/fund/withdraw/pay', 'HomeController@storeWithdraw')->name('fund.withdraw.pay');
+    Route::get('/fund/stripe/{trx}', 'HomeController@stripeIndex')->name('stripe.index');
     Route::get('/withdraw', 'HomeController@withdrawIndex')->name('request.users_management.index');
 //	Route::post('/withdraw/preview', 'HomeController@withdrawPreview')->name('withdraw.preview.user');
 //	Route::post('/withdraw/confirm', 'HomeController@storeWithdraw')->name('confirm.withdraw.store');

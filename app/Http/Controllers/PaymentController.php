@@ -19,6 +19,7 @@ use App\General;
 use App\Mail\DepositFundEmail;
 use Illuminate\Support\Facades\View;
 use Mail;
+use App\Http\Requests\FundsDepositStripe;
 
 class PaymentController extends Controller
 {
@@ -150,7 +151,8 @@ class PaymentController extends Controller
             }
             elseif($data->gateway_id == 4)
             {
-                return view('client.payment.stripe', compact('trx'));
+              //  return view('client.payment.stripe', compact('trx'));
+                return redirect()->route('stripe.index', ['trx' => $trx]);
             }
             elseif($data->gateway_id == 5)
             {
@@ -608,16 +610,9 @@ class PaymentController extends Controller
 
     }
 
-    public function ipnstripe(Request $request)
+    public function ipnstripe(FundsDepositStripe $request)
     {
       //  $track =   Session::get('Track')
-
-    /*    $this->validate($request, [
-            'cardNumber' => 'required|numeric|max:16',
-            'cardExpiryMonth' => 'required',
-            'cardExpiryYear' => 'required',
-            'cardCVC' => 'required|numeric'
-        ]); */  
 
         $cc = $request->input('cardNumber');
         $expM = $request->input('cardExpiryMonth');

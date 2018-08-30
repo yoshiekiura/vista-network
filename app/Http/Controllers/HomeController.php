@@ -583,6 +583,11 @@ class HomeController extends Controller
         }
     } */
 
+    public function stripeIndex($trx)
+    {
+        return view('client.payment.stripe', compact('trx'));
+    }
+
     public function fundWithdrawPreview($id)
     {
 
