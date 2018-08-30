@@ -303,7 +303,12 @@ class PaymentController extends Controller
                     'amount' => $usd_amount,
                     'order_id' => $trx,
                     'currency' => 'USD',
-                    'description' => 'Funds deposits at Vista Network' 
+                    'description' => 'Funds deposits at Vista Network',
+                    'options' => array(
+                        'notificationURL' => 'https://www.vista.network/notification.php',
+                        'payerName' => $payerName,
+                        'payerEmail' => $payerEmail
+                    ) 
                 ];
 
                 $final_json = json_encode($final);
@@ -323,45 +328,13 @@ class PaymentController extends Controller
                 
                 if($result_final->id){
 
-                    return view('client.payment.alfacoin', compact('result_final','payerName','payerEmail'));
+                    return view('client.payment.alfacoin', compact('result_final','payerName','payerEmail','trx'));
 
                 }else {
 
                     return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');
-
-                /*    $user = User::find($DepositData->user_id);
-                    $new_balance = $user['balance'] = $user['balance'] + $DepositData->amount;
-
-                    Transaction::create([
-                        'user_id' => $DepositData->user_id,
-                        'trans_id' => rand(),
-                        'time' => Carbon::now(),
-                        'description' => 'ADD FUND'. '#ID'.'-'.$trx,
-                        'amount' => $DepositData->amount,
-                        'new_balance' => $new_balance,
-                        'type' => 2,
-                        'charge' => $DepositData->trx_charge
-                    ]);
-
-                    $user->save();
-
-                    $DepositData['status'] = 1;
-                    $DepositData->save();
-
-                    $objDeposit = new \stdClass();
-                    $objDeposit->first_name = $user_first_name;
-                    $objDeposit->amount = $usd_amount;
-                    $objDeposit->trans_id = $trx;
-                    $objDeposit->date = $date; 
-                    $objDeposit->gateway = 'Alfacoins';
-
-                    Mail::to($payerEmail)->send(new DepositFundEmail($objDeposit)); */
-
-                        
-                }/* else{
-                  
-                    return redirect()->back()->with('alert', 'ALFA COIN API HAVING ISSUE. PLEASE TRY LATER');  
-                } */
+        
+                }
 
             }
         }    

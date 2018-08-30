@@ -414,9 +414,41 @@ class FontendController extends Controller
         return view('ALFAcoins_59a55d76cf07d59a55d76cf0b559a55d76cf0eb.txt');
     }
 
-    public function notificationURL()
+    public function notificationURL($data)
     {
-        return view('client.finance.notification');
+        dd($data);
+        $data_final = json_decode($data);
+
+        $user = User::find($DepositData->user_id);
+        $new_balance = $user['balance'] = $user['balance'] + $DepositData->amount;
+
+        Transaction::create([
+            'user_id' => $DepositData->user_id,
+            'trans_id' => rand(),
+            'time' => Carbon::now(),
+            'description' => 'ADD FUND'. '#ID'.'-'.$trx,
+            'amount' => $DepositData->amount,
+            'new_balance' => $new_balance,
+            'type' => 2,
+            'charge' => $DepositData->trx_charge
+        ]);
+
+        $user->save();
+
+        $DepositData['status'] = 1;
+        $DepositData->save();
+
+        $objDeposit = new \stdClass();
+        $objDeposit->first_name = $user_first_name;
+        $objDeposit->amount = $usd_amount;
+        $objDeposit->trans_id = $trx;
+        $objDeposit->date = $date; 
+        $objDeposit->gateway = 'Alfacoins';
+
+        Mail::to($payerEmail)->send(new DepositFundEmail($objDeposit)); 
+
+        return view('client.payment.thanks');
+    
     }
 
     public function fundsSuccess()

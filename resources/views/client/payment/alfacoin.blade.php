@@ -66,7 +66,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title" id="horz-layout-card-center">Deposit Funds {{$general->cur}}</h4>
+                  <h4 class="card-title" id="horz-layout-card-center">Deposit Funds ({{$trx}})</h4>
                   <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                   <div class="heading-elements">
                     
