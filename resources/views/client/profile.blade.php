@@ -89,25 +89,33 @@
                       <div class="form-body">
                         <h4 class="form-section"><i class="la la-eye"></i> About User</h4>
                         <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="userinput1">Customer Number: </label>
+                              <b>{{ Auth::user()->id }}</b>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
                           <div class="col-md-6 {{ $errors->has('first_name') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput1">Fist Name</label>
-                              <input type="text" class="form-control border-primary" value="{{ Auth::user()->first_name }}" name="first_name" placeholder="First Name">
+                              <input type="text" class="form-control border-success" value="{{ Auth::user()->first_name }}" name="first_name" placeholder="First Name">
                             </div>
                             @if ($errors->has('first_name'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('first_name') }}</strong>
+                                    <strong class="text-danger">{{ $errors->first('first_name') }}</strong>
                                 </span>
                             @endif
                           </div>
                           <div class="col-md-6 {{ $errors->has('last_name') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput2">Last Name</label>
-                              <input type="text" class="form-control border-primary" value="{{ Auth::user()->last_name }}" name="last_name" placeholder="Last Name">
+                              <input type="text" class="form-control border-success" value="{{ Auth::user()->last_name }}" name="last_name" placeholder="Last Name">
                             </div>
                             @if ($errors->has('last_name'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('last_name') }}</strong>
+                                    <strong class="text-danger">{{ $errors->first('last_name') }}</strong>
                                 </span>
                             @endif
                           </div>
@@ -116,40 +124,68 @@
                           <div class="col-md-6 {{ $errors->has('username') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput3">Username</label>
-                              <input type="text" class="form-control border-primary" placeholder="Username"
+                              <input type="text" class="form-control border-success" placeholder="Username"
                               name="username" readonly value="{{ Auth::user()->username }}">
                             </div>
                             @if ($errors->has('username'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('username') }}</strong>
+                                    <strong class="text-danger">{{ $errors->first('username') }}</strong>
                                 </span>
                             @endif
                           </div>
                           <div class="col-md-6 {{ $errors->has('join_date') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput4">Joining Date</label>
-                              <input type="text" id="userinput4" class="form-control border-primary" placeholder="Joining Date" name="join_date" readonly value="{{ Auth::user()->join_date }}">
+                              <input type="text" id="userinput4" class="form-control border-success" placeholder="Joining Date" name="join_date" readonly value="{{ Auth::user()->join_date }}">
                             </div>
                             @if ($errors->has('join_date'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('join_date') }}</strong>
+                                    <strong class="text-danger">{{ $errors->first('join_date') }}</strong>
                                 </span>
                             @endif
                           </div>
                         </div>
                         <div class="row">
+                          <div class="col-md-6 {{ $errors->has('username') ? ' has-error' : '' }}">
+                            <div class="form-group">
+                              <label for="userinput5">Email</label>
+                              <input class="form-control border-success" type="email" value="{{ Auth::user()->email }}" name="email" readonly placeholder="Your Email">
+                            </div>
+                            @if ($errors->has('email'))
+                              <span class="help-block">
+                                  <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                              </span>
+                            @endif
+                          </div>
+                          <div class="col-md-6 {{ $errors->has('join_date') ? ' has-error' : '' }}">
+                            <div class="form-group">
+                              <label for="userinput4">Bitcoin Wallet Address</label>
+                              <input type="text" class="form-control border-success" placeholder="Bitcoin Wallet Address" name="bitcoin_wallet" value="{{ Auth::user()->bitcoin_wallet }}">
+                            </div>
+                            @if ($errors->has('bitcoin_wallet'))
+                                <span class="help-block">
+                                    <strong class="text-danger">{{ $errors->first('bitcoin_wallet') }}</strong>
+                                </span>
+                            @endif
+                          </div>
+                        </div>
+                        <h4 class="form-section"><i class="ft-mail"></i> Contact Info & Bio</h4>
+                        <div class="row">
                           <div class="col-md-4 {{ $errors->has('month') ? ' has-error' : '' }}">
                             @php
-                                $birthdate = explode('-', Auth::user()->birth_day);
-                                $year = $birthdate[0];
-                                $month  = $birthdate[1];
-                                $day  = $birthdate[2];
+                                if(isset(Auth::user()->birth_day)){
+                                  $birthdate = explode('-', Auth::user()->birth_day);
+                                  $year = $birthdate[0];
+                                  $month  = $birthdate[1];
+                                  $day  = $birthdate[2];
+                                }
                             @endphp
                             <div class="form-group">
                               <label for="userinput3">Birth Month</label>
-                              <select class="form-control border-primary" name="month">
-                                  <option value="{{ $month }}">
+                              <select class="form-control border-success" name="month">
+                                  <option value="{{ isset($month) ? $month : '' }}">
                                     @php
+                                      if(isset($month)){
                                         switch ($month) {
                                             case "01":
                                                 echo "January";
@@ -190,6 +226,7 @@
                                             default:
                                                 echo "Select Month";
                                         }
+                                      }  
                                     @endphp
                                   </option>
                                   <option value='1'>Janaury</option>
@@ -208,15 +245,15 @@
                             </div>
                             @if ($errors->has('month'))
                               <span class="help-block">
-                                  <strong>{{ $errors->first('month') }}</strong>
+                                  <strong class="text-danger">{{ $errors->first('month') }}</strong>
                               </span>
                             @endif
                           </div>
                           <div class="col-md-4 {{ $errors->has('day') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput4">Birth Day</label>
-                              <select class="form-control border-primary" name="day">
-                                <option value="{{ $day }}">{{ $day }}</option>
+                              <select class="form-control border-success" name="day">
+                                <option value="{{ isset($day) ? $day : '' }}">{{ isset($day) ? $day : '' }}</option>
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
                                 <option value='3'>3</option>
@@ -252,15 +289,15 @@
                             </div>
                             @if ($errors->has('day'))
                                 <span class="help-block">
-                                  <strong>{{ $errors->first('day') }}</strong>
+                                  <strong class="text-danger">{{ $errors->first('day') }}</strong>
                                 </span>
                             @endif
                           </div>
                           <div class="col-md-4">
                             <div class="form-group">
                               <label for="userinput4">Birth Year</label>
-                              <select name="year" class="form-control border-primary">
-                                  <option value="{{ $year }}" >{{ $year }}</option>
+                              <select name="year" class="form-control border-success">
+                                  <option value="{{ isset($year) ? $year : '' }}" >{{ isset($year) ? $year : '' }}</option>
                                   <option value="2018">2018</option>
                                   <option value="2017">2017</option>
                                   <option value="2016">2016</option>
@@ -344,61 +381,51 @@
                             </div>
                             @if ($errors->has('year'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('year') }}</strong>
+                                    <strong class="text-danger">{{ $errors->first('year') }}</strong>
                                 </span>
                             @endif
                           </div>
                         </div>
-                        <h4 class="form-section"><i class="ft-mail"></i> Contact Info & Bio</h4>
                         <div class="form-group">
-                          <label for="userinput5">Email</label>
-                          <input class="form-control border-primary" type="email" id="userinput5" value="{{ Auth::user()->email }}" name="email" readonly placeholder="Your Email">
-                          @if ($errors->has('email'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                          @endif
-                        </div>
-                        <div class="form-group">
-                          <label>Contact Number</label>
-                          <input class="form-control border-primary" id="userinput7" type="tel" value="{{ Auth::user()->mobile }}" name="mobile" placeholder="With Country Code">
+                          <label>Mobile Number</label>
+                          <input class="form-control border-success" id="userinput7" type="tel" value="{{ Auth::user()->mobile }}" name="mobile" placeholder="With Country Code">
                           @if ($errors->has('mobile'))
                               <span class="help-block">
-                                  <strong>{{ $errors->first('mobile') }}</strong>
+                                  <strong class="text-danger">{{ $errors->first('mobile') }}</strong>
                               </span>
                           @endif
                         </div>
                         <div class="form-group">
                           <label for="userinput6">Street</label>
-                          <input class="form-control border-primary" value="{{ Auth::user()->street_address }}" type="text" name="street_address" placeholder="Street Address">
+                          <input class="form-control border-success" value="{{ Auth::user()->street_address }}" type="text" name="street_address" placeholder="Street Address">
                         </div>
                         <div class="row">
                           <div class="col-md-4 {{ $errors->has('city') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput3">City</label>
-                              <input type="text" class="form-control border-primary" value="{{ Auth::user()->city }}" name="city" placeholder="City/State">
+                              <input type="text" class="form-control border-success" value="{{ Auth::user()->city }}" name="city" placeholder="City/State">
                             </div>
                             @if ($errors->has('city'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('city') }}</strong>
+                                    <strong class="text-danger">{{ $errors->first('city') }}</strong>
                                 </span>
                             @endif
                           </div>
                           <div class="col-md-4 {{ $errors->has('post_code') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput4">Post Code</label>
-                              <input type="text" class="form-control border-primary" value="{{ Auth::user()->post_code }}" name="post_code" placeholder="Postal Code">
+                              <input type="text" class="form-control border-success" value="{{ Auth::user()->post_code }}" name="post_code" placeholder="Postal Code">
                             </div>
                             @if ($errors->has('post_code'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('post_code') }}</strong>
+                                    <strong class="text-danger">{{ $errors->first('post_code') }}</strong>
                                 </span>
                             @endif
                           </div>
                           <div class="col-md-4 {{ $errors->has('country') ? ' has-error' : '' }}">
                             <div class="form-group">
                               <label for="userinput4">Country</label>
-                              <select class="form-control border-primary" data-live-search="true" name="country">
+                              <select class="form-control border-success" data-live-search="true" name="country">
                                   <option selected value="{{ Auth::user()->country ? Auth::user()->country : '' }}">{{ Auth::user()->country ? Auth::user()->country : 'Select Country' }}</option>
                                   <option value="Afghanistan">Afghanistan</option>
                                   <option value="Albania">Albania</option>
@@ -642,7 +669,7 @@
                               </select>
                               @if ($errors->has('country'))
                                   <span class="help-block">
-                                      <strong>{{ $errors->first('country') }}</strong>
+                                      <strong class="text-danger">{{ $errors->first('country') }}</strong>
                                   </span>
                               @endif
                             </div>

@@ -365,7 +365,7 @@ class FontendController extends Controller
             //    $sms =  'Password Changed Successfully';
            //     send_sms($user->mobile, $sms);
 
-                return redirect()->route('login')->with('success', 'Password Changed');
+                return redirect()->route('login')->with('success', 'Your password has changed successfully.');
             }
             else
             {

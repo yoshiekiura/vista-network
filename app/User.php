@@ -17,7 +17,8 @@ class User extends Authenticatable
     protected $fillable = [
         'referrer_id', 'username', 'password',
         'position', 'first_name', 'last_name',
-        'balance', 'hp_balance', 'coin_balance', 'join_date', 'status',
+        'balance', 'hp_balance', 'coin_balance', 
+        'bitcoin_wallet', 'join_date', 'status',
         'paid_status','ver_status',
         'ver_code', 'forget_code', 'birth_day',
         'email', 'mobile', 'street_address',

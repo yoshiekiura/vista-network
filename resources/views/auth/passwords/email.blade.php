@@ -60,6 +60,9 @@
             </div>
             <div class="card-content">
               <div class="card-body">
+                <h3 class="text-center" style="font-weight: 500;">Forgot your password?</h3>
+                <p class="text-center">A reset password link will be sent on your email.</p>
+                <br/> 
                 <form class="form-horizontal form-simple" method="post" action="{{ route('forget.password.user') }}" accept-charset="UTF-8">
                   {{ csrf_field() }}
                   <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('email') ? ' has-error' : '' }}">

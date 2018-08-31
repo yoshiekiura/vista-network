@@ -96,23 +96,46 @@
 
               </div>
               
-              <fieldset class="form-group position-relative has-icon-left">
-                <input type="text" required name="username" class="form-control input-lg"
-                placeholder="Username" tabindex="5" required data-validation-required-message="Please enter username.">
-                <div class="form-control-position">
-                  <i class="ft-user-check"></i>
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 {{ $errors->has('username') ? ' has-error' : '' }}">
+                  <fieldset class="form-group position-relative has-icon-left">
+                    <input type="text" required name="username" class="form-control input-lg"
+                    placeholder="Username" tabindex="5" required data-validation-required-message="Please enter username.">
+                    <div class="form-control-position">
+                      <i class="la la-user"></i>
+                    </div>
+                    @if ($errors->has('username'))
+                        <span class="help-block font-small-3 text-danger">
+                            <strong>{{ $errors->first('username') }}</strong>
+                        </span>
+                    @endif
+                    <div class="help-block font-small-3"></div>
+                  </fieldset>
+
                 </div>
-                @if ($errors->has('username'))
-                    <span class="help-block font-small-3 text-danger">
-                        <strong>{{ $errors->first('username') }}</strong>
-                    </span>
-                @endif
-                <div class="help-block font-small-3"></div>
-              </fieldset>
+                <div class="col-12 col-sm-6 col-md-6 {{ $errors->has('bitcoin_wallet') ? ' has-error' : '' }}">
+
+                  <fieldset class="form-group position-relative has-icon-left">
+                    <input type="text" required name="bitcoin_wallet" class="form-control input-lg"
+                    placeholder="Bitcoin Wallet Address" tabindex="6" required data-validation-required-message="Please enter bitcoin receiving wallet address.">
+                    <div class="form-control-position">
+                      <i class="la la-btc"></i>
+                    </div>
+                    @if ($errors->has('bitcoin_wallet'))
+                        <span class="help-block font-small-3 text-danger">
+                            <strong>{{ $errors->first('bitcoin_wallet') }}</strong>
+                        </span>
+                    @endif
+                    <div class="help-block font-small-3"></div>
+                  </fieldset>
+
+                </div>
+                
+              </div>    
 
               <fieldset class="form-group position-relative has-icon-left">
                 <input type="email" name="email" required class="form-control input-lg" placeholder="Email Address"
-                tabindex="6" required data-validation-required-message="Please enter email address.">
+                tabindex="7" required data-validation-required-message="Please enter email address.">
                 <div class="form-control-position">
                   <i class="ft-mail"></i>
                 </div>
@@ -128,7 +151,7 @@
                 <div class="col-12 col-sm-6 col-md-6">
                   <fieldset class="form-group position-relative has-icon-left">
                     <input type="password" name="password" id="password" class="form-control input-lg"
-                    placeholder="Password" tabindex="7" required>
+                    placeholder="Password" tabindex="8" required>
                     <div class="form-control-position">
                       <i class="la la-key"></i>
                     </div>
@@ -144,7 +167,7 @@
                 <div class="col-12 col-sm-6 col-md-6">
                   <fieldset class="form-group position-relative has-icon-left">
                     <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg"
-                    placeholder="Confirm Password" tabindex="6" data-validation-matches-match="password"
+                    placeholder="Confirm Password" tabindex="9" data-validation-matches-match="password"
                     data-validation-matches-message="Password & Confirm Password must be the same.">
                     <div class="form-control-position">
                       <i class="la la-key"></i>

@@ -947,6 +947,17 @@ class AdminController extends Controller
         }
     }
 
+    public function userSearchCustomer(Request $request)
+    {
+        $user = User::where('id', $request->customer)->first();
+        if ($user == ''){
+            $user_notfound = 0;
+            return redirect()->back()->with( 'not_found', 'Oops, User Not Found!');
+        }else{
+            return view('admin.user_mmanagement.view', compact('user'));
+        }    
+    }
+
     public function userSearchEmail(Request $request)
     {
         $user = User::where('email', $request->email)->first();

@@ -897,6 +897,7 @@ class HomeController extends Controller
         $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
+            'bitcoin_wallet' => 'required',
             'username' => 'required',
             'join_date' => 'required',
             'month' => 'required',
@@ -915,6 +916,7 @@ class HomeController extends Controller
             ->update([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
+                'bitcoin_wallet' => $request->bitcoin_wallet,
                 'mobile' => $request->mobile,
                 'street_address' => $request->street_address,
                 'city' => $request->city,

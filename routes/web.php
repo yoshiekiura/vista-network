@@ -93,6 +93,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::GET('user/search', 'AdminController@userSearch')->name('username.search')->middleware('admin');
     Route::GET('user/search/email', 'AdminController@userSearchEmail')->name('email.search')->middleware('admin');
+    Route::GET('user/search/customer', 'AdminController@userSearchCustomer')->name('customer.search')->middleware('admin');
 
     Route::post('generate/matching', 'AdminController@matchGenerate')->name('generate.match')->middleware('admin');
     Route::get('match', 'AdminController@matchIndex')->name('match.index')->middleware('admin');

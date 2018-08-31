@@ -70,6 +70,7 @@ class RegisterController extends Controller
             'first_name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'last_name' => ['required', 'regex:/^[a-zA-Z\s]+$/'],
             'username' => 'required|string|valid_username|max:255|unique:users,username',
+            'bitcoin_wallet' => 'required'
         ]);
     }
 
@@ -114,6 +115,7 @@ class RegisterController extends Controller
             'balance' => 0,
             'hp_balance' => 0,
             'coin_balance' => 0,
+            'bitcoin_wallet' => $data['bitcoin_wallet'],
             'status' => 1,
             'paid_status' => 0,
             'ver_status' => 0,

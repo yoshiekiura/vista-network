@@ -37,7 +37,7 @@
                         <div class="portlet-body table-responsive">
                             <div class="row">
                                <div class="col-md-12">
-                                   <div class="col-md-6" style="margin-bottom: 5px">
+                                   <div class="col-md-4" style="margin-bottom: 5px">
                                        <form class="form-horizontal" method="GET" action="{{route('username.search')}}">
 
                                            <div class="input-group stylish-input-group">
@@ -51,7 +51,21 @@
                                        </form>
                                    </div>
 
-                                   <div class="col-md-6">
+                                   <div class="col-md-4" style="margin-bottom: 5px">
+                                       <form class="form-horizontal" method="GET" action="{{route('customer.search')}}">
+
+                                           <div class="input-group stylish-input-group">
+                                               <input type="text" class="form-control" name="customer" required placeholder="Search By Customer Number" >
+                                               <span class="input-group-addon">
+                                                <button type="submit">
+                                                    <span><i class="fa fa-search"></i></span>
+                                                </button>
+                                            </span>
+                                           </div>
+                                       </form>
+                                   </div>
+
+                                   <div class="col-md-4">
                                        <form class="form-horizontal" method="GET" action="{{route('email.search')}}">
 
                                            <div class="input-group stylish-input-group">
@@ -105,19 +119,21 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th> Sl</th>
+                                        <th> Sl </th>
+                                        <th> Customer# </th>
                                         <th> Name </th>
-                                        <th>Email</th>
-                                        <th>Mobile</th>
+                                        <th> Email </th>
+                                        <th> Mobile </th>
                                         <th> Balance </th>
                                         <th> Details </th>
-                                        <th> Notifications </th>
+                                        <th> Notify </th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($users as $key => $data)
                                         <tr>
                                             <td>{{$key+1}}</td>
+                                            <td>{{$data->id}}</td>
                                             <td>{{$data->first_name}} {{$data->last_name}}
                                                 @if($data->paid_status == 1)
                                                     <span class="badge badge-primary">Premium User</span>

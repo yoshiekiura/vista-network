@@ -60,23 +60,12 @@
             </div>
             <div class="card-content">
               <div class="card-body">
-                
+                <h3 class="text-center" style="font-weight: 500;">Reset your password</h3>
+                <br/>         
                 <form class="form-horizontal form-simple" method="post" action="{{ route('reset.passw') }}" accept-charset="UTF-8">
                   {{ csrf_field() }}
                   <input type="hidden" name="token" value="{{ $reset->token }}">
-                  
-                  <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input type="email" class="form-control form-control-lg input-lg" name="email" id="email" tabindex="1" value="{{ $reset->email }}" required autofocus readonly>
-                    @if ($errors->has('email'))
-                        <span class="help-block font-small-3 text-danger">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                    @endif
-                    <div class="form-control-position">
-                      <i class="ft-at-sign"></i>
-                    </div>
-                  </fieldset>
-                  <br/>
+                  <input type="hidden" name="email" id="email" value="{{ $reset->email }}">
 
                   <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('password') ? ' has-error' : '' }}">
                     <input type="password" class="form-control form-control-lg input-lg" name="password" id="password" tabindex="1" placeholder="New Password" required>
@@ -89,7 +78,6 @@
                       <i class="ft-lock"></i>
                     </div>
                   </fieldset>
-                  <br/>
                   
                   <fieldset class="form-group position-relative has-icon-left mb-0 {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                     <input type="password" class="form-control form-control-lg input-lg" name="password_confirmation" id="password-confirm" tabindex="1" placeholder="Confirm Password" required>
@@ -99,7 +87,7 @@
                         </span>
                     @endif
                     <div class="form-control-position">
-                      <i class="ft-lock"></i>
+                      <i class="ft-check-square"></i>
                     </div>
                   </fieldset>
                   <br/>
