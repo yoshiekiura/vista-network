@@ -2,6 +2,7 @@
 
 @section('style')
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('app-assets/fonts/simple-line-icons/style.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ URL::asset('app-assets/css/plugins/animate/animate.css') }}">
   <script src="{{ asset('app-assets/js/core/libraries/jquery.min.js') }}" ></script>
   <script src="{{ asset('app-assets/js/scripts/custom/coins.js') }}" ></script>
   <script>
@@ -980,7 +981,7 @@
       </div>
       <br/><br/>
       @if(Auth::user()->paid_status == 1)
-      <div class="modal fade text-left" id="default-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+      <div class="modal animated swing text-left" id="default-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header" style="height: 10px; border-bottom: none;">
@@ -1008,7 +1009,7 @@
           </div>
       </div>
       @else
-      <div class="modal fade text-left" id="default-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+      <div class="modal animated swing text-left" id="default-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header" style="height: 10px; border-bottom: none;">
@@ -1049,6 +1050,7 @@
 
 @section('script')
 
+<script src="{{ URL::asset('app-assets/js/scripts/modal/components-modal.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('app-assets/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script> 
 <script src="{{ URL::asset('app-assets/vendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('app-assets/js/scripts/pages/dashboard-crypto.js') }}" type="text/javascript"></script>
