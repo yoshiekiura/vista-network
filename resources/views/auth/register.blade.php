@@ -3,7 +3,7 @@
 @section('content')
 <section class="flexbox-container">
   <div class="col-12 d-flex align-items-center justify-content-center">
-    <div class="col-md-6 col-12 box-shadow-2 p-0">
+    <div class="col-md-7 col-12 box-shadow-2 p-0">
       <div class="card border-grey border-lighten-3 m-0"> 
         <div class="card-header border-0 pb-0">
           <div class="card-title text-center">

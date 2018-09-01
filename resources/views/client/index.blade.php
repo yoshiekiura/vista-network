@@ -7,7 +7,9 @@
   <script>
 
       $(window).on('load',function(){
-        $('#default-popup').modal('show');
+          setTimeout(function() {
+             $('#default-popup').modal('show');
+          }, 3000);
       });
 
       function upgradeClub()
@@ -45,7 +47,21 @@
             });
       }
 
-  </script>  
+  </script>
+  <style>
+    .modal-dialog {
+        min-height: calc(100vh - 60px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: auto;
+    }
+    @media(max-width: 768px) {
+      .modal-dialog {
+        min-height: calc(100vh - 20px);
+      }
+    }
+  </style>  
 @endsection
 
 @section('content')
@@ -967,12 +983,11 @@
       <div class="modal fade text-left" id="default-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <!--  <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel1">Latest Update</h4>
+              <div class="modal-header" style="height: 10px; border-bottom: none;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-              </div> -->
+              </div> 
               <div class="modal-body">
                 <p class="text-center">
                   <img src="{{ URL::asset('app-assets/images/pages/gift.jpg') }}" style="width: 70px; height: 70px;">
@@ -996,12 +1011,11 @@
       <div class="modal fade text-left" id="default-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <!--  <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel1">Latest Update</h4>
+              <div class="modal-header" style="height: 10px; border-bottom: none;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
-              </div> -->
+              </div> 
               <div class="modal-body">
                 <p class="text-center">
                   <img src="{{ URL::asset('app-assets/images/pages/dollars.jpg') }}" style="width: 70px; height: 70px;">

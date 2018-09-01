@@ -28,7 +28,7 @@
   <section id="shopping-cards">
     
     <div class="row">
-      <div class="col-xl-12 col-md-12">
+      <div class="col-xl-6 col-md-6">
         <div class="card">
           <div class="card-content">
             <div class="media align-items-stretch">
@@ -36,11 +36,32 @@
                 <h1 class="success">{{$general->symbol}}{{ number_format((float)Auth::user()->balance, 2, '.', '') }}</h1>
               </div>
               <div class="media-body p-2">
-                <h4>Total Balance</h4>
+                <h3>Total Balance</h3>
                 <span>USD</span>
               </div>
               <div class="media-right bg-success p-2 media-middle rounded-right">
                 <i class="icon-wallet font-large-2 text-white"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-md-6">
+        <div class="card overflow-hidden">
+          <div class="card-content">
+            <div class="card-body cleartfix">
+              <div class="media align-items-stretch">
+                <div class="align-self-center">
+                  <i class="icon-grid info font-large-2 mr-2"></i>
+                </div>
+                <div class="media-body">
+                  <h4>Bitcoin Wallet Address</h4>
+                  <span class="text-warning">{{ isset(Auth::user()->bitcoin_wallet) ? Auth::user()->bitcoin_wallet : '' }}</span>
+                </div>
+                <div class="align-self-center">
+                <!--  <h1>18,000</h1> -->
+                </div>
               </div>
             </div>
           </div>
