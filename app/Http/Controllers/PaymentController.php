@@ -286,7 +286,7 @@ class PaymentController extends Controller
             //    $password = '035EEAEEA95899CD8FAE20BB06F98513';
                 $gateway_name = $gatewayData->name;
 
-                $DepositData = Deposit::where('trx',$trx)->orderBy('id', 'DESC')->first();
+                $DepositData = Deposit::where('trx', $trx)->orderBy('id', 'DESC')->first();
                 $user_first_name = User::where('id', $DepositData->user_id)->value('first_name');
                 $user_last_name = User::where('id', $DepositData->user_id)->value('last_name');
                 $payerEmail = User::where('id', $DepositData->user_id)->value('email');

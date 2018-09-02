@@ -37,7 +37,7 @@
               </div>
               <div class="media-body p-2">
                 <h3>Total Balance</h3>
-                <span>USD</span>
+                <span>&nbsp;</span>
               </div>
               <div class="media-right bg-success p-2 media-middle rounded-right">
                 <i class="icon-wallet font-large-2 text-white"></i>

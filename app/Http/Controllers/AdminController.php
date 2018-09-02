@@ -42,6 +42,8 @@ use App\Mail\AdminCoinSubtractEmail;
 use App\Mail\AdminBalanceAddEmail;
 use App\Mail\AdminBalanceSubtractEmail;
 use App\Mail\InstallmentDeductEmail;
+use App\Mail\AdminWithdrawProcessed;
+use App\Mail\AdminWithdrawRefund;
 
 class AdminController extends Controller
 {
@@ -429,33 +431,44 @@ class AdminController extends Controller
 
     public function repondWithdraw(Request $request, $id)
     {
-         $this->validate($request,[
+        $this->validate($request,[
             'message' => 'required',
         ]);
+
          WithdrawTrasection::whereId($id)
         ->update([
             'status' => $request->status,
         ]);
+
         if ($request->status == 1 )
         {
-           $withdraw = WithdrawTrasection::find($id);
+            $withdraw = WithdrawTrasection::find($id);
             $user_id = $withdraw->user_id;
             $user = User::find($user_id);
-             $general = General::first();
+            $general = General::first();
 
-         
-        $message = $request->message;
+            $message = $request->message;
 
+            $objWithdraw = new \stdClass();
+            $objWithdraw->first_name = $user->first_name;
+            $objWithdraw->trans_id = $withdraw->withdraw_id;
+            $objWithdraw->amount = $withdraw->amount;
+            $objWithdraw->charge = $withdraw->charge;
+            $objWithdraw->method = $withdraw->method_name;
+            $objWithdraw->message = $message;
 
-        send_email($user['email'], 'Withdraw Request Accept', $user->first_name , $message);
+            Mail::to($user->email)->send(new AdminWithdrawProcessed($objWithdraw));
 
-            $sms = 'Congratulations! Your Withdraw request  accepted.';
-            send_sms($user['mobile'], $sms);
+        //    send_email($user['email'], 'Withdraw Request Accept', $user->first_name , $message);
 
-        $sms = $request->message;
-        send_sms($user['mobile'], $sms);
+        //     $sms = 'Congratulations! Your Withdraw request  accepted.';
+        //    send_sms($user['mobile'], $sms);
+
+        // $sms = $request->message;
+        // send_sms($user['mobile'], $sms);
 
             return redirect('admin/withdraw/requests')->withMsg('Paid Complete');
+
         }else{
             $withdraw = WithdrawTrasection::find($id);
             $user_id = $withdraw->user_id;
@@ -465,11 +478,21 @@ class AdminController extends Controller
                     'balance' => $user->balance + $withdraw->amount + $withdraw->charge
                 ]);
 
-          $message = $request->message;
+            $message = $request->message;
 
-        send_email($user['email'], 'Withdraw Request Refund' ,$user->first_name, $message);
-            $sms = 'Sorry! Withdraw Request Refund';
-            send_sms($user['mobile'], $sms);
+        //    send_email($user['email'], 'Withdraw Request Refund' ,$user->first_name, $message);
+        //    $sms = 'Sorry! Withdraw Request Refund';
+        //    send_sms($user['mobile'], $sms);
+
+            $objWithdraw = new \stdClass();
+            $objWithdraw->first_name = $user->first_name;
+            $objWithdraw->trans_id = $withdraw->withdraw_id;
+            $objWithdraw->amount = $withdraw->amount;
+            $objWithdraw->charge = $withdraw->charge;
+            $objWithdraw->method = $withdraw->method_name;
+            $objWithdraw->message = $message;
+
+            Mail::to($user->email)->send(new AdminWithdrawRefund($objWithdraw));
 
             return redirect('admin/withdraw/requests')->withMsg('Refund Complete');
         }

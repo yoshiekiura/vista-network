@@ -291,7 +291,7 @@ Route::group(['middleware' => 'web'], function() {
     Route::post('/fund/deposit/pay', 'PaymentController@gatewayDataPay')->name('fund.deposit.pay');
 //	Route::post('/deposit/store', 'HomeController@storeDeposit')->name('deposit.preview');
 //  Route::get('/deposit/confirm', 'PaymentController@buyConfirm')->name('buy.confirm');
-    Route::get('/fund/withdraw/preview/{id}', 'HomeController@fundWithdrawPreview')->name('fund.withdraw.preview');
+    Route::get('/fund/withdraw/{id}/preview', 'HomeController@fundWithdrawPreview')->name('fund.withdraw.preview');
     Route::get('/fund/withdraw/data/{gateway}/{amount}', 'HomeController@getWithdrawData');
 	Route::post('/fund/withdraw/pay', 'HomeController@storeWithdraw')->name('fund.withdraw.pay');
     Route::get('/fund/stripe/{trx}', 'HomeController@stripeIndex')->name('stripe.index');

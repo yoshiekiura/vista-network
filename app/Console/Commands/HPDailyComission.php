@@ -62,7 +62,7 @@ class HPDailyComission extends Command
                 'transaction_id' => rand(),
                 'commission_rate' => $comission_rate,
                 'commission_date' => Carbon::now(),
-                'commission_amount' => $comission_amount ,
+                'commission_amount' => $comission_amount,
                 'description' => 'HP Daily Commission'
             ]);
 
