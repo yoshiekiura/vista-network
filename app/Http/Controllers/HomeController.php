@@ -668,7 +668,7 @@ class HomeController extends Controller
                'user_id' => Auth::user()->id,
             ]);
 
-            $new_balance = Auth::user()->balance - $withdraw_charges;
+            $new_balance = Auth::user()->balance - $withdraw_amount - $withdraw_charges;
 
             User::whereId(Auth::user()->id)
                 ->update([
