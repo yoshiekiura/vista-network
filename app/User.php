@@ -70,6 +70,16 @@ class User extends Authenticatable
         return $this->belongsTo(Transaction::class)->withDefault();
     }
 
+    public function transfergiver()
+    {
+        return $this->belongsTo(TransferFund::class)->withDefault();
+    }
+
+    public function transferreceiver()
+    {
+        return $this->belongsTo(TransferFund::class)->withDefault();
+    }
+
     public function ship_user_pro()
     {
         return $this->belongsTo(ProductShipment::class, 'user_id', 'id')->withDefault();

@@ -18,6 +18,7 @@ use App\Withdraw;
 use App\ShippingAddress;
 use App\WithdrawTrasection;
 use App\Notification;
+use App\TransferFund;
 use App\SchedulePayment;
 use App\PaymentInstallment;
 use App\CoinTransaction;
@@ -44,6 +45,9 @@ use App\Mail\AdminBalanceSubtractEmail;
 use App\Mail\InstallmentDeductEmail;
 use App\Mail\AdminWithdrawProcessed;
 use App\Mail\AdminWithdrawRefund;
+use App\Mail\FundsTransferReceiverEmail;
+use App\Mail\FundsTransferGiverEmail;
+use App\Mail\FundRefundEmail;
 
 class AdminController extends Controller
 {
@@ -240,6 +244,110 @@ class AdminController extends Controller
         $withdraw = WithdrawTrasection::orderBy('id', 'desc')->
         where('status', 0)->paginate(15);
         return view('admin.withdraw.withdraw_request', compact('withdraw'));
+    }
+
+    public function requestTransferFunds()
+    {
+        $funds = TransferFund::orderBy('id', 'desc')->
+                                where('status', 0)->paginate(15);
+        return view('admin.withdraw.transfer_request', compact('funds'));
+    }
+
+    public function transferFundsStore(Request $request)
+    {
+
+        $data_id = $request->data_id;
+        $giver_id = $request->giver_id;
+        $receiver_id = $request->receiver_id;
+        $transaction_id = $request->trans_id;
+
+        $amount = TransferFund::where('id', $data_id)
+                            ->where('status', 0)
+                            ->value('amount');
+
+        $charges = TransferFund::where('id', $data_id)
+                            ->where('status', 0)
+                            ->value('charges');                    
+
+        $total = $charges + $amount;
+
+        $receiver = User::findOrFail($receiver_id);
+        $receiver->balance = $receiver->balance + $amount;
+        $receiver->update();
+
+        $giver = User::findOrFail($giver_id);
+        $giver->balance = $giver->balance - $total;
+        $giver->update();
+
+        $giver_trans = Transaction::create([
+                            'user_id' => $giver_id,
+                            'trans_id' => rand(),
+                            'time' => Carbon::now(),
+                            'description' => 'BALANCE TRANSFER'. '#ID'.'-'.'BT'.$transaction_id,
+                            'amount' => '-'.$amount,
+                            'new_balance' => $giver->balance,
+                            'type' => 8,
+                            'charge' => $charges,
+                        ]);
+
+        $receiver_trans = Transaction::create([
+                                'user_id' => $receiver_id,
+                                'trans_id' => rand(),
+                                'time' => Carbon::now(),
+                                'description' => 'BALANCE RECEIVED'. '#ID'.'-'.'BT'.$transaction_id,
+                                'amount' => $amount,
+                                'new_balance' => $receiver->balance,
+                                'type' => 14,
+                            ]);
+
+        TransferFund::whereId($data_id)->update([
+                        'status' => 1
+                    ]);        
+
+        $general = General::first();
+
+        $objRFunds = new \stdClass();
+        $objRFunds->receiver_first_name = $receiver->first_name;
+        $objRFunds->giver_username = $giver->username;
+        $objRFunds->receiver_trans_id = $receiver_trans->trans_id;
+        $objRFunds->receiver_amount = $amount;
+        $objRFunds->receiver_new_balance = $receiver->balance;
+
+        Mail::to($receiver->email)->send(new FundsTransferReceiverEmail($objRFunds));
+
+        $objGFunds = new \stdClass();
+        $objGFunds->giver_first_name = $giver->first_name;
+        $objGFunds->receiver_username = $receiver->username;
+        $objGFunds->giver_trans_id = $giver->trans_id;
+        $objGFunds->giver_amount = $amount;
+        $objGFunds->giver_new_balance = $giver->balance;
+
+        Mail::to($giver->email)->send(new FundsTransferGiverEmail($objGFunds)); 
+
+        return redirect()->back()->withMsg('Funds Successfully Transfered');
+
+    }
+
+    public function refundsStore($id)
+    {
+        TransferFund::whereId($id)->update([
+                        'status' => 2
+                    ]);
+
+        $transfer = TransferFund::findOrFail($id);
+
+        $user_first_name = User::where('id', $transfer->giver_id)->value('first_name');
+        $user_email = User::where('id', $transfer->giver_id)->value('email');
+        $receiver_username = User::where('id', $transfer->receiver_id)->value('username');
+
+        $objFunds = new \stdClass();
+        $objFunds->first_name = $user_first_name;
+        $objFunds->receiver_username = $receiver_username;
+        $objFunds->amount = $transfer->amount;
+
+        Mail::to($user_email)->send(new FundRefundEmail($objFunds));
+
+        return redirect()->back()->withMsg('Funds Successfully Refunded');
     }
 
     public function requestCoins()
@@ -502,6 +610,12 @@ class AdminController extends Controller
     {
         $withdraw = WithdrawTrasection::orderBy('id', 'desc')->get();
         return view('admin.withdraw.view_log', compact('withdraw'));
+    }
+
+    public function showFundsTransferLog()
+    {
+        $transfer = TransferFund::orderBy('id', 'desc')->get();
+        return view('admin.withdraw.transfer_log', compact('transfer'));
     }
 
     public function showCoinsLog()

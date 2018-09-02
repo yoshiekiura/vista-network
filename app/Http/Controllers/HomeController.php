@@ -17,6 +17,7 @@ use App\User;
 use App\Withdraw;
 use App\General;
 use App\HpTransaction;
+use App\TransferFund;
 use App\SchedulePayment;
 use App\WithdrawTrasection;
 use App\Notification;
@@ -759,59 +760,18 @@ class HomeController extends Controller
 
             $comission = ChargeCommision::first();
             $charge = ($request->amount * $comission->transfer_charge)/100;
+            $receiver = User::findOrFail($request->username);
+            $giver = User::findOrFail(Auth::user()->id);
 
-            $total = $charge+$request->amount;
+            TransferFund::create([
+                'transaction_id' => rand(),
+                'giver_id' => Auth::user()->id,
+                'receiver_id' => $receiver->id,
+                'amount' => $request->amount,
+                'charges' => $charge
+            ]);
 
-            $user = User::findOrFail($request->username);
-            $user->balance = $user->balance + $request->amount;
-            $user->update();
-
-            $transferer = User::findOrFail(Auth::user()->id);
-            $transferer->balance = $transferer->balance - $total;
-            $transferer->update();
-
-            $giver = Transaction::create([
-                        'user_id' => Auth::user()->id,
-                        'trans_id' => rand(),
-                        'time' => Carbon::now(),
-                        'description' => 'BALANCE TRANSFER'. '#ID'.'-'.'BT'.rand(),
-                        'amount' => '-'.$request->amount,
-                        'new_balance' => $transferer->balance,
-                        'type' => 8,
-                        'charge' => $charge,
-                    ]);
-
-            $receiver = Transaction::create([
-                            'user_id' => $user->id,
-                            'trans_id' => rand(),
-                            'time' => Carbon::now(),
-                            'description' => 'BALANCE RECEIVED'. '#ID'.'-'.'BT'.rand(),
-                            'amount' => $request->amount,
-                            'new_balance' => $user->balance,
-                            'type' => 14,
-                        ]);
-
-            $general = General::first();
-
-            $objRFunds = new \stdClass();
-            $objRFunds->receiver_first_name = $user->first_name;
-            $objRFunds->giver_username = $transferer->username;
-            $objRFunds->receiver_trans_id = $receiver->trans_id;
-            $objRFunds->receiver_amount = $request->amount;
-            $objRFunds->receiver_new_balance = $user->balance;
-
-            Mail::to($user->email)->send(new FundsTransferReceiverEmail($objRFunds));
-
-            $objGFunds = new \stdClass();
-            $objGFunds->giver_first_name = $transferer->first_name;
-            $objGFunds->receiver_username = $user->username;
-            $objGFunds->giver_trans_id = $giver->trans_id;
-            $objGFunds->giver_amount = $request->amount;
-            $objGFunds->giver_new_balance = $transferer->balance;
-
-            Mail::to($transferer->email)->send(new FundsTransferGiverEmail($objGFunds));
-
-            return redirect()->back()->with('message', 'Funds Transfer Successfully');
+            return redirect()->back()->with('message', 'Your request to transfer funds have been submitted successfully!');
 
         }
         

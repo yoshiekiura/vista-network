@@ -125,10 +125,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::put('/withdraw/update/{id}', 'AdminController@updateWithdraw')->name('update.method')->middleware('admin');
 
     Route::get('/withdraw/requests', 'AdminController@requestWithdraw')->name('withdraw.request.index')->middleware('admin');
+    Route::get('/funds/transfer/requests', 'AdminController@requestTransferFunds')->name('transferfunds.request.index')->middleware('admin');
+    Route::post('/funds/transfer', 'AdminController@transferFundsStore')->name('funds.transfer.store')->middleware('admin');
+    Route::get('/fund/refunds/{id}', 'AdminController@refundsStore')->name('funds.refunds.store')->middleware('admin');
     Route::get('/withdraw/details/{id}', 'AdminController@detailWithdraw')->name('withdraw.detail.user')->middleware('admin');
     Route::post('/withdraw/update/{id}', 'AdminController@repondWithdraw')->name('withdraw.process')->middleware('admin');
 
     Route::get('/withdraw/log', 'AdminController@showWithdrawLog')->name('withdraw.viewlog.admin')->middleware('admin');
+    Route::get('/funds/transfer/log', 'AdminController@showFundsTransferLog')->name('fundstransfer.viewlog.admin')->middleware('admin');
 
     Route::get('/coins', 'AdminController@indexCoins')->name('coins.admin.index')->middleware('admin');
     Route::post('/coins/store', 'AdminController@storeCoins')->name('store.admin.coins')->middleware('admin');

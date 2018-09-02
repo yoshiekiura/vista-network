@@ -174,7 +174,9 @@
                 </ul>
             </li>
 
-            @php $req = \App\WithdrawTrasection::where('status', 0)->count() @endphp
+            @php 
+                $req = \App\WithdrawTrasection::where('status', 0)->count();
+            @endphp
 
             <li class="nav-item start @php echo "active",(request()->path() != 'admin/withdraw/method')?:"";@endphp
             @php echo "active",(request()->path() != 'admin/withdraw/requests')?:"";@endphp
@@ -200,7 +202,7 @@
                     <li class="nav-item  @if( request()->path() == 'admin/withdraw/log' ) active open @endif">
                         <a href="{{route('withdraw.viewlog.admin')}}" class="nav-link ">
                             <i class="fas fa-eye"></i>
-                            <span class="title">View Log</span>
+                            <span class="title">View Withdraw Log</span>
                         </a>
                     </li>
                 </ul>
@@ -220,6 +222,33 @@
                     <span class="title">Payment Log</span>
                     <span class="selected"></span>
                 </a>
+            </li>
+
+            @php 
+                $trans = \App\TransferFund::where('status', 0)->count(); 
+            @endphp
+
+            <li class="nav-item start @php echo "active",(request()->path() != 'admin/funds/transfer/requests')?:"";@endphp
+            @php echo "active",(request()->path() != 'admin/funds/transfer/log')?:"";@endphp">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="far fa-money-bill-alt"></i>
+                    <span class="title">Funds Transfer @if($trans == 0)  @else<span class="badge badge-danger">{{$trans}} @endif</span></span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item  @if( request()->path() == 'admin/funds/transfer/requests' ) active open @endif">
+                        <a href="{{route('transferfunds.request.index')}}" class="nav-link ">
+                            <i class="fas fa-spinner"></i>
+                            <span class="title">Funds Transfer Requests @if($trans == 0)  @else<span class="badge badge-danger">{{$trans}} @endif</span></span>
+                        </a>
+                    </li>
+                    <li class="nav-item  @if( request()->path() == 'admin/funds/transfer/log' ) active open @endif">
+                        <a href="{{route('fundstransfer.viewlog.admin')}}" class="nav-link ">
+                            <i class="fas fa-eye"></i>
+                            <span class="title">View Transfer Log</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item start {{ request()->path() == 'admin/users' || request()->path() == 'admin/users/detail/' ? "active" : "" }}">
