@@ -1,6 +1,6 @@
 @extends('master')
 @section('site-title')
-    Get Support
+    Vista Tickets
 @endsection
 @section('main-content')
     <!-- BEGIN CONTENT -->
@@ -45,13 +45,13 @@
                                     <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y - h:i A') }}</td>
                                     <td>
                                         @if($data->status == 1)
-                                            <button class="btn btn-warning"> Opened</button>
+                                            <span class="badge badge-pill badge-warning">Open</span>
                                         @elseif($data->status == 2)
-                                            <button type="button" class="btn btn-success">  Answered </button>
+                                            <span class="badge badge-pill badge-success">Answered</span>
                                         @elseif($data->status == 3)
-                                            <button type="button" class="btn btn-info"> Customer Reply </button>
+                                            <span class="badge badge-pill badge-info">Customer Reply</span>
                                         @elseif($data->status == 9)
-                                            <button type="button" class="btn btn-danger">  Closed </button>
+                                            <span class="badge badge-pill badge-danger">Closed</span>
                                         @endif
                                     </td>
                                     <td>

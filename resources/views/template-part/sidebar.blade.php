@@ -272,7 +272,7 @@
             @if( request()->path() == '' || request()->path() == '' ) active open @endif">
                 <a href="{{route('support.admin.index')}}" class="nav-link nav-toggle">
                     <i class="fas fa-ticket-alt"></i>
-                    <span class="title">Support @if(count($check_count) == 0)  @else <span class="badge badge-danger"> {{count($check_count)}} @endif </span></span>
+                    <span class="title">Support Ticket @if(count($check_count) == 0)  @else <span class="badge badge-danger"> {{count($check_count)}} @endif </span></span>
                     <span class="selected"></span>
                 </a>
             </li>
