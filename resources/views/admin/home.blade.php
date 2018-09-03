@@ -291,7 +291,7 @@
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        <span data-counter="counterup" data-value="{{\App\Transaction::where('type', 2)->sum('charge')}}">0 </span> {{$general->symbol}}
+                                        <span data-counter="counterup" data-value="{{\App\Transaction::where('type', 3)->sum('charge')}}">0 </span> {{$general->symbol}}
                                     </div>
                                     <div class="desc">Total Withdraw Charge</div>
                                 </div>
@@ -308,11 +308,11 @@
                                 </div>
                                 <div class="details">
                                     <div class="number">
-                                        <span data-counter="counterup" data-value="{{\App\Transaction::where('type', 3)->sum('charge')}}">0</span> {{$general->symbol}}
+                                        <span data-counter="counterup" data-value="{{\App\Transaction::where('type', 8)->sum('charge')}}">0</span> {{$general->symbol}}
                                     </div>
                                     <div class="desc">Total Transfer Charge</div>
                                 </div>
-                                <a class="more" href="{{route('index.transfer.user')}}"> View more
+                                <a class="more" href="{{route('fundstransfer.viewlog.admin')}}"> View more
                                     <i class="m-icon-swapright m-icon-white"></i>
                                 </a>
                             </div>

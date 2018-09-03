@@ -43,7 +43,7 @@
                                     <td><b>{{$data->user_member->first_name}} {{$data->user_member->last_name}}</b></td>
                                     <td><b>{{$data->subject}}</b></td>
                                     <td>{{ \Carbon\Carbon::parse($data->created_at)->format('F dS, Y - h:i A') }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         @if($data->status == 1)
                                             <span class="badge badge-pill badge-warning">Open</span>
                                         @elseif($data->status == 2)
