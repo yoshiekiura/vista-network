@@ -1126,7 +1126,7 @@ class AdminController extends Controller
 
     public function depositLog()
     {
-        $add_fund = Deposit::where('status', 1)->orderBy('id', 'desc')->get();
+        $add_fund = Deposit::where('status', 1)->orderBy('created_at', 'desc')->get();
         return view('admin.deposit_log', compact('add_fund'));
     }
 
